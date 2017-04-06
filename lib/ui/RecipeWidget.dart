@@ -26,10 +26,12 @@ class RecipeWidget extends StatelessWidget {
                 children: [
                   new Text(
                     title,
-                    style:
+                    style: new TextStyle(inherit: false, color: new Color(0xffffff))
                   )
                 ]
-              )
+              ),
+            color: new Color.fromRGBO(2,2,2,0.8),
+            padding: new EdgeInsets.fromLTRB(2.0, 12.0, 2.0, 12.0)
           )
   ],
       )
