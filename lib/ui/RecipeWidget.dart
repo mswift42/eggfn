@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:io';
 
 class RecipeStyle extends TextStyle {
 }
@@ -17,7 +18,7 @@ class RecipeWidget extends StatelessWidget {
     Widget imageSection = new Container(
       child: new Column(
         children: [
-        new Image.network(imageUrl,
+        new Image.file(new File(imageUrl),
         height: 240.0,
         fit: BoxFit.fitWidth),
           new Container(
