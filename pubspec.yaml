@@ -38,12 +38,3 @@ flutter:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
-  assets:
-    - assets/backed-french-toast.jpg
-    - assets/cannolistuffedfrenchtoast48a37.jpg
-    - assets/easyslowcookerfrenchdip.jpg
-    - assets/frenchfries.jpg
-    - assets/frenchonionstuffedmushrooms.jpg
-    - assets/frenchtoast300200.jpg
-    - assets/overnightblueberryfrenchtoast.jpg
-    - assets/pumpkinpiefrenchtoast.jpg
