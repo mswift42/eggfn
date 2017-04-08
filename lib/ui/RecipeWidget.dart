@@ -14,36 +14,21 @@ class RecipeWidget extends StatelessWidget {
       this.publisher, this.publisherUrl, this.recipeID);
   @override
   Widget build(BuildContext context) {
-
-    Widget imageSection = new Container(
-      child: new Column(
-        children: [
-          new Image.network(imageUrl,
-            fit: BoxFit.fitHeight,
-            width: 500.00
-          ),
-          new Container(
-            child:
-              new Row(
-                children: [
-                  new Text(
-                    title,
-                    style: new TextStyle(inherit: false,
-                      color: Colors.white),
-                    textAlign: TextAlign.center,
-                  )
-                ]
-              ),
-            color: Colors.black54,
-            padding: new EdgeInsets.fromLTRB(2.0, 36.0, 2.0, 36.0),
-            width: 500.00
-          )
-  ],
+    return new Container(
+      child: new GridTile(
+      child: new Image.network(imageUrl,
+        fit: BoxFit.cover,
       ),
-      padding: new EdgeInsets.fromLTRB(8.0, 2.0, 8.0, 2.0)
+      footer: new GridTileBar(
+        title: new _RecipeTitle(title),
+        backgroundColor: Colors.black45
+      )
+    ),
+      width: 500.00,
+      height: 400.00
     );
-    return imageSection;
-    }
+  }
+
   }
 
 class _RecipeTitle extends StatelessWidget {
@@ -60,3 +45,4 @@ class _RecipeTitle extends StatelessWidget {
     );
   }
 }
+
