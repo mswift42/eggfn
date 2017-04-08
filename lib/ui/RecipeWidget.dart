@@ -18,28 +18,45 @@ class RecipeWidget extends StatelessWidget {
     Widget imageSection = new Container(
       child: new Column(
         children: [
-        new Image.file(new File(imageUrl),
-        height: 240.0,
-        fit: BoxFit.fitWidth),
+          new Image.network(imageUrl,
+            fit: BoxFit.fitHeight,
+            width: 500.00
+          ),
           new Container(
             child:
               new Row(
                 children: [
                   new Text(
                     title,
-                    style: new TextStyle(inherit: false, color: new Color(0xffffff))
+                    style: new TextStyle(inherit: false,
+                      color: Colors.white),
+                    textAlign: TextAlign.center,
                   )
                 ]
               ),
-            color: new Color.fromRGBO(2,2,2,0.8),
-            padding: new EdgeInsets.fromLTRB(2.0, 12.0, 2.0, 12.0)
+            color: Colors.black54,
+            padding: new EdgeInsets.fromLTRB(2.0, 36.0, 2.0, 36.0),
+            width: 500.00
           )
   ],
-      )
+      ),
+      padding: new EdgeInsets.fromLTRB(8.0, 2.0, 8.0, 2.0)
     );
     return imageSection;
     }
   }
 
+class _RecipeTitle extends StatelessWidget {
+  _RecipeTitle(this.title);
 
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return new FittedBox(
+      fit: BoxFit.scaleDown,
+      alignment: FractionalOffset.centerLeft,
+      child: new Text(title)
+    );
+  }
 }
