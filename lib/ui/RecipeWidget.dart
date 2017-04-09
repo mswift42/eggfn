@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dart:io';
+import 'package:eggfn/services/FavouriteService.dart' show FavouriteService;
 
 class RecipeStyle extends TextStyle {
 }
@@ -22,7 +22,8 @@ class RecipeWidget extends StatelessWidget {
       footer: new GridTileBar(
         title: new _RecipeText(title),
         subtitle: new _RecipeText(publisher),
-        backgroundColor: Colors.black45
+        backgroundColor: Colors.black45,
+        trailing: new _RecipeFavouriteIcon(recipeID),
       )
     ),
       width: 500.00,
@@ -45,6 +46,28 @@ class _RecipeText extends StatelessWidget {
       alignment: FractionalOffset.centerLeft,
       child: new Text(title)
     );
+  }
+}
+
+class _RecipeFavouriteIcon extends StatefulWidget {
+  String recipeid;
+  _RecipeFavouriteIcon(this.recipeid);
+
+  @override
+  _FavouriteState createState() => new _FavouriteState(recipeid);
+}
+
+class _FavouriteState extends State<_RecipeFavouriteIcon> {
+  FavouriteService favs = new FavouriteService();
+  String recipeid;
+  _FavouriteState(this.recipeid);
+
+  @override
+  Widget build(BuildContext context) {
+    IconData favIcon = favs.isFavourite(recipeid) ? Icons.star : Icons.star_border;
+    return new Container(child: new Icon(favIcon),
+    );
+
   }
 }
 
