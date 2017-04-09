@@ -20,7 +20,8 @@ class RecipeWidget extends StatelessWidget {
         fit: BoxFit.cover,
       ),
       footer: new GridTileBar(
-        title: new _RecipeTitle(title),
+        title: new _RecipeText(title),
+        subtitle: new _RecipeText(publisher),
         backgroundColor: Colors.black45
       )
     ),
@@ -31,8 +32,9 @@ class RecipeWidget extends StatelessWidget {
 
   }
 
-class _RecipeTitle extends StatelessWidget {
-  _RecipeTitle(this.title);
+
+class _RecipeText extends StatelessWidget {
+  _RecipeText(this.title);
 
   final String title;
 
