@@ -5,10 +5,10 @@ final List<Recipe> mockrecipes = <Recipe>[
   new Recipe(
       publisher: "The Pioneer Woman",
       title: "French Toast",
-      source_url: "http://www.simplyrecipes.com/recipes/french_toast/",
-      image_url: "http://static.food2fork.com/frenchtoast300x200b2da65d4.jpg",
-      publisher_url: "http://www.simplyrecipes.com",
-      recipe_id: "36355",
+      sourceUrl: "http://www.simplyrecipes.com/recipes/french_toast/",
+      imageUrl: "http://static.food2fork.com/frenchtoast300x200b2da65d4.jpg",
+      publisherUrl: "http://www.simplyrecipes.com",
+      recipeID: "36355",
       ingredients: [
         "4 eggs",
         "2/3 cup milk",
@@ -23,11 +23,11 @@ final List<Recipe> mockrecipes = <Recipe>[
   new Recipe(
       publisher: "The Pioneer Woman",
       title: "French Onion Soup Stuffed Mushrooms",
-      source_url:
+      sourceUrl:
           "http://thepioneerwoman.com/cooking/2009/11/french-onion-soup-stuffed-mushrooms/",
-      image_url: "http://static.food2fork.com/5200405868_e86da8e6e8_oceea.jpg",
-      publisher_url: "http://thepioneerwoman.com",
-      recipe_id: "47078",
+      imageUrl: "http://static.food2fork.com/5200405868_e86da8e6e8_oceea.jpg",
+      publisherUrl: "http://thepioneerwoman.com",
+      recipeID: "47078",
       ingredients: [
         "2 Tablespoons Butter",
         "2 whole Large Onions, Halved And Sliced Thin",
@@ -42,11 +42,11 @@ final List<Recipe> mockrecipes = <Recipe>[
   new Recipe(
       publisher: "All Recipes",
       title: "Easy Slow Cooker French Dip",
-      source_url:
+      sourceUrl:
           "http://allrecipes.com/Recipe/Easy-Slow-Cooker-French-Dip/Detail.aspx",
-      image_url: "http://static.food2fork.com/103167cea.jpg",
-      publisher_url: "http://allrecipes.com",
-      recipe_id: "12360",
+      imageUrl: "http://static.food2fork.com/103167cea.jpg",
+      publisherUrl: "http://allrecipes.com",
+      recipeID: "12360",
       ingredients: [
         "4 pounds rump roast",
         "1 can beef broth",
@@ -58,12 +58,12 @@ final List<Recipe> mockrecipes = <Recipe>[
   new Recipe(
       publisher: "Closet Cooking",
       title: "Pumpkin Pie French Toast",
-      source_url:
+      sourceUrl:
           "http://www.closetcooking.com/2009/11/pumpkin-pie-french-toast.html",
-      image_url:
+      imageUrl:
           "http://static.food2fork.com/PumpkinPieFrenchToast15002845c7fe.jpg",
-      publisher_url: "http://closetcooking.com",
-      recipe_id: "35499",
+      publisherUrl: "http://closetcooking.com",
+      recipeID: "35499",
       ingredients: [
         "2 eggs",
         "1/4 cup milk",
@@ -79,11 +79,11 @@ final List<Recipe> mockrecipes = <Recipe>[
   new Recipe(
       publisher: "The Pioneer Woman",
       title: "Perfect French Fries",
-      source_url:
+      sourceUrl:
           "http://thepioneerwoman.com/cooking/2012/01/perfect-french-fries/",
-      image_url: "http://static.food2fork.com/fries4d41.jpg",
-      publisher_url: "http://thepioneerwoman.com",
-      recipe_id: "46959",
+      imageUrl: "http://static.food2fork.com/fries4d41.jpg",
+      publisherUrl: "http://thepioneerwoman.com",
+      recipeID: "46959",
       ingredients: [
         "5 pounds Russet Potatoes",
         "Vegetable Or Peanut Oil For Frying",
@@ -92,11 +92,11 @@ final List<Recipe> mockrecipes = <Recipe>[
   new Recipe(
       publisher: "The Pioneer Woman",
       title: "Baked French Toast",
-      source_url:
+      sourceUrl:
           "http://thepioneerwoman.com/cooking/2010/05/cinnamon-baked-french-toast/",
-      image_url: "http://static.food2fork.com/4573173616_0ed83c1ee1_o91e9.jpg",
-      publisher_url: "http://thepioneerwoman.com",
-      recipe_id: "47139",
+      imageUrl: "http://static.food2fork.com/4573173616_0ed83c1ee1_o91e9.jpg",
+      publisherUrl: "http://thepioneerwoman.com",
+      recipeID: "47139",
       ingredients: [
         "FOR THE FRENCH TOAST",
         "1 loaf Crusty Sourdough Or French Bread",
@@ -117,12 +117,12 @@ final List<Recipe> mockrecipes = <Recipe>[
   new Recipe(
       publisher: "Two Peas and Their Pod",
       title: "Cannoli Stuffed French Toast",
-      source_url:
+      sourceUrl:
           "http://www.twopeasandtheirpod.com/cannoli-stuffed-french-toast/",
-      image_url:
+      imageUrl:
           "http://static.food2fork.com/cannolistuffedfrenchtoast48a37.jpg",
-      publisher_url: "http://www.twopeasandtheirpod.com",
-      recipe_id: "54279",
+      publisherUrl: "http://www.twopeasandtheirpod.com",
+      recipeID: "54279",
       ingredients: [
         "1 cup ricotta cheese",
         "1/4 cup powdered sugar",
@@ -137,11 +137,11 @@ final List<Recipe> mockrecipes = <Recipe>[
   new Recipe(
       publisher: "All Recipes",
       title: "Overnight Blueberry French Toast",
-      source_url:
+      sourceUrl:
           "http://allrecipes.com/Recipe/Overnight-Blueberry-French-Toast/Detail.aspx",
-      image_url: "http://static.food2fork.com/38151724f8.jpg",
-      publisher_url: "http://allrecipes.com",
-      recipe_id: "18647",
+      imageUrl: "http://static.food2fork.com/38151724f8.jpg",
+      publisherUrl: "http://allrecipes.com",
+      recipeID: "18647",
       ingredients: [
         "12 slices day-old bread, cut into 1-inch cubes",
         "2 (8 ounce) packages cream cheese, cut into 1 inch cubes",
