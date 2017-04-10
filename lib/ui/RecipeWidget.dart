@@ -60,11 +60,24 @@ class _RecipeFavouriteIcon extends StatefulWidget {
 class _FavouriteState extends State<_RecipeFavouriteIcon> {
   FavouriteService favs = new FavouriteService();
   String recipeid;
+  bool _isFavourite = false;
   _FavouriteState(this.recipeid);
+
+  void _toggleFavourite() {
+    setState(() {
+      if (_isFavourite) {
+        favs.deleteFavourite(recipeid);
+        _isFavourite = false;
+      } else {
+        favs.addFavourite(recipeid);
+        _isFavourite = true;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    IconData favIcon = favs.isFavourite(recipeid) ? Icons.star : Icons.star_border;
+    IconData favIcon = _isFavourite ? Icons.star : Icons.star_border;
     return new Container(child: new Icon(favIcon),
     );
 
