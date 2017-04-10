@@ -78,9 +78,11 @@ class _FavouriteState extends State<_RecipeFavouriteIcon> {
   @override
   Widget build(BuildContext context) {
     IconData favIcon = _isFavourite ? Icons.star : Icons.star_border;
-    return new Container(child: new Icon(favIcon),
+    return new Container(
+        child: new IconButton(icon: new Icon(favIcon),
+        onPressed: _toggleFavourite
+    ),
     );
-
   }
 }
 
