@@ -4,6 +4,7 @@ import 'package:eggfn/services/FavouriteService.dart' show FavouriteService;
 class RecipeStyle extends TextStyle {
 }
 
+
 class RecipeWidget extends StatelessWidget {
   String title;
   String imageUrl;
@@ -31,7 +32,24 @@ class RecipeWidget extends StatelessWidget {
     );
   }
 
+}
+
+class RecipeImageWidget extends StatelessWidget {
+  String imageUrl;
+  String recipeid;
+  RecipeImageWidget(this.imageUrl, this.recipeid);
+  @override
+  Widget build(BuildContext context) {
+    final Widget image = new GestureDetector(
+      onTap: () { showRecipe(context); },
+      child: new Hero(
+        child: new Image.network(imageUrl)
+        tag: recipeid
+      )
+    );
+    return image;
   }
+}
 
 
 class _RecipeText extends StatelessWidget {
