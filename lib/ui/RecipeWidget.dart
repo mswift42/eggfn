@@ -37,7 +37,24 @@ class RecipeWidget extends StatelessWidget {
 class RecipeImageWidget extends StatelessWidget {
   String imageUrl;
   String recipeid;
-  RecipeImageWidget(this.imageUrl, this.recipeid);
+  String title;
+  String publisher;
+  RecipeImageWidget(this.imageUrl, this.recipeid, this.title, this.publisher);
+  void showRecipe(BuildContext context) {
+    Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
+      return new Scaffold(
+        appBar: new AppBar(
+          title: new Text(title)
+        ),
+        body: new SizedBox.expand(
+          child: new Hero(
+            tag: recipeid,
+            child: new _RecipeDetailViewer(Recipe recipe),
+          ),
+        ),
+      );
+    }));
+  }
   @override
   Widget build(BuildContext context) {
     final Widget image = new GestureDetector(
