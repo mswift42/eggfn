@@ -128,7 +128,8 @@ class _RecipeIngredientsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Container(
-      child: new Text(ingredients.join("\n"))
+      child: new Text(ingredients.join("\n",),
+      style: const RecipeStyle(fontSize: 22.0, fontWeight: FontWeight.w500, color: Colors.black87))
     );
   }
 }
