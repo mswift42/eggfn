@@ -3,6 +3,24 @@ import 'package:eggfn/services/FavouriteService.dart' show FavouriteService;
 import 'package:eggfn/services/Recipe.dart' show Recipe;
 
 class RecipeStyle extends TextStyle {
+  const RecipeStyle({
+    double fontSize: 12.0,
+    FontWeight fontWeight,
+    Color color: Colors.white70,
+    double letterSpacing,
+    double height,
+    String fontFamily,
+
+  }) : super(
+      inherit: false,
+      color: color,
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+      fontFamily: fontFamily,
+      textBaseline: TextBaseline.alphabetic,
+      letterSpacing: letterSpacing,
+      height: height
+  );
 }
 
 class RecipeWidget extends StatelessWidget {
@@ -82,7 +100,7 @@ class _RecipeDetailState extends State<_RecipeDetailViewer> {
           child: new Column(
             children: <Widget>[
                   new Image.network(widget.recipe.imageUrl,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fill,
 
     ),
         new _RecipeIngredientsView(widget.recipe.ingredients)
