@@ -79,7 +79,10 @@ class _RecipeDetailViewer extends StatefulWidget {
 }
 
 class _RecipeDetailState extends State<_RecipeDetailViewer> {
-
+  // TODO (1) size recipe image / details.
+  // TODO (2) add recipeingredients view.
+  // TODO (3) add favouriteicon.
+  // TODO (4) switch layout on orientation.
   @override
   Widget build(BuildContext context) {
     return new Container(
