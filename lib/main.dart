@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'ui/RecipesWidget.dart' show RecipesWidget;
 
 void main() {
   runApp(new MyApp());
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: new MyHomePage(title: 'Flutter Demo Home Page'),
+      home: new MyHomePage(title: 'EggCrackin!'),
     );
   }
 }
@@ -73,18 +74,11 @@ class _MyHomePageState extends State<MyHomePage> {
         // Here we take the value from the MyHomePage object that
         // was created by the App.build method, and use it to set
         // our appbar title.
-        title: new Text(config.title),
+        title: new Text(widget.title),
       ),
       body: new Center(
-        child: new Text(
-          'Button tapped $_counter time${ _counter == 1 ? '' : 's' }.',
-        ),
-      ),
-      floatingActionButton: new FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: new Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+        child: new RecipesWidget()
+      )
     );
   }
 }
