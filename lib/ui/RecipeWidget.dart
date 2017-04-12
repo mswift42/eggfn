@@ -4,7 +4,6 @@ import 'package:eggfn/services/Recipe.dart' show Recipe;
 
 class RecipeStyle extends TextStyle {
 }
-// TODO (5) pass Recipeclass as classfields to widgets.
 
 class RecipeWidget extends StatelessWidget {
   final Recipe recipe;
@@ -71,7 +70,6 @@ class _RecipeDetailViewer extends StatefulWidget {
 
 class _RecipeDetailState extends State<_RecipeDetailViewer> {
   // TODO (1) size recipe image / details.
-  // TODO (2) add recipeingredients view.
   // TODO (3) add favouriteicon.
   // TODO (4) switch layout on orientation.
   @override
@@ -81,10 +79,15 @@ class _RecipeDetailState extends State<_RecipeDetailViewer> {
       child:
       new Hero(
           tag: widget.recipe.imageUrl,
-          child:
+          child: new Column(
+            children: <Widget>[
                   new Image.network(widget.recipe.imageUrl,
                   fit: BoxFit.cover,
-    )
+
+    ),
+        new _RecipeIngredientsView(widget.recipe.ingredients)
+      ]
+          ),
       ),
       padding: new EdgeInsets.fromLTRB(42.0, 20.0, 42.0, 20.0),
       constraints: new BoxConstraints(
@@ -94,6 +97,20 @@ class _RecipeDetailState extends State<_RecipeDetailViewer> {
         maxWidth: 800.0,
       )
 
+    );
+  }
+}
+
+
+class _RecipeIngredientsView extends StatelessWidget {
+  _RecipeIngredientsView(this.ingredients);
+
+  final List<String> ingredients;
+
+  @override
+  Widget build(BuildContext context) {
+    return new Container(
+      child: new Text(ingredients.join("\n"))
     );
   }
 }
