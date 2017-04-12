@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:eggfn/services/FavouriteService.dart' show FavouriteService;
+import '../services/Recipe.dart' show Recipe;
 
 class RecipeStyle extends TextStyle {
 }
@@ -17,10 +18,9 @@ class RecipeWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Container(
       child: new GridTile(
-      child: new Image.network(imageUrl,
-        fit: BoxFit.cover,
-      ),
-      footer: new GridTileBar(
+        child:
+        new RecipeImageWidget(imageUrl, recipeID, title, publisher),
+        footer: new GridTileBar(
         title: new _RecipeText(title),
         subtitle: new _RecipeText(publisher),
         backgroundColor: Colors.black45,
@@ -49,7 +49,7 @@ class RecipeImageWidget extends StatelessWidget {
         body: new SizedBox.expand(
           child: new Hero(
             tag: recipeid,
-            child: new _RecipeDetailViewer(Recipe recipe),
+            child: new _RecipeDetailViewer(imageUrl, title),
           ),
         ),
       );
@@ -60,11 +60,38 @@ class RecipeImageWidget extends StatelessWidget {
     final Widget image = new GestureDetector(
       onTap: () { showRecipe(context); },
       child: new Hero(
+        tag: recipeid,
         child: new Image.network(imageUrl)
-        tag: recipeid
+    ));
+    return image;
+  }
+}
+
+class _RecipeDetailViewer extends StatefulWidget {
+  String imageUrl;
+  String title;
+  _RecipeDetailViewer(this.imageUrl, this.title);
+
+  @override
+  _RecipeDetailState createState() => new _RecipeDetailState();
+}
+
+class _RecipeDetailState extends State<_RecipeDetailViewer> {
+
+  @override
+  Widget build(BuildContext context) {
+    return new Container(
+      child:
+      new Hero(
+          tag: widget.imageUrl,
+          child:
+    (
+        new Image.network(widget.imageUrl,
+          fit: BoxFit.fill,
+        )
+    )
       )
     );
-    return image;
   }
 }
 
