@@ -61,7 +61,9 @@ class RecipeImageWidget extends StatelessWidget {
       onTap: () { showRecipe(context); },
       child: new Hero(
         tag: recipeid,
-        child: new Image.network(imageUrl)
+        child: new Image.network(imageUrl,
+        fit: BoxFit.cover
+        ),
     ));
     return image;
   }
