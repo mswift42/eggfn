@@ -1,30 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:eggfn/services/FavouriteService.dart' show FavouriteService;
-import '../services/Recipe.dart' show Recipe;
+import 'package:eggfn/services/Recipe.dart' show Recipe;
 
 class RecipeStyle extends TextStyle {
 }
 // TODO (5) pass Recipeclass as classfields to widgets.
 
 class RecipeWidget extends StatelessWidget {
-  String title;
-  String imageUrl;
-  String publisher;
-  String publisherUrl;
-  String recipeID;
-  RecipeWidget(this.title, this.imageUrl,
-      this.publisher, this.publisherUrl, this.recipeID);
+  final Recipe recipe;
+  RecipeWidget(this.recipe);
   @override
   Widget build(BuildContext context) {
     return new Container(
       child: new GridTile(
         child:
-        new RecipeImageWidget(imageUrl, recipeID, title, publisher),
+        new RecipeImageWidget(recipe),
         footer: new GridTileBar(
-        title: new _RecipeText(title),
-        subtitle: new _RecipeText(publisher),
+        title: new _RecipeText(recipe.title),
+        subtitle: new _RecipeText(recipe.publisher),
         backgroundColor: Colors.black45,
-        trailing: new _RecipeFavouriteIcon(recipeID),
+        trailing: new _RecipeFavouriteIcon(recipe.recipeID),
       )
     ),
       width: 500.00,
@@ -35,21 +30,18 @@ class RecipeWidget extends StatelessWidget {
 }
 
 class RecipeImageWidget extends StatelessWidget {
-  String imageUrl;
-  String recipeid;
-  String title;
-  String publisher;
-  RecipeImageWidget(this.imageUrl, this.recipeid, this.title, this.publisher);
+  final Recipe recipe;
+  RecipeImageWidget(this.recipe);
   void showRecipe(BuildContext context) {
     Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
       return new Scaffold(
         appBar: new AppBar(
-          title: new Text(title)
+          title: new Text(recipe.title)
         ),
         body: new FittedBox(fit: BoxFit.cover,
           child: new Hero(
-            tag: recipeid,
-            child: new _RecipeDetailViewer(imageUrl, title),
+            tag: recipe.recipeID,
+            child: new _RecipeDetailViewer(recipe),
           ),
         ),
       );
@@ -60,8 +52,8 @@ class RecipeImageWidget extends StatelessWidget {
     final Widget image = new GestureDetector(
       onTap: () { showRecipe(context); },
       child: new Hero(
-        tag: recipeid,
-        child: new Image.network(imageUrl,
+        tag: recipe.recipeID,
+        child: new Image.network(recipe.imageUrl,
         fit: BoxFit.cover
         ),
     ));
@@ -70,9 +62,8 @@ class RecipeImageWidget extends StatelessWidget {
 }
 
 class _RecipeDetailViewer extends StatefulWidget {
-  String imageUrl;
-  String title;
-  _RecipeDetailViewer(this.imageUrl, this.title);
+  Recipe recipe;
+  _RecipeDetailViewer(this.recipe);
 
   @override
   _RecipeDetailState createState() => new _RecipeDetailState();
@@ -89,9 +80,9 @@ class _RecipeDetailState extends State<_RecipeDetailViewer> {
       alignment: FractionalOffset.center,
       child:
       new Hero(
-          tag: widget.imageUrl,
+          tag: widget.recipe.imageUrl,
           child:
-                  new Image.network(widget.imageUrl,
+                  new Image.network(widget.recipe.imageUrl,
                   fit: BoxFit.cover,
     )
       ),

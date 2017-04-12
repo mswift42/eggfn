@@ -16,7 +16,7 @@ class _RecipesState extends State<RecipesWidget> {
   @override
   Widget build(BuildContext context) {
     return new GridView.extent(children: mockrecipes.map((i) => new
-    RecipeWidget(i.title, i.imageUrl, i.publisher, i.publisherUrl, i.recipeID)).toList(),
+    RecipeWidget(i)).toList(),
       maxCrossAxisExtent: 340.00
     );
   }
