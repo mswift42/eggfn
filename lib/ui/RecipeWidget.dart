@@ -79,6 +79,7 @@ class RecipeImageWidget extends StatelessWidget {
 }
 
 class _RecipeDetailViewer extends StatefulWidget {
+  // TODO - use Material Card to display image / publisher / ingredients.
   Recipe recipe;
   _RecipeDetailViewer(this.recipe);
 
@@ -93,27 +94,31 @@ class _RecipeDetailState extends State<_RecipeDetailViewer> {
   @override
   Widget build(BuildContext context) {
     return new Container(
-      alignment: FractionalOffset.center,
-      child:
-      new Hero(
+        alignment: FractionalOffset.center,
+        child:
+        new Hero(
           tag: widget.recipe.imageUrl,
-          child: new Column(
-            children: <Widget>[
+          child: new Card(
+            elevation: 1,
+            child: new Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
                   new Image.network(widget.recipe.imageUrl,
-                  fit: BoxFit.fill,
+                    fit: BoxFit.fill,
 
-    ),
-        new _RecipeIngredientsView(widget.recipe.ingredients)
-      ]
+                  ),
+                  new _RecipeIngredientsView(widget.recipe.ingredients)
+                ]
+            ),
           ),
-      ),
-      padding: new EdgeInsets.fromLTRB(42.0, 20.0, 42.0, 20.0),
-      constraints: new BoxConstraints(
-        minHeight: 400.0,
-        maxHeight: 600.0,
-        minWidth: 400.0,
-        maxWidth: 800.0,
-      )
+        ),
+        padding: new EdgeInsets.fromLTRB(42.0, 20.0, 42.0, 20.0),
+        constraints: new BoxConstraints(
+          minHeight: 400.0,
+          maxHeight: 600.0,
+          minWidth: 400.0,
+          maxWidth: 800.0,
+        )
 
     );
   }
