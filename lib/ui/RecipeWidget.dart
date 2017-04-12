@@ -4,7 +4,7 @@ import '../services/Recipe.dart' show Recipe;
 
 class RecipeStyle extends TextStyle {
 }
-
+// TODO (5) pass Recipeclass as classfields to widgets.
 
 class RecipeWidget extends StatelessWidget {
   String title;
@@ -46,7 +46,7 @@ class RecipeImageWidget extends StatelessWidget {
         appBar: new AppBar(
           title: new Text(title)
         ),
-        body: new SizedBox.expand(
+        body: new FittedBox(fit: BoxFit.cover,
           child: new Hero(
             tag: recipeid,
             child: new _RecipeDetailViewer(imageUrl, title),
@@ -86,16 +86,23 @@ class _RecipeDetailState extends State<_RecipeDetailViewer> {
   @override
   Widget build(BuildContext context) {
     return new Container(
+      alignment: FractionalOffset.center,
       child:
       new Hero(
           tag: widget.imageUrl,
           child:
-    (
-        new Image.network(widget.imageUrl,
-          fit: BoxFit.fill,
-        )
+                  new Image.network(widget.imageUrl,
+                  fit: BoxFit.cover,
     )
+      ),
+      padding: new EdgeInsets.fromLTRB(42.0, 20.0, 42.0, 20.0),
+      constraints: new BoxConstraints(
+        minHeight: 400.0,
+        maxHeight: 600.0,
+        minWidth: 400.0,
+        maxWidth: 800.0,
       )
+
     );
   }
 }
