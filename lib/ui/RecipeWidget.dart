@@ -119,6 +119,16 @@ class _RecipeDetailState extends State<_RecipeDetailViewer> {
   }
 }
 
+class _RecipeDetailPublisherView extends StatelessWidget {
+  final String publisher;
+
+  _RecipeDetailPublisherView(this.publisher);
+  @override
+  Widget build(BuildContext context) {
+    return new Text(publisher, style: new RecipeStyle());
+  }
+}
+
 
 class _RecipeIngredientsView extends StatelessWidget {
   _RecipeIngredientsView(this.ingredients);
