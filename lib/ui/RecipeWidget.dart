@@ -100,8 +100,7 @@ class _RecipeDetailState extends State<_RecipeDetailViewer> {
       new Hero(
         tag: widget.recipe.imageUrl,
         child: new Card(
-          color: Theme.of(context).accentColor,
-          elevation: 1,
+          color: Colors.white,
           child: new Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
