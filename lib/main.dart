@@ -21,7 +21,9 @@ class MyApp extends StatelessWidget {
         // you ran "flutter run", or press Run > Hot Reload App in IntelliJ).
         // Notice that the counter didn't reset back to zero -- the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        brightness: Brightness.light,
+        primaryColor: Colors.yellow[600],
+        accentColor: Colors.deepOrange[200],
       ),
       home: new MyHomePage(title: 'EggCrackin!'),
     );
@@ -70,15 +72,13 @@ class _MyHomePageState extends State<MyHomePage> {
     // needs updating rather than having to individually change
     // instances of widgets.
     return new Scaffold(
-      appBar: new AppBar(
-        // Here we take the value from the MyHomePage object that
-        // was created by the App.build method, and use it to set
-        // our appbar title.
-        title: new Text(widget.title),
-      ),
-      body: new Center(
-        child: new RecipesWidget()
-      )
-    );
+        appBar: new AppBar(
+          // Here we take the value from the MyHomePage object that
+          // was created by the App.build method, and use it to set
+          // our appbar title.
+
+          title: new Text(widget.title),
+        ),
+        body: new Center(child: new RecipesWidget()));
   }
 }
