@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.light,
         primaryColor: Colors.yellow[600],
         accentColor: Colors.deepOrange[200],
+        dividerColor: Colors.deepOrange[500],
       ),
       home: new MyHomePage(title: 'EggCrackin!'),
     );
