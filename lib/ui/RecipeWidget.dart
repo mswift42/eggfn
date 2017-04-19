@@ -158,6 +158,21 @@ class _RecipeIngredientsView extends StatelessWidget {
   }
 }
 
+class _RecipeIngredientView extends StatelessWidget {
+  final String ingredient;_RecipeIngredientView(this.ingredient);
+
+
+  @override
+  Widget build(BuildContext context) {
+    return new Container(
+      child: new Text(
+        ingredient,
+        style: Theme.of(context).primaryTextTheme.body2,
+        )
+    );
+  }
+}
+
 class _RecipeText extends StatelessWidget {
   _RecipeText(this.title);
 
