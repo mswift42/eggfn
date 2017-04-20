@@ -93,35 +93,37 @@ class _RecipeDetailState extends State<_RecipeDetailViewer> {
       constraints: new BoxConstraints(
         maxWidth: 800.00,
         minWidth: 400.00,
-        maxHeight: 800.00,
+        maxHeight: 1000.00,
         minHeight: 200.00,
       ),
-        child: new Center(
-      child: new Hero(
-        tag: widget.recipe.imageUrl,
-        child: new Card(
-          color: Colors.white,
-          child: new Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                new Image.network(
-                  widget.recipe.imageUrl,
-                  fit: BoxFit.fill,
-                ),
-                new Container(
-                  child:
-                      new _RecipeDetailPublisherView(widget.recipe.publisher),
-                ),
-
-                new Row(children: <Widget>[
-                  new Expanded(child:
-                new Divider(height: 20.00),
+      child: new Center(
+        child: new Hero(
+          tag: widget.recipe.imageUrl,
+          child: new Card(
+            color: Colors.white,
+            child: new Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  new Container(
+                    child: new Image.network(
+                      widget.recipe.imageUrl,
+                      fit: BoxFit.fill,
+                    ),
                   ),
-          ]),
-                new _RecipeIngredientsView(widget.recipe.ingredients)
-              ]),
+                  new Container(
+                    child:
+                        new _RecipeDetailPublisherView(widget.recipe.publisher),
+                  ),
+                  new Row(children: <Widget>[
+                    new Expanded(
+                      child: new Divider(height: 20.00),
+                    ),
+                  ]),
+                  new _RecipeIngredientsView(widget.recipe.ingredients)
+                ]),
+          ),
         ),
-      ),
       ),
       padding: new EdgeInsets.fromLTRB(42.0, 20.0, 42.0, 20.0),
     );
@@ -147,28 +149,31 @@ class _RecipeIngredientsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Container(
-      child: new Text(
-        ingredients.join(
-          "\n",
-        ),
-        style: const RecipeStyle(
-            fontSize: 22.0, fontWeight: FontWeight.w500, color: Colors.black87),
+      child: new Wrap(
+        children: ingredients.map((i) => new _RecipeIngredientView(i)).toList(),
       ),
     );
   }
 }
 
 class _RecipeIngredientView extends StatelessWidget {
-  final String ingredient;_RecipeIngredientView(this.ingredient);
+  final String ingredient;
 
+  _RecipeIngredientView(this.ingredient);
 
   @override
   Widget build(BuildContext context) {
     return new Container(
+      decoration: new BoxDecoration(
+          border: new Border.all(color: Theme.of(context).accentColor)),
+      padding: new EdgeInsets.fromLTRB(22.0, 12.0, 22.0, 10.0),
       child: new Text(
         ingredient,
-        style: Theme.of(context).primaryTextTheme.body2,
-        )
+        style: new TextStyle(
+          fontWeight: FontWeight.w400,
+          fontSize: 22.0,
+        ),
+      ),
     );
   }
 }
@@ -181,9 +186,10 @@ class _RecipeText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new FittedBox(
-        fit: BoxFit.scaleDown,
-        alignment: FractionalOffset.centerLeft,
-        child: new Text(title));
+      fit: BoxFit.scaleDown,
+      alignment: FractionalOffset.centerLeft,
+      child: new Text(title),
+    );
   }
 }
 
