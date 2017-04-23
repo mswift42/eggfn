@@ -76,7 +76,7 @@ class RecipeImageWidget extends StatelessWidget {
 
 class _RecipeDetailViewer extends StatefulWidget {
   // TODO - use Material Card to display image / publisher / ingredients.
-  Recipe recipe;
+  final Recipe recipe;
   _RecipeDetailViewer(this.recipe);
 
   @override
@@ -194,7 +194,7 @@ class _RecipeText extends StatelessWidget {
 }
 
 class _RecipeFavouriteIcon extends StatefulWidget {
-  String recipeid;
+  final String recipeid;
   _RecipeFavouriteIcon(this.recipeid);
 
   @override
