@@ -101,16 +101,20 @@ class _RecipeDetailState extends State<_RecipeDetailViewer> {
           tag: widget.recipe.imageUrl,
           child: new Card(
             color: Colors.white,
+              child: new SizedBox(height: 800.00,
             child: new Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
+
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   new Container(
+                    child: new SizedBox(height:400.00,
                     child: new Image.network(
                       widget.recipe.imageUrl,
                       fit: BoxFit.fill,
                     ),
                   ),
+              ),
                   new Container(
                     child:
                         new _RecipeDetailPublisherView(widget.recipe.publisher),
@@ -122,8 +126,9 @@ class _RecipeDetailState extends State<_RecipeDetailViewer> {
                   ]),
                   new _RecipeIngredientsView(widget.recipe.ingredients)
                 ]),
-          ),
         ),
+        ),
+      ),
       ),
       padding: new EdgeInsets.fromLTRB(42.0, 20.0, 42.0, 20.0),
     );
