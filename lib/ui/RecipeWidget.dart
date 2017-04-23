@@ -101,34 +101,35 @@ class _RecipeDetailState extends State<_RecipeDetailViewer> {
           tag: widget.recipe.imageUrl,
           child: new Card(
             color: Colors.white,
-              child: new SizedBox(height: 800.00,
-            child: new Column(
-
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  new Container(
-                    child: new SizedBox(height:400.00,
-                    child: new Image.network(
-                      widget.recipe.imageUrl,
-                      fit: BoxFit.fill,
+            child: new SizedBox(
+              height: 800.00,
+              child: new Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    new Container(
+                      child: new SizedBox(
+                        height: 400.00,
+                        child: new Image.network(
+                          widget.recipe.imageUrl,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
                     ),
-                  ),
-              ),
-                  new Container(
-                    child:
-                        new _RecipeDetailPublisherView(widget.recipe.publisher),
-                  ),
-                  new Row(children: <Widget>[
-                    new Expanded(
-                      child: new Divider(height: 20.00),
+                    new Container(
+                      child: new _RecipeDetailPublisherView(
+                          widget.recipe.publisher),
                     ),
+                    new Row(children: <Widget>[
+                      new Expanded(
+                        child: new Divider(height: 20.00),
+                      ),
+                    ]),
+                    new _RecipeIngredientsView(widget.recipe.ingredients)
                   ]),
-                  new _RecipeIngredientsView(widget.recipe.ingredients)
-                ]),
+            ),
+          ),
         ),
-        ),
-      ),
       ),
       padding: new EdgeInsets.fromLTRB(42.0, 20.0, 42.0, 20.0),
     );
@@ -141,8 +142,16 @@ class _RecipeDetailPublisherView extends StatelessWidget {
   _RecipeDetailPublisherView(this.publisher);
   @override
   Widget build(BuildContext context) {
-    return new Text(publisher,
-        style: new RecipeStyle(fontSize: 20.0, fontWeight: FontWeight.bold));
+    return new Container(
+      child: new Expanded(
+        child: new Center(
+          child: new Text(
+            publisher,
+            style: new RecipeStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+          ),
+        ),
+      ),
+    );
   }
 }
 
