@@ -163,15 +163,19 @@ class _RecipeIngredientsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Container(
-      child: new Column(
-        children: <Widget>[
-      new Center(child:
-      new Text("Ingredients"),
-    ) ,
-      new Wrap(
-        children: ingredients.map((i) => new _RecipeIngredientView(i)).toList(),
-      ),
-   ]),
+      child: new Column(children: <Widget>[
+        new Container(
+          child: new Text("Ingredients:",
+          style: new TextStyle(
+            fontWeight: FontWeight.w400,
+            fontSize: 22.0,
+          )),
+        ),
+        new Wrap(
+          children:
+              ingredients.map((i) => new _RecipeIngredientView(i)).toList(),
+        ),
+      ]),
     );
   }
 }
