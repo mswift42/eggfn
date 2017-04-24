@@ -75,7 +75,6 @@ class RecipeImageWidget extends StatelessWidget {
 }
 
 class _RecipeDetailViewer extends StatefulWidget {
-  // TODO - use Material Card to display image / publisher / ingredients.
   final Recipe recipe;
   _RecipeDetailViewer(this.recipe);
 
@@ -84,8 +83,6 @@ class _RecipeDetailViewer extends StatefulWidget {
 }
 
 class _RecipeDetailState extends State<_RecipeDetailViewer> {
-  // TODO (1) size recipe image / details.
-  // TODO (3) add favouriteicon.
   // TODO (4) switch layout on orientation.
   @override
   Widget build(BuildContext context) {
@@ -197,10 +194,6 @@ class _RecipeIngredientView extends StatelessWidget {
       child: new Chip(
         label: new Text(
           ingredient,
-//          style: new TextStyle(
-//            fontWeight: FontWeight.w400,
-//            fontSize: 14.0,
-//          ),
         ),
       ),
     );
