@@ -104,7 +104,7 @@ class _RecipeDetailState extends State<_RecipeDetailViewer> {
             child: new SizedBox(
               height: 800.00,
               child: new Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
                     new Container(
@@ -116,16 +116,18 @@ class _RecipeDetailState extends State<_RecipeDetailViewer> {
                         ),
                       ),
                     ),
-                    new Container(
-                      child: new _RecipeDetailPublisherView(
-                          widget.recipe.publisher),
+                    new SizedBox(
+                      height: 400.00,
+                      child: new Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            new _RecipeDetailPublisherView(
+                                widget.recipe.publisher),
+                            new _RecipeIngredientsView(
+                                widget.recipe.ingredients),
+                          ]),
                     ),
-                    new Row(children: <Widget>[
-                      new Expanded(
-                        child: new Divider(height: 20.00),
-                      ),
-                    ]),
-                    new _RecipeIngredientsView(widget.recipe.ingredients)
                   ]),
             ),
           ),
@@ -165,15 +167,14 @@ class _RecipeIngredientsView extends StatelessWidget {
     return new Container(
       child: new Column(children: <Widget>[
         new Container(
-          child: new Text("Ingredients:",
-          style: new TextStyle(
-            fontWeight: FontWeight.w400,
-            fontSize: 22.0,
+          child: new Text(
+            "Ingredients:",
+            style: new TextStyle(
+              fontWeight: FontWeight.w400,
+              fontSize: 22.0,
+            ),
           ),
-          ),
-          padding: new EdgeInsets.symmetric(
-            vertical: 20.0, horizontal: 0.0
-          ),
+          padding: new EdgeInsets.symmetric(vertical: 20.0, horizontal: 0.0),
         ),
         new Wrap(
           children:
@@ -196,10 +197,10 @@ class _RecipeIngredientView extends StatelessWidget {
       child: new Chip(
         label: new Text(
           ingredient,
-          style: new TextStyle(
-            fontWeight: FontWeight.w400,
-            fontSize: 22.0,
-          ),
+//          style: new TextStyle(
+//            fontWeight: FontWeight.w400,
+//            fontSize: 14.0,
+//          ),
         ),
       ),
     );
