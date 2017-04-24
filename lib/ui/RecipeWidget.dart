@@ -163,9 +163,15 @@ class _RecipeIngredientsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Container(
-      child: new Wrap(
+      child: new Column(
+        children: <Widget>[
+      new Center(child:
+      new Text("Ingredients"),
+    ) ,
+      new Wrap(
         children: ingredients.map((i) => new _RecipeIngredientView(i)).toList(),
       ),
+   ]),
     );
   }
 }
@@ -178,14 +184,14 @@ class _RecipeIngredientView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Container(
-      decoration: new BoxDecoration(
-          border: new Border.all(color: Theme.of(context).accentColor)),
       padding: new EdgeInsets.fromLTRB(22.0, 12.0, 22.0, 10.0),
-      child: new Text(
-        ingredient,
-        style: new TextStyle(
-          fontWeight: FontWeight.w400,
-          fontSize: 22.0,
+      child: new Chip(
+        label: new Text(
+          ingredient,
+          style: new TextStyle(
+            fontWeight: FontWeight.w400,
+            fontSize: 22.0,
+          ),
         ),
       ),
     );
