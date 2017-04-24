@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'ui/RecipesWidget.dart' show RecipesWidget;
 
 void main() {
-  runApp(new MyApp());
+  runApp(new EggCrackinApp());
 }
 
-class MyApp extends StatelessWidget {
+class EggCrackinApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      title: 'Flutter Demo',
+      title: 'EggCrackin!',
       theme: new ThemeData(
         // This is the theme of your application.
         //
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         // Notice that the counter didn't reset back to zero -- the application
         // is not restarted.
         brightness: Brightness.light,
-        primaryColor: Colors.yellow[600],
+        primaryColor: Colors.yellow[800],
         accentColor: Colors.deepOrange[200],
         dividerColor: Colors.deepOrange[500],
       ),
