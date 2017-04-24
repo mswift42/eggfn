@@ -169,7 +169,11 @@ class _RecipeIngredientsView extends StatelessWidget {
           style: new TextStyle(
             fontWeight: FontWeight.w400,
             fontSize: 22.0,
-          )),
+          ),
+          ),
+          padding: new EdgeInsets.symmetric(
+            vertical: 20.0, horizontal: 0.0
+          ),
         ),
         new Wrap(
           children:
