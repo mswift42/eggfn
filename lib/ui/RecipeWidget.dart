@@ -86,6 +86,7 @@ class _RecipeDetailState extends State<_RecipeDetailViewer> {
   // TODO (4) switch layout on orientation.
   @override
   Widget build(BuildContext context) {
+    final Orientation orientation = MediaQuery.of(context).orientation;
     return new Container(
       constraints: new BoxConstraints(
         maxWidth: 800.00,
@@ -104,15 +105,7 @@ class _RecipeDetailState extends State<_RecipeDetailViewer> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    new Container(
-                      child: new SizedBox(
-                        height: 400.00,
-                        child: new Image.network(
-                          widget.recipe.imageUrl,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ),
+                    new _RecipeDetailImageView(widget.recipe.imageUrl),
                     new SizedBox(
                       height: 400.00,
                       child: new Column(
@@ -132,6 +125,25 @@ class _RecipeDetailState extends State<_RecipeDetailViewer> {
       ),
       padding: new EdgeInsets.fromLTRB(42.0, 20.0, 42.0, 20.0),
     );
+  }
+}
+
+class _RecipeDetailImageView extends StatelessWidget {
+  final String imageUrl;
+
+  _RecipeDetailImageView(this.imageUrl);
+
+  @override
+  Widget build(BuildContext context) {
+    return new Container(
+                      child: new SizedBox(
+                        height: 400.00,
+                        child: new Image.network(
+                          imageUrl,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    );
   }
 }
 
