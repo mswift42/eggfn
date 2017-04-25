@@ -106,18 +106,8 @@ class _RecipeDetailState extends State<_RecipeDetailViewer> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
                     new _RecipeDetailImageView(widget.recipe.imageUrl),
-                    new SizedBox(
-                      height: 400.00,
-                      child: new Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            new _RecipeDetailPublisherView(
-                                widget.recipe.publisher),
-                            new _RecipeIngredientsView(
-                                widget.recipe.ingredients),
-                          ]),
-                    ),
+                    new _RecipeDetailBottomView(
+                        widget.recipe.publisher, widget.recipe.ingredients)
                   ]),
             ),
           ),
@@ -136,14 +126,34 @@ class _RecipeDetailImageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Container(
-                      child: new SizedBox(
-                        height: 400.00,
-                        child: new Image.network(
-                          imageUrl,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    );
+      child: new SizedBox(
+        height: 400.00,
+        child: new Image.network(
+          imageUrl,
+          fit: BoxFit.fill,
+        ),
+      ),
+    );
+  }
+}
+
+class _RecipeDetailBottomView extends StatelessWidget {
+  final String publisher;
+  final List<String> ingredients;
+
+  _RecipeDetailBottomView(this.publisher, this.ingredients);
+  @override
+  Widget build(BuildContext context) {
+    return new SizedBox(
+      height: 400.00,
+      child: new Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            new _RecipeDetailPublisherView(publisher),
+            new _RecipeIngredientsView(ingredients),
+          ]),
+    );
   }
 }
 
