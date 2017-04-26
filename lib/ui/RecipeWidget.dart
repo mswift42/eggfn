@@ -87,11 +87,14 @@ class _RecipeDetailState extends State<_RecipeDetailViewer> {
   @override
   Widget build(BuildContext context) {
     final Orientation orientation = MediaQuery.of(context).orientation;
+    final Size size = MediaQuery.of(context).size;
+    final double devicewidth = size.width;
+    final double deviceHeight = size.height;
     return new Container(
       constraints: new BoxConstraints(
-        maxWidth: 800.00,
-        minWidth: 400.00,
-        maxHeight: 1000.00,
+        maxWidth: devicewidth,
+        minWidth: 100.00,
+        maxHeight: deviceHeight,
         minHeight: 200.00,
       ),
       child: new Center(
@@ -99,16 +102,26 @@ class _RecipeDetailState extends State<_RecipeDetailViewer> {
           tag: widget.recipe.imageUrl,
           child: new Card(
             color: Colors.white,
-            child: new SizedBox(
+            child: (orientation == Orientation.portrait) ? new SizedBox(
               height: 800.00,
               child: new Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     new _RecipeDetailImageView(widget.recipe.imageUrl),
                     new _RecipeDetailBottomView(
                         widget.recipe.publisher, widget.recipe.ingredients)
                   ]),
+            ) : new SizedBox.expand(
+              child: new Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  new _RecipeDetailImageView(widget.recipe.imageUrl),
+                  new _RecipeDetailBottomView(widget.recipe.publisher,
+                      widget.recipe.ingredients)
+                ]
+              ),
             ),
           ),
         ),
