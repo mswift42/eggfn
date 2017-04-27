@@ -157,16 +157,21 @@ class _RecipeDetailPublisherView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Container(
-      child: new Expanded(
-        child: new Center(
-          child: new RichText(
-            text: new LinkTextSpan(
-                style: Theme.of(context).textTheme.display2,
-                text: recipe.publisher,
-                url: recipe.publisherUrl),
-          ),
-        ),
-      ),
+      child: new Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            new RaisedButton(
+                onPressed: () => UrlLauncher.launch(recipe.publisherUrl),
+                child: new Text(recipe.publisher,
+                    style: Theme.of(context).textTheme.subhead),
+                color: Theme.of(context).accentColor),
+            new RaisedButton(
+              onPressed: () => UrlLauncher.launch(recipe.sourceUrl),
+              child: new Text("Go To Recipe",
+                  style: Theme.of(context).textTheme.subhead),
+              color: Theme.of(context).accentColor,
+            ),
+          ]),
     );
   }
 }
