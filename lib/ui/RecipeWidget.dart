@@ -86,47 +86,28 @@ class _RecipeDetailState extends State<_RecipeDetailViewer> {
   // TODO (4) switch layout on orientation.
   @override
   Widget build(BuildContext context) {
-    final Orientation orientation = MediaQuery.of(context).orientation;
     final Size size = MediaQuery.of(context).size;
-    final double devicewidth = size.width;
+    final double deviceWidth = size.width;
     final double deviceHeight = size.height;
+    final double dr = MediaQuery.of(context).devicePixelRatio;
     return new Container(
       constraints: new BoxConstraints(
-        maxWidth: devicewidth,
-        minWidth: 100.00,
-        maxHeight: deviceHeight,
-        minHeight: 200.00,
+        maxHeight: deviceWidth,
+        maxWidth:  deviceHeight,
       ),
       child: new Center(
         child: new Hero(
           tag: widget.recipe.imageUrl,
-          child: new Card(
-            color: Colors.white,
-            child: (orientation == Orientation.portrait) ? new SizedBox(
-              height: 800.00,
-              child: new Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    new _RecipeDetailImageView(widget.recipe.imageUrl),
-                    new _RecipeDetailBottomView(
-                        widget.recipe.publisher, widget.recipe.ingredients)
-                  ]),
-            ) : new SizedBox.expand(
-              child: new Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  new _RecipeDetailImageView(widget.recipe.imageUrl),
-                  new _RecipeDetailBottomView(widget.recipe.publisher,
-                      widget.recipe.ingredients)
-                ]
-              ),
-            ),
-          ),
+          child: new Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                new _RecipeDetailImageView(widget.recipe.imageUrl),
+                new _RecipeDetailBottomView(
+                    widget.recipe.publisher, widget.recipe.ingredients)
+              ]),
         ),
       ),
-      padding: new EdgeInsets.fromLTRB(42.0, 20.0, 42.0, 20.0),
     );
   }
 }
@@ -140,10 +121,10 @@ class _RecipeDetailImageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Container(
       child: new SizedBox(
-        height: 400.00,
+        height: MediaQuery.of(context).size.height  / 3.0,
         child: new Image.network(
           imageUrl,
-          fit: BoxFit.fill,
+          fit: BoxFit.fitWidth,
         ),
       ),
     );
@@ -181,7 +162,7 @@ class _RecipeDetailPublisherView extends StatelessWidget {
         child: new Center(
           child: new Text(
             publisher,
-            style: new RecipeStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+            style: Theme.of(context).textTheme.display2,
           ),
         ),
       ),
@@ -201,10 +182,7 @@ class _RecipeIngredientsView extends StatelessWidget {
         new Container(
           child: new Text(
             "Ingredients:",
-            style: new TextStyle(
-              fontWeight: FontWeight.w400,
-              fontSize: 22.0,
-            ),
+            style: Theme.of(context).textTheme.display1,
           ),
           padding: new EdgeInsets.symmetric(vertical: 20.0, horizontal: 0.0),
         ),
@@ -229,6 +207,7 @@ class _RecipeIngredientView extends StatelessWidget {
       child: new Chip(
         label: new Text(
           ingredient,
+          style: Theme.of(context).textTheme.display1,
         ),
       ),
     );
