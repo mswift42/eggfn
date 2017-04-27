@@ -91,11 +91,10 @@ class _RecipeDetailState extends State<_RecipeDetailViewer> {
     final Size size = MediaQuery.of(context).size;
     final double deviceWidth = size.width;
     final double deviceHeight = size.height;
-    final double dr = MediaQuery.of(context).devicePixelRatio;
     return new Container(
       constraints: new BoxConstraints(
         maxHeight: deviceWidth,
-        maxWidth:  deviceHeight,
+        maxWidth: deviceHeight,
       ),
       child: new Center(
         child: new Hero(
@@ -105,8 +104,7 @@ class _RecipeDetailState extends State<_RecipeDetailViewer> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 new _RecipeDetailImageView(widget.recipe.imageUrl),
-                new _RecipeDetailBottomView(
-                    widget.recipe.publisher, widget.recipe.ingredients)
+                new _RecipeDetailBottomView(widget.recipe),
               ]),
         ),
       ),
@@ -123,7 +121,7 @@ class _RecipeDetailImageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Container(
       child: new SizedBox(
-        height: MediaQuery.of(context).size.height  / 3.0,
+        height: MediaQuery.of(context).size.height / 3.0,
         child: new Image.network(
           imageUrl,
           fit: BoxFit.fitWidth,
@@ -134,10 +132,9 @@ class _RecipeDetailImageView extends StatelessWidget {
 }
 
 class _RecipeDetailBottomView extends StatelessWidget {
-  final String publisher;
-  final List<String> ingredients;
+  final Recipe recipe;
 
-  _RecipeDetailBottomView(this.publisher, this.ingredients);
+  _RecipeDetailBottomView(this.recipe);
   @override
   Widget build(BuildContext context) {
     return new SizedBox(
@@ -146,25 +143,27 @@ class _RecipeDetailBottomView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            new _RecipeDetailPublisherView(publisher),
-            new _RecipeIngredientsView(ingredients),
+            new _RecipeDetailPublisherView(recipe),
+            new _RecipeIngredientsView(recipe.ingredients),
           ]),
     );
   }
 }
 
 class _RecipeDetailPublisherView extends StatelessWidget {
-  final String publisher;
+  final Recipe recipe;
 
-  _RecipeDetailPublisherView(this.publisher);
+  _RecipeDetailPublisherView(this.recipe);
   @override
   Widget build(BuildContext context) {
     return new Container(
       child: new Expanded(
         child: new Center(
-          child: new Text(
-            publisher,
-            style: Theme.of(context).textTheme.display2,
+          child: new RichText(
+            text: new LinkTextSpan(
+                style: Theme.of(context).textTheme.display2,
+                text: recipe.publisher,
+                url: recipe.publisherUrl),
           ),
         ),
       ),
@@ -267,14 +266,13 @@ class _FavouriteState extends State<_RecipeFavouriteIcon> {
   }
 }
 
-
 class LinkTextSpan extends TextSpan {
   LinkTextSpan({TextStyle style, String url, String text})
       : super(
-      style: style,
-      text: text ?? url,
-      recognizer: new TapGestureRecognizer()
-        ..onTap = () {
-          UrlLauncher.launch(url);
-        });
+            style: style,
+            text: text ?? url,
+            recognizer: new TapGestureRecognizer()
+              ..onTap = () {
+                UrlLauncher.launch(url);
+              });
 }
