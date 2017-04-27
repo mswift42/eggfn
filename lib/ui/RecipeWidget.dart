@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:eggfn/services/FavouriteService.dart' show FavouriteService;
 import 'package:eggfn/services/Recipe.dart' show Recipe;
+import 'package:flutter/gestures.dart' show TapGestureRecognizer;
+import 'package:flutter/services.dart' show UrlLauncher;
 
 class RecipeStyle extends TextStyle {
   const RecipeStyle({
@@ -263,4 +265,16 @@ class _FavouriteState extends State<_RecipeFavouriteIcon> {
           new IconButton(icon: new Icon(favIcon), onPressed: _toggleFavourite),
     );
   }
+}
+
+
+class LinkTextSpan extends TextSpan {
+  LinkTextSpan({TextStyle style, String url, String text})
+      : super(
+      style: style,
+      text: text ?? url,
+      recognizer: new TapGestureRecognizer()
+        ..onTap = () {
+          UrlLauncher.launch(url);
+        });
 }
