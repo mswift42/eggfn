@@ -103,8 +103,13 @@ class _RecipeDetailState extends State<_RecipeDetailViewer> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                new _RecipeDetailImageView(widget.recipe.imageUrl, deviceHeight / 3.0),
-                new _RecipeDetailBottomView(widget.recipe, deviceHeight / 1.5),
+                new _RecipeDetailImageView(
+                    imageUrl: widget.recipe.imageUrl,
+                    height: deviceHeight / 3.0),
+                new _RecipeDetailBottomView(
+                  recipe: widget.recipe,
+                  height: deviceHeight / 1.5,
+                ),
               ]),
         ),
       ),
@@ -116,7 +121,7 @@ class _RecipeDetailImageView extends StatelessWidget {
   final String imageUrl;
   final double height;
 
-  _RecipeDetailImageView(this.imageUrl, this.height);
+  _RecipeDetailImageView({this.imageUrl, this.height});
 
   @override
   Widget build(BuildContext context) {
@@ -136,11 +141,11 @@ class _RecipeDetailBottomView extends StatelessWidget {
   final Recipe recipe;
   final double height;
 
-  _RecipeDetailBottomView(this.recipe, this.height);
+  _RecipeDetailBottomView({this.recipe, this.height});
   @override
   Widget build(BuildContext context) {
     return new SizedBox(
-      height: MediaQuery.of(context).size.height - MediaQuery.of(context).size.height / 3,
+      height: height,
       child: new Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -185,10 +190,10 @@ class _RecipeIngredientsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-      return new ListView(children:
-              ingredients.map((i) => new _RecipeIngredientView(i)).toList(),
-          itemExtent: 30.00,
-      );
+    return new ListView(
+      children: ingredients.map((i) => new _RecipeIngredientView(i)).toList(),
+      itemExtent: 30.00,
+    );
   }
 }
 
