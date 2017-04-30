@@ -103,8 +103,8 @@ class _RecipeDetailState extends State<_RecipeDetailViewer> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                new _RecipeDetailImageView(widget.recipe.imageUrl),
-                new _RecipeDetailBottomView(widget.recipe),
+                new _RecipeDetailImageView(widget.recipe.imageUrl, deviceHeight / 3.0),
+                new _RecipeDetailBottomView(widget.recipe, deviceHeight / 1.5),
               ]),
         ),
       ),
@@ -114,14 +114,15 @@ class _RecipeDetailState extends State<_RecipeDetailViewer> {
 
 class _RecipeDetailImageView extends StatelessWidget {
   final String imageUrl;
+  final double height;
 
-  _RecipeDetailImageView(this.imageUrl);
+  _RecipeDetailImageView(this.imageUrl, this.height);
 
   @override
   Widget build(BuildContext context) {
     return new Container(
       child: new SizedBox(
-        height: MediaQuery.of(context).size.height / 3.0,
+        height: height,
         child: new Image.network(
           imageUrl,
           fit: BoxFit.fitWidth,
@@ -133,14 +134,15 @@ class _RecipeDetailImageView extends StatelessWidget {
 
 class _RecipeDetailBottomView extends StatelessWidget {
   final Recipe recipe;
+  final double height;
 
-  _RecipeDetailBottomView(this.recipe);
+  _RecipeDetailBottomView(this.recipe, this.height);
   @override
   Widget build(BuildContext context) {
     return new SizedBox(
-      height: 400.00,
+      height: MediaQuery.of(context).size.height - MediaQuery.of(context).size.height / 3,
       child: new Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             new _RecipeDetailPublisherView(recipe),
@@ -183,21 +185,10 @@ class _RecipeIngredientsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
-      child: new Column(children: <Widget>[
-        new Container(
-          child: new Text(
-            "Ingredients:",
-            style: Theme.of(context).textTheme.display1,
-          ),
-          padding: new EdgeInsets.symmetric(vertical: 20.0, horizontal: 0.0),
-        ),
-        new Wrap(
-          children:
+      return new ListView(children:
               ingredients.map((i) => new _RecipeIngredientView(i)).toList(),
-        ),
-      ]),
-    );
+          itemExtent: 30.00,
+      );
   }
 }
 
