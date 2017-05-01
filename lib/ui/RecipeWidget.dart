@@ -4,6 +4,9 @@ import 'package:eggfn/services/Recipe.dart' show Recipe;
 import 'package:flutter/gestures.dart' show TapGestureRecognizer;
 import 'package:flutter/services.dart' show UrlLauncher;
 
+const double _kRecipeDetailAppBarHeight = 128.00;
+const double _kRecipeDetailPublisherHeight = 28.00;
+
 class RecipeStyle extends TextStyle {
   const RecipeStyle({
     double fontSize: 12.0,
@@ -105,11 +108,11 @@ class _RecipeDetailState extends State<_RecipeDetailViewer> {
               children: <Widget>[
                 new _RecipeDetailImageView(
                     imageUrl: widget.recipe.imageUrl,
-                    height: deviceHeight / 3.0),
+                    height: (deviceHeight - _kRecipeDetailAppBarHeight) / 3.0),
                 new _RecipeDetailBottomView(
-                  recipe: widget.recipe,
-                  height: deviceHeight / 1.5,
-                ),
+                    recipe: widget.recipe,
+                    height: deviceHeight -
+                        ((deviceHeight - _kRecipeDetailAppBarHeight) / 3.0)),
               ]),
         ),
       ),
@@ -151,7 +154,8 @@ class _RecipeDetailBottomView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             new _RecipeDetailPublisherView(recipe),
-            new _RecipeIngredientsView(recipe.ingredients),
+            new _RecipeIngredientsView(
+                recipe.ingredients, height - _kRecipeDetailPublisherHeight),
           ]),
     );
   }
@@ -184,15 +188,19 @@ class _RecipeDetailPublisherView extends StatelessWidget {
 }
 
 class _RecipeIngredientsView extends StatelessWidget {
-  _RecipeIngredientsView(this.ingredients);
+  _RecipeIngredientsView(this.ingredients, this.height);
 
   final List<String> ingredients;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
-    return new ListView(
-      children: ingredients.map((i) => new _RecipeIngredientView(i)).toList(),
-      itemExtent: 30.00,
+    return new Container(
+      height: height,
+      child: new ListView(
+        children: ingredients.map((i) => new _RecipeIngredientView(i)).toList(),
+        itemExtent: 30.00,
+      ),
     );
   }
 }
@@ -206,11 +214,9 @@ class _RecipeIngredientView extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Container(
       padding: new EdgeInsets.fromLTRB(22.0, 12.0, 22.0, 10.0),
-      child: new Chip(
-        label: new Text(
-          ingredient,
-          style: Theme.of(context).textTheme.display1,
-        ),
+      child: new Text(
+        ingredient,
+        style: Theme.of(context).textTheme.display1,
       ),
     );
   }
