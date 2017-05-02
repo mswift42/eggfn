@@ -4,7 +4,7 @@ import 'package:eggfn/services/Recipe.dart' show Recipe;
 import 'package:flutter/gestures.dart' show TapGestureRecognizer;
 import 'package:flutter/services.dart' show UrlLauncher;
 
-const double _kRecipeDetailAppBarHeight = 128.00;
+const double _kRecipeDetailAppBarHeight = 120.00;
 const double _kRecipeDetailPublisherHeight = 28.00;
 
 class RecipeStyle extends TextStyle {
@@ -53,7 +53,9 @@ class RecipeImageWidget extends StatelessWidget {
     Navigator.push(context,
         new MaterialPageRoute(builder: (BuildContext context) {
       return new Scaffold(
-        appBar: new AppBar(title: new Text(recipe.title)),
+        appBar: new AppBar(
+          title: new Text(recipe.title),
+        ),
         body: new FittedBox(
           fit: BoxFit.contain,
           child: new Hero(
@@ -94,27 +96,27 @@ class _RecipeDetailState extends State<_RecipeDetailViewer> {
     final Size size = MediaQuery.of(context).size;
     final double deviceWidth = size.width;
     final double deviceHeight = size.height;
+    final double imageHeight = deviceHeight / 3.0;
+    final double bottomHeight =
+        deviceHeight - (imageHeight + _kRecipeDetailAppBarHeight);
     return new Container(
-      constraints: new BoxConstraints(
-        maxHeight: deviceWidth,
-        maxWidth: deviceHeight,
-      ),
-      child: new Center(
-        child: new Hero(
-          tag: widget.recipe.imageUrl,
-          child: new Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                new _RecipeDetailImageView(
-                    imageUrl: widget.recipe.imageUrl,
-                    height: (deviceHeight - _kRecipeDetailAppBarHeight) / 3.0),
-                new _RecipeDetailBottomView(
-                    recipe: widget.recipe,
-                    height: deviceHeight -
-                        ((deviceHeight - _kRecipeDetailAppBarHeight) / 3.0)),
-              ]),
-        ),
+      width: deviceWidth,
+      height: deviceHeight,
+      child: new Hero(
+        tag: widget.recipe.imageUrl,
+        child: new Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              new _RecipeDetailImageView(
+                imageUrl: widget.recipe.imageUrl,
+                height: imageHeight,
+              ),
+              new _RecipeDetailBottomView(
+                recipe: widget.recipe,
+                height: bottomHeight,
+              ),
+            ]),
       ),
     );
   }
@@ -133,7 +135,7 @@ class _RecipeDetailImageView extends StatelessWidget {
         height: height,
         child: new Image.network(
           imageUrl,
-          fit: BoxFit.fitWidth,
+          fit: BoxFit.fill,
         ),
       ),
     );
@@ -167,7 +169,7 @@ class _RecipeDetailPublisherView extends StatelessWidget {
   _RecipeDetailPublisherView(this.recipe);
   @override
   Widget build(BuildContext context) {
-    return new Container(
+    return new Material(
       child: new Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
@@ -198,8 +200,8 @@ class _RecipeIngredientsView extends StatelessWidget {
     return new Container(
       height: height,
       child: new ListView(
+        itemExtent: 22.0,
         children: ingredients.map((i) => new _RecipeIngredientView(i)).toList(),
-        itemExtent: 30.00,
       ),
     );
   }
@@ -213,10 +215,13 @@ class _RecipeIngredientView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Container(
-      padding: new EdgeInsets.fromLTRB(22.0, 12.0, 22.0, 10.0),
+      padding: new EdgeInsets.symmetric(
+        vertical: 12.0,
+        horizontal: 4.0,
+      ),
       child: new Text(
         ingredient,
-        style: Theme.of(context).textTheme.display1,
+        style: Theme.of(context).textTheme.body1,
       ),
     );
   }
