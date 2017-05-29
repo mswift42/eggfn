@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:eggfn/services/FavouriteService.dart' show FavouriteService;
 import 'package:eggfn/services/Recipe.dart' show Recipe;
 import 'package:flutter/gestures.dart' show TapGestureRecognizer;
-import 'package:flutter/services.dart' show UrlLauncher;
+import 'package:url_launcher/url_launcher.dart';
 
 const double _kRecipeDetailAppBarHeight = 120.00;
 const double _kRecipeDetailPublisherHeight = 28.00;
@@ -176,21 +176,28 @@ class _RecipeDetailPublisherView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Material(
-      child: new Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            new RaisedButton(
-                onPressed: () => UrlLauncher.launch(recipe.publisherUrl),
-                child: new Text(recipe.publisher,
+      child: new Container(
+        margin: new EdgeInsets.symmetric(vertical: 12.0),
+        child: new Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              new RaisedButton(
+                  onPressed: () {
+                    _launchUrl(recipe.publisherUrl);
+                  },
+                  child: new Text(recipe.publisher,
+                      style: Theme.of(context).textTheme.subhead),
+                  color: Theme.of(context).accentColor),
+              new RaisedButton(
+                onPressed: () {
+                  _launchUrl(recipe.sourceUrl);
+                },
+                child: new Text("Go To Recipe",
                     style: Theme.of(context).textTheme.subhead),
-                color: Theme.of(context).accentColor),
-            new RaisedButton(
-              onPressed: () => UrlLauncher.launch(recipe.sourceUrl),
-              child: new Text("Go To Recipe",
-                  style: Theme.of(context).textTheme.subhead),
-              color: Theme.of(context).accentColor,
-            ),
-          ]),
+                color: Theme.of(context).accentColor,
+              ),
+            ]),
+      ),
     );
   }
 }
@@ -290,6 +297,14 @@ class LinkTextSpan extends TextSpan {
             text: text ?? url,
             recognizer: new TapGestureRecognizer()
               ..onTap = () {
-                UrlLauncher.launch(url);
+                launch(url);
               });
+}
+
+_launchUrl(String url) async {
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw "Could not launch $url";
+  }
 }
