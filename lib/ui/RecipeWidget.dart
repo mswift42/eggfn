@@ -90,18 +90,24 @@ class _RecipeDetailViewer extends StatefulWidget {
 }
 
 class _RecipeDetailState extends State<_RecipeDetailViewer> {
-  // TODO (4) switch layout on orientation.
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final double deviceWidth = size.width;
     final double deviceHeight = size.height;
     final double imageHeight = deviceHeight / 3.0;
-    final double bottomHeight =
-        deviceHeight - (imageHeight + _kRecipeDetailAppBarHeight);
+    final double appBarHeight = new AppBar().preferredSize.height;
+    final double bottomHeight = deviceHeight -
+        imageHeight -
+        appBarHeight -
+        MediaQuery.of(context).padding.top -
+        MediaQuery.of(context).padding.bottom;
     return new Container(
       width: deviceWidth,
-      height: deviceHeight,
+      height: deviceHeight -
+          new AppBar().preferredSize.height -
+          MediaQuery.of(context).padding.top -
+          MediaQuery.of(context).padding.bottom,
       child: new Hero(
         tag: widget.recipe.imageUrl,
         child: new Column(
@@ -197,8 +203,7 @@ class _RecipeIngredientsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
-      height: height,
+    return new Expanded(
       child: new ListView(
         itemExtent: 22.0,
         children: ingredients.map((i) => new _RecipeIngredientView(i)).toList(),
