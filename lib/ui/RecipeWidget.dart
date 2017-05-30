@@ -187,14 +187,14 @@ class _RecipeDetailPublisherView extends StatelessWidget {
                   },
                   child: new Text(recipe.publisher,
                       style: Theme.of(context).textTheme.subhead),
-                  color: Theme.of(context).accentColor),
+                  ),
               new RaisedButton(
                 onPressed: () {
                   _launchUrl(recipe.sourceUrl);
                 },
                 child: new Text("Go To Recipe",
-                    style: Theme.of(context).textTheme.subhead),
-                color: Theme.of(context).accentColor,
+                    style: Theme.of(context).textTheme.subhead,
+                ),
               ),
             ]),
       ),

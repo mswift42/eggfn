@@ -22,9 +22,10 @@ class EggCrackinApp extends StatelessWidget {
         // Notice that the counter didn't reset back to zero -- the application
         // is not restarted.
         brightness: Brightness.light,
-        primaryColor: Colors.yellow[800],
-        accentColor: Colors.deepOrange[200],
-        dividerColor: Colors.deepOrange[500],
+        primaryColor: Colors.blueGrey[400],
+        accentColor: Colors.pink,
+        dividerColor: Colors.grey[400],
+        buttonColor: Colors.grey[200],
       ),
       home: new MyHomePage(title: 'EggCrackin!'),
     );
