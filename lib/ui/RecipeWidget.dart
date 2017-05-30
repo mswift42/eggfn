@@ -181,20 +181,17 @@ class _RecipeDetailPublisherView extends StatelessWidget {
         child: new Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              new RaisedButton(
+              new FloatingActionButton(
                   onPressed: () {
                     _launchUrl(recipe.publisherUrl);
                   },
-                  child: new Text(recipe.publisher,
-                      style: Theme.of(context).textTheme.subhead),
+                  child: new Icon(Icons.shop),
                   ),
-              new RaisedButton(
+              new FloatingActionButton(
                 onPressed: () {
                   _launchUrl(recipe.sourceUrl);
                 },
-                child: new Text("Go To Recipe",
-                    style: Theme.of(context).textTheme.subhead,
-                ),
+                child: new Icon(Icons.list),
               ),
             ]),
       ),
