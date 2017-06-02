@@ -3,6 +3,16 @@ import 'RecipeWidget.dart' show RecipeWidget;
 import 'package:eggfn/services/Recipe.dart';
 import 'package:eggfn/services/MockRecipeService.dart' show mockrecipes;
 
+class EggCrackin extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return new MaterialApp(
+      home: new RecipesHome(),
+    );
+  }
+}
+
 class RecipeSearch extends StatefulWidget {
 
   @override
