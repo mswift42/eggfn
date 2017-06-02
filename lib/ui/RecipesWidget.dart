@@ -9,6 +9,7 @@ class EggCrackin extends StatelessWidget {
   Widget build(BuildContext context) {
     return new MaterialApp(
       home: new RecipesHome(),
+      theme: _kThemeData,
     );
   }
 }
@@ -58,3 +59,12 @@ class _RecipesState extends State<RecipesWidget> {
     );
   }
 }
+
+
+final _kThemeData = new ThemeData(
+  brightness: Brightness.light,
+  primarySwatch: Colors.blueGrey,
+  accentColor: Colors.pink,
+  buttonColor: Colors.grey[200],
+  dividerColor: Colors.grey[400],
+);
