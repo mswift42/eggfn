@@ -13,6 +13,19 @@ class EggCrackin extends StatelessWidget {
   }
 }
 
+class RecipesHome extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text("EggCrackin!"),
+      ),
+    body: new RecipesWidget(),
+    );
+  }
+}
+
 class RecipeSearch extends StatefulWidget {
 
   @override
@@ -23,7 +36,7 @@ class _RecipeSearchState extends State<RecipeSearch> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    return new Container();
   }
 }
 
