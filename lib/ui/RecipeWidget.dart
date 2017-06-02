@@ -102,28 +102,28 @@ class _RecipeDetailState extends State<_RecipeDetailViewer> {
         appBarHeight -
         MediaQuery.of(context).padding.top -
         MediaQuery.of(context).padding.bottom;
-    return new Container(
-      width: deviceWidth,
-      height: deviceHeight -
-          new AppBar().preferredSize.height -
-          MediaQuery.of(context).padding.top -
-          MediaQuery.of(context).padding.bottom,
-      child: new Hero(
-        tag: widget.recipe.imageUrl,
-        child: new Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              new _RecipeDetailImageView(
-                imageUrl: widget.recipe.imageUrl,
-                height: imageHeight,
-              ),
-              new _RecipeDetailBottomView(
-                recipe: widget.recipe,
-                height: bottomHeight,
-              ),
-            ]),
-      ),
+      return new Container(
+        width: deviceWidth,
+        height: deviceHeight -
+            new AppBar().preferredSize.height -
+            MediaQuery.of(context).padding.top -
+            MediaQuery.of(context).padding.bottom,
+        child: new Hero(
+          tag: widget.recipe.imageUrl,
+          child: new Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                new _RecipeDetailImageView(
+                  imageUrl: widget.recipe.imageUrl,
+                  height: imageHeight,
+                ),
+                new _RecipeDetailBottomView(
+                  recipe: widget.recipe,
+                  height: bottomHeight,
+                ),
+              ]),
+        ),
     );
   }
 }
@@ -162,6 +162,11 @@ class _RecipeDetailBottomView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             new _RecipeDetailPublisherView(recipe),
+            new Container(
+              child: new Text("Ingredients:",
+                  style: Theme.of(context).textTheme.subhead),
+              margin: new EdgeInsets.symmetric(vertical: 16.0),
+            ),
             new _RecipeIngredientsView(
                 recipe.ingredients, height - _kRecipeDetailPublisherHeight),
           ]),
@@ -227,8 +232,8 @@ class _RecipeIngredientView extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Container(
       padding: new EdgeInsets.symmetric(
-        vertical: 12.0,
-        horizontal: 4.0,
+        vertical: 22.0,
+        horizontal: 12.0,
       ),
       child: new Text(
         ingredient,
