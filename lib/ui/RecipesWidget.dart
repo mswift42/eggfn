@@ -21,6 +21,10 @@ class RecipesHome extends StatelessWidget {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text("EggCrackin!"),
+        actions: <Widget>[
+          new IconButton(icon: const Icon(Icons.search),
+          onPressed: null),
+        ],
       ),
     body: new RecipesWidget(),
     );
