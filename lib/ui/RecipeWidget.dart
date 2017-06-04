@@ -240,11 +240,21 @@ class _RecipeIngredientView extends StatelessWidget {
         vertical: 22.0,
         horizontal: 12.0,
       ),
-      child: new Text(
-        ingredient,
-        textAlign: TextAlign.left,
-        style: Theme.of(context).textTheme.body1,
-      ),
+      child: new Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            new Container(
+              margin: new EdgeInsets.symmetric(horizontal: 20.0),
+            ),
+            new Text(
+              ingredient,
+              textAlign: TextAlign.left,
+              style: Theme.of(context).textTheme.body1,
+            ),
+            new Container(
+              margin: new EdgeInsets.symmetric(horizontal: 20.0),
+            ),
+          ]),
     );
   }
 }
