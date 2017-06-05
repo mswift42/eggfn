@@ -22,7 +22,8 @@ class RecipesHome extends StatelessWidget {
       appBar: new AppBar(
         title: new Text("EggCrackin!"),
         actions: <Widget>[
-          new IconButton(icon: const Icon(Icons.search),
+          new IconButton(icon: const Icon(Icons.search,
+            color: Colors.white),
           onPressed: null),
         ],
       ),
