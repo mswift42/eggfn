@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'RecipeWidget.dart' show RecipeWidget;
 import 'package:eggfn/services/Recipe.dart';
 import 'package:eggfn/services/MockRecipeService.dart' show mockrecipes;
+import 'dart:async';
 
 class EggCrackin extends StatelessWidget {
 
@@ -22,8 +23,8 @@ class RecipesHome extends StatelessWidget {
       appBar: new AppBar(
         title: new Text("EggCrackin!"),
         actions: <Widget>[
-          new IconButton(icon: const Icon(Icons.search,
-            color: Colors.white),
+          new IconButton(icon: new Icon(Icons.search,
+            color: Theme.of(context).buttonColor),
           onPressed: null),
         ],
       ),
@@ -73,3 +74,16 @@ final _kThemeData = new ThemeData(
   buttonColor: Colors.grey[200],
   dividerColor: Colors.grey[400],
 );
+
+class SearchStream extends Stream<bool> {
+
+  Stream<bool> _source;
+  StreamController<bool> _controller;
+  StreamSubscription<bool> _subscription;
+
+  @override
+  StreamSubscription<bool> listen(void onData(bool event), {Function onError, void onDone(), bool cancelOnError}) {
+    return _controller.stream.listen(onData, onError: onError,
+    onDone: onDone, cancelOnError: cancelOnError);
+  }
+}
