@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'RecipeWidget.dart' show RecipeWidget;
 import 'package:eggfn/services/Recipe.dart';
 import 'package:eggfn/services/MockRecipeService.dart' show mockrecipes;
+import 'package:flutter/foundation.dart';
 import 'dart:async';
 
 class EggCrackin extends StatelessWidget {
@@ -47,16 +48,23 @@ class _RecipeSearchState extends State<RecipeSearch> {
   }
 }
 
-class RecipesWidget extends StatefulWidget {
-
-
+class RecipesWidget extends AnimatedWidget {
+  final Listenable listenable;
+  RecipesWidget(this.listenable);
   @override
   _RecipesState createState() => new _RecipesState();
 }
 
 class _RecipesState extends State<RecipesWidget> {
+  _RecipesState();
   final List<Recipe> recipes = mockrecipes;
 
+  @override
+  initState() {
+    super.initState();
+    widget.listenable.addListener(_handleChange);
+  }
+  void _handleChange() {}
   @override
   Widget build(BuildContext context) {
     return new GridView.extent(children: mockrecipes.map((i) => new
