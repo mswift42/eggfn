@@ -74,16 +74,3 @@ final _kThemeData = new ThemeData(
   buttonColor: Colors.grey[200],
   dividerColor: Colors.grey[400],
 );
-
-class SearchStream extends Stream<bool> {
-
-  Stream<bool> _source;
-  StreamController<bool> _controller;
-  StreamSubscription<bool> _subscription;
-
-  @override
-  StreamSubscription<bool> listen(void onData(bool event), {Function onError, void onDone(), bool cancelOnError}) {
-    return _controller.stream.listen(onData, onError: onError,
-    onDone: onDone, cancelOnError: cancelOnError);
-  }
-}
