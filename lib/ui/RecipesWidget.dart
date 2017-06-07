@@ -6,7 +6,6 @@ import 'package:flutter/foundation.dart';
 import 'dart:async';
 
 class EggCrackin extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -17,40 +16,34 @@ class EggCrackin extends StatelessWidget {
 }
 
 class RecipesHome extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text("EggCrackin!"),
         actions: <Widget>[
-          new IconButton(icon: new Icon(Icons.search,
-            color: Theme.of(context).buttonColor),
-          onPressed: null),
+          new IconButton(
+              icon:
+                  new Icon(Icons.search, color: Theme.of(context).buttonColor),
+              onPressed: null),
         ],
       ),
-    body: new RecipesWidget(),
+      body: new RecipesWidget(),
     );
   }
 }
 
-class RecipeSearch extends StatefulWidget {
-
-  @override
-  _RecipeSearchState createState() => new _RecipeSearchState();
-}
-
-class _RecipeSearchState extends State<RecipeSearch> {
+class RecipeSearch extends AnimatedWidget {
+  final ValueNotifier<bool> open;
+  RecipeSearch({@required this.open}) : super(listenable: open);
 
   @override
   Widget build(BuildContext context) {
-    return new Container();
+    return
   }
 }
 
-class RecipesWidget extends AnimatedWidget {
-  final Listenable listenable;
-  RecipesWidget(this.listenable);
+class RecipesWidget extends StatefulWidget {
   @override
   _RecipesState createState() => new _RecipesState();
 }
@@ -60,20 +53,12 @@ class _RecipesState extends State<RecipesWidget> {
   final List<Recipe> recipes = mockrecipes;
 
   @override
-  initState() {
-    super.initState();
-    widget.listenable.addListener(_handleChange);
-  }
-  void _handleChange() {}
-  @override
   Widget build(BuildContext context) {
-    return new GridView.extent(children: mockrecipes.map((i) => new
-    RecipeWidget(i)).toList(),
-      maxCrossAxisExtent: 340.00
-    );
+    return new GridView.extent(
+        children: mockrecipes.map((i) => new RecipeWidget(i)).toList(),
+        maxCrossAxisExtent: 340.00);
   }
 }
-
 
 final _kThemeData = new ThemeData(
   brightness: Brightness.light,
