@@ -45,27 +45,20 @@ class RecipesHomeState  extends State<RecipesHome> {
     );
   }
 }
-
+// TODO Add Empty Container / TextInput children widgets.
 class RecipeSearch extends AnimatedWidget {
   final ValueNotifier<bool> open;
-  bool showInput = false;
   RecipeSearch({@required this.open}) : super(listenable: open);
   @override
-  void initState() {
-    open.addListener(toggleInput);
-  }
-  void toggleInput() {
-    showInput = !showInput;
-  }
-  @override
   Widget build(BuildContext context) {
-    return new Container();
+    return new Container(
+      child: open.value ? new Text("open") : new Text("not open"),
+    );
   }
-  @override
-  void dispose() {
-    open.removeListener(toggleInput);
-  }
+
 }
+
+
 
 class RecipesWidget extends StatefulWidget {
   final ValueNotifier<bool> open;
