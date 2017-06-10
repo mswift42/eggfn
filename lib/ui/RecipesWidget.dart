@@ -15,7 +15,20 @@ class EggCrackin extends StatelessWidget {
   }
 }
 
-class RecipesHome extends StatelessWidget {
+class RecipesHome extends StatefulWidget {
+
+  RecipesHomeState createState() => new RecipesHomeState();
+}
+
+class RecipesHomeState  extends State<RecipesHome> {
+  ValueNotifier<bool> open = new ValueNotifier<bool>(false);
+
+
+  void _handlePress() {
+    setState(() {
+      open.value = !open.value;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -25,25 +38,38 @@ class RecipesHome extends StatelessWidget {
           new IconButton(
               icon:
                   new Icon(Icons.search, color: Theme.of(context).buttonColor),
-              onPressed: null),
+              onPressed: _handlePress),
         ],
       ),
-      body: new RecipesWidget(),
+      body: new RecipesWidget(open),
     );
   }
 }
 
 class RecipeSearch extends AnimatedWidget {
   final ValueNotifier<bool> open;
+  bool showInput = false;
   RecipeSearch({@required this.open}) : super(listenable: open);
-
+  @override
+  void initState() {
+    open.addListener(toggleInput);
+  }
+  void toggleInput() {
+    showInput = !showInput;
+  }
   @override
   Widget build(BuildContext context) {
-    return
+    return new Container();
+  }
+  @override
+  void dispose() {
+    open.removeListener(toggleInput);
   }
 }
 
 class RecipesWidget extends StatefulWidget {
+  final ValueNotifier<bool> open;
+  RecipesWidget(this.open);
   @override
   _RecipesState createState() => new _RecipesState();
 }
