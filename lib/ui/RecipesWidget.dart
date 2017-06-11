@@ -58,8 +58,26 @@ class RecipeSearch extends AnimatedWidget {
 
 }
 
+class RecipeSearchInput extends StatefulWidget {
 
+  _RecipeSearchInputState createState() => new _RecipeSearchInputState();
+}
 
+class _RecipeSearchInputState extends State<RecipeSearchInput> {
+  final TextEditingController _controller = new TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return new TextField(
+      controller: _controller,
+      onSubmitted: _handleSubmit,
+    );
+  }
+
+  void _handleSubmit(String text) {
+    print(text);
+  }
+}
 class RecipesWidget extends StatefulWidget {
   final ValueNotifier<bool> open;
   RecipesWidget(this.open);
