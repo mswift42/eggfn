@@ -55,7 +55,7 @@ class RecipeSearch extends AnimatedWidget {
       firstChild: new Container(),
       secondChild: new RecipeSearchInput(),
       crossFadeState: open.value ? CrossFadeState.showSecond : CrossFadeState.showFirst,
-      duration: new Duration(milliseconds: 400),
+      duration: new Duration(milliseconds: 300),
     );
   }
 
@@ -74,6 +74,10 @@ class _RecipeSearchInputState extends State<RecipeSearchInput> {
     return new TextField(
       controller: _controller,
       onSubmitted: _handleSubmit,
+      decoration: new InputDecoration(
+        hintText: "Search for Recipes or Ingredients"
+      ),
+
     );
   }
 
