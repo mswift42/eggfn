@@ -51,8 +51,11 @@ class RecipeSearch extends AnimatedWidget {
   RecipeSearch({@required this.open}) : super(listenable: open);
   @override
   Widget build(BuildContext context) {
-    return new Container(
-      child: open.value ? new Text("open") : new Text("not open"),
+    return new AnimatedCrossFade(
+      firstChild: new Container(),
+      secondChild: new RecipeSearchInput(),
+      crossFadeState: open.value ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+      duration: new Duration(milliseconds: 400),
     );
   }
 
@@ -91,9 +94,15 @@ class _RecipesState extends State<RecipesWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return new GridView.extent(
+
+    return new Column(children: <Widget>[
+      new RecipeSearch(open: widget.open),
+    new Expanded(child:
+    new GridView.extent(
         children: mockrecipes.map((i) => new RecipeWidget(i)).toList(),
-        maxCrossAxisExtent: 340.00);
+        maxCrossAxisExtent: 340.00),
+    ),
+    ]);
   }
 }
 
