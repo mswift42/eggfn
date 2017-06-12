@@ -10,4 +10,9 @@ void main() {
       expect(map.theme.accentColor, Colors.pink);
       expect(map.theme.buttonColor, Colors.grey[200]);
   });
+  testWidgets('Eggcrackin Widgets home is RecipesHome', (WidgetTester tester) async {
+    await tester.pumpWidget(new EggCrackin());
+    MaterialApp map = tester.widget(find.byType(MaterialApp));
+    expect(map.home.toString(), 'RecipesHome');
+  });
 }
