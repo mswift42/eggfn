@@ -15,4 +15,9 @@ void main() {
     MaterialApp map = tester.widget(find.byType(MaterialApp));
     expect(map.home.toString(), 'RecipesHome');
   });
+  testWidgets('RecipesHome is a Scaffold Widget', (WidgetTester tester) async {
+    await tester.pumpWidget(new MaterialApp(home: new RecipesHome()));
+    Scaffold scf = tester.widget(find.byType(Scaffold));
+    expect(scf.appBar.toString(), 'AppBar');
+  });
 }
