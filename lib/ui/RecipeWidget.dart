@@ -36,8 +36,8 @@ class RecipeWidget extends StatelessWidget {
         child: new GridTile(
             child: new RecipeImageWidget(recipe),
             footer: new GridTileBar(
-              title: new _RecipeText(recipe.title),
-              subtitle: new _RecipeText(recipe.publisher),
+              title: new RecipeText(recipe.title),
+              subtitle: new RecipeText(recipe.publisher),
               backgroundColor: Colors.black45,
               trailing: new _RecipeFavouriteIcon(recipe.recipeID),
             )),
@@ -259,8 +259,8 @@ class _RecipeIngredientView extends StatelessWidget {
   }
 }
 
-class _RecipeText extends StatelessWidget {
-  _RecipeText(this.title);
+class RecipeText extends StatelessWidget {
+  RecipeText(this.title);
 
   final String title;
 
