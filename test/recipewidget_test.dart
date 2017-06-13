@@ -10,6 +10,7 @@ void main() {
     await tester.pumpWidget(new RecipeText("testtitle"));
     FittedBox fb = tester.widget(find.byType(FittedBox));
     expect(fb.child.toString() , "Text(\"testtitle\")");
+    expect(fb.fit, BoxFit.scaleDown);
     await tester.pump();
     expect(find.text("testtitle"), findsOneWidget);
   });
