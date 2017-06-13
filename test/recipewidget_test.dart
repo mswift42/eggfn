@@ -5,7 +5,12 @@ import 'package:eggfn/services/Recipe.dart';
 import 'package:eggfn/services/MockRecipeService.dart';
 
 void main() {
-  testWidgets('RecipeWidget is a Container Widget', (WidgetTester tester) async {
-    await tester.pumpWidget(new RecipeWidget(recipe))
+  Recipe rec = mockrecipes[0];
+  testWidgets('RecipeText has a Text child', (WidgetTester tester) async {
+    await tester.pumpWidget(new RecipeText("testtitle"));
+    FittedBox fb = tester.widget(find.byType(FittedBox));
+    expect(fb.child.toString() , "Text(\"testtitle\")");
+    await tester.pump();
+    expect(find.text("testtitle"), findsOneWidget);
   });
 }
