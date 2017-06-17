@@ -9,9 +9,14 @@ void main() {
   testWidgets('RecipeText has a Text child', (WidgetTester tester) async {
     await tester.pumpWidget(new RecipeText("testtitle"));
     FittedBox fb = tester.widget(find.byType(FittedBox));
-    expect(fb.child.toString() , "Text(\"testtitle\")");
+    expect(fb.child.toString(), "Text(\"testtitle\")");
     expect(fb.fit, BoxFit.scaleDown);
-    await tester.pump();
     expect(find.text("testtitle"), findsOneWidget);
+  });
+  testWidgets('RecipeDetailPublisherView has two icon buttons',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(new RecipeDetailPublisherView(rec));
+    Container con = tester.widget(find.byType(Container));
+    expect(con.child.children.length, 2);
   });
 }
