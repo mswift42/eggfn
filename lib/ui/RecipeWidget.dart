@@ -60,7 +60,7 @@ class RecipeImageWidget extends StatelessWidget {
           fit: BoxFit.contain,
           child: new Hero(
             tag: recipe.recipeID,
-            child: new _RecipeDetailViewer(recipe),
+            child: new RecipeDetailViewer(recipe),
           ),
         ),
       );
@@ -81,15 +81,15 @@ class RecipeImageWidget extends StatelessWidget {
   }
 }
 
-class _RecipeDetailViewer extends StatefulWidget {
+class RecipeDetailViewer extends StatefulWidget {
   final Recipe recipe;
-  _RecipeDetailViewer(this.recipe);
+  RecipeDetailViewer(this.recipe);
 
   @override
   _RecipeDetailState createState() => new _RecipeDetailState();
 }
 
-class _RecipeDetailState extends State<_RecipeDetailViewer> {
+class _RecipeDetailState extends State<RecipeDetailViewer> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
