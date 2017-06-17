@@ -161,7 +161,7 @@ class RecipeDetailBottomView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            new _RecipeDetailPublisherView(recipe),
+            new RecipeDetailPublisherView(recipe),
             new Container(
               child: new Text("Ingredients:",
                   style: Theme.of(context).textTheme.subhead),
@@ -179,10 +179,10 @@ class RecipeDetailBottomView extends StatelessWidget {
   }
 }
 
-class _RecipeDetailPublisherView extends StatelessWidget {
+class RecipeDetailPublisherView extends StatelessWidget {
   final Recipe recipe;
 
-  _RecipeDetailPublisherView(this.recipe);
+  RecipeDetailPublisherView(this.recipe);
   @override
   Widget build(BuildContext context) {
     return new Material(

@@ -45,7 +45,6 @@ class RecipesHomeState  extends State<RecipesHome> {
     );
   }
 }
-// TODO Add Empty Container / TextInput children widgets.
 class RecipeSearch extends AnimatedWidget {
   final ValueNotifier<bool> open;
   RecipeSearch({@required this.open}) : super(listenable: open);
@@ -82,10 +81,13 @@ class _RecipeSearchInputState extends State<RecipeSearchInput> {
   }
 
   void _handleSubmit(String text) {
+    // TODO Search using food2fork api.
+   // TODO setup streambuilder to load recipes.
     print(text);
   }
 }
 class RecipesWidget extends StatefulWidget {
+  // TODO load recipes asynchronously.
   final ValueNotifier<bool> open;
   RecipesWidget(this.open);
   @override
