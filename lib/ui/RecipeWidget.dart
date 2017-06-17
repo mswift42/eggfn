@@ -114,11 +114,11 @@ class _RecipeDetailState extends State<RecipeDetailViewer> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              new _RecipeDetailImageView(
+              new RecipeDetailImageView(
                 imageUrl: widget.recipe.imageUrl,
                 height: imageHeight,
               ),
-              new _RecipeDetailBottomView(
+              new RecipeDetailBottomView(
                 recipe: widget.recipe,
                 height: bottomHeight,
               ),
@@ -128,11 +128,11 @@ class _RecipeDetailState extends State<RecipeDetailViewer> {
   }
 }
 
-class _RecipeDetailImageView extends StatelessWidget {
+class RecipeDetailImageView extends StatelessWidget {
   final String imageUrl;
   final double height;
 
-  _RecipeDetailImageView({this.imageUrl, this.height});
+  RecipeDetailImageView({this.imageUrl, this.height});
 
   @override
   Widget build(BuildContext context) {
@@ -148,11 +148,11 @@ class _RecipeDetailImageView extends StatelessWidget {
   }
 }
 
-class _RecipeDetailBottomView extends StatelessWidget {
+class RecipeDetailBottomView extends StatelessWidget {
   final Recipe recipe;
   final double height;
 
-  _RecipeDetailBottomView({this.recipe, this.height});
+  RecipeDetailBottomView({this.recipe, this.height});
   @override
   Widget build(BuildContext context) {
     return new SizedBox(
