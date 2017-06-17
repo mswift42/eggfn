@@ -17,6 +17,7 @@ void main() {
       (WidgetTester tester) async {
     await tester.pumpWidget(new RecipeDetailPublisherView(rec));
     Container con = tester.widget(find.byType(Container));
-    expect(con.child.children.length, 2);
+    Row row = con.child;
+    expect(row.children.length, 2);
   });
 }
