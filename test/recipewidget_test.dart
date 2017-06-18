@@ -16,8 +16,25 @@ void main() {
   testWidgets('RecipeDetailPublisherView has two icon buttons',
       (WidgetTester tester) async {
     await tester.pumpWidget(new RecipeDetailPublisherView(rec));
-    Container con = tester.widget(find.byType(Container));
-    Row row = con.child;
-    expect(row.children.length, 2);
+    expect(find.byType(IconButton), findsNWidgets(2));
+  });
+  testWidgets('RecipeDetailImageView has a set height',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(new RecipeDetailImageView(
+      height: 400.00,
+      imageUrl: rec.imageUrl,
+    ));
+    expect(find.byType(Container), findsOneWidget);
+    SizedBox sb = tester.widget(find.byType(SizedBox));
+    expect(sb.height, 400.00);
+  });
+  testWidgets("RecipeDetailViewer's build method returns a Container Widget",
+      (WidgetTester tester) async {
+    await tester.pumpWidget(new MaterialApp(
+      home: new Scaffold(
+        body: new RecipeDetailViewer(rec),
+      ),
+    ));
+    expect(find.byType(Hero), findsOneWidget);
   });
 }
