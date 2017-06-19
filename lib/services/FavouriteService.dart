@@ -19,9 +19,24 @@ class FavouriteService {
   bool isFavourite(String recipeid) {
     return _favourites.contains(recipeid);
   }
+  void restoreFavourites()  {
+    _readFavourites().then((String contents) {
+      _favourites = contents.split(",").toSet();
+    });
+  }
 
   Future<File> _getLocalFile() async {
     String dir = (await getApplicationDocumentsDirectory()).path;
     return new File('$dir/favourites.txt');
+  }
+
+  Future<String> _readFavourites() async {
+    try {
+      File file = await _getLocalFile();
+      String contents = await file.readAsString();
+      return contents;
+    } on FileSystemException {
+      return "";
+    }
   }
 }
