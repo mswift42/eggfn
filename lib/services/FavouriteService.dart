@@ -39,4 +39,9 @@ class FavouriteService {
       return "";
     }
   }
+
+  Future<Null> saveFavourites() async {
+    String contents = _favourites.join(",");
+    await (await _getLocalFile()).writeAsString(contents);
+  }
 }
