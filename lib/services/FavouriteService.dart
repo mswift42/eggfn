@@ -1,6 +1,9 @@
+import 'dart:io';
+import 'dart:async';
+import 'package:path_provider/path_provider.dart'
+    show getApplicationDocumentsDirectory;
 
 class FavouriteService {
-
   Set<String> _favourites = new Set<String>();
 
   Set<String> get favourites => _favourites;
@@ -17,6 +20,8 @@ class FavouriteService {
     return _favourites.contains(recipeid);
   }
 
-
-
+  Future<File> _getLocalFile() async {
+    String dir = (await getApplicationDocumentsDirectory()).path;
+    return new File('$dir/favourites.txt');
+  }
 }
