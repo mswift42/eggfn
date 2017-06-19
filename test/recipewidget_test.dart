@@ -28,7 +28,7 @@ void main() {
     SizedBox sb = tester.widget(find.byType(SizedBox));
     expect(sb.height, 400.00);
   });
-  testWidgets("RecipeDetailViewer's build method returns a Container Widget",
+  testWidgets('RecipeDetailViewer has all Children Widgets',
       (WidgetTester tester) async {
     await tester.pumpWidget(new MaterialApp(
       home: new Scaffold(
@@ -36,5 +36,8 @@ void main() {
       ),
     ));
     expect(find.byType(Hero), findsOneWidget);
+    expect(find.byType(Container), findsWidgets);
+    expect(find.byType(RecipeDetailImageView), findsOneWidget);
+    expect(find.byType(RecipeDetailBottomView), findsOneWidget);
   });
 }
