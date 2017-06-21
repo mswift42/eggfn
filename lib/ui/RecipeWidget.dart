@@ -39,7 +39,7 @@ class RecipeWidget extends StatelessWidget {
               title: new RecipeText(recipe.title),
               subtitle: new RecipeText(recipe.publisher),
               backgroundColor: Colors.black45,
-              trailing: new RecipeFavouriteIcon(recipe.recipeID),
+              trailing: new RecipeFavouriteIcon(recipe.recipeID, false),
             )),
         width: 500.00,
         height: 400.00);
@@ -276,33 +276,27 @@ class RecipeText extends StatelessWidget {
 
 class RecipeFavouriteIcon extends StatefulWidget {
   final String recipeid;
-  RecipeFavouriteIcon(this.recipeid);
+  final bool isFavourite;
+  RecipeFavouriteIcon(this.recipeid, this.isFavourite);
 
   @override
-  _FavouriteState createState() => new _FavouriteState(recipeid);
+  _FavouriteIconState createState() => new _FavouriteIconState();
 }
 
-class _FavouriteState extends State<RecipeFavouriteIcon> {
-  FavouriteService favs;
-  String recipeid;
-  bool _isFavourite = false;
-  _FavouriteState(this.recipeid);
+class _FavouriteIconState extends State<RecipeFavouriteIcon> {
+  bool _isFavourite;
 
   @override
   void initState() {
     super.initState();
-    favs = new FavouriteService();
-    favs.restoreFavourites();
-    _isFavourite = favs.isFavourite(recipeid);
+    _isFavourite = widget.isFavourite;
   }
 
   void _toggleFavourite() {
     setState(() {
       if (_isFavourite) {
-        favs.deleteFavourite(recipeid);
         _isFavourite = false;
       } else {
-        favs.addFavourite(recipeid);
         _isFavourite = true;
       }
     });
