@@ -27,19 +27,26 @@ class RecipeStyle extends TextStyle {
             height: height);
 }
 
-class RecipeWidget extends StatelessWidget {
+class RecipeWidget extends StatefulWidget {
+
   final Recipe recipe;
-  RecipeWidget(this.recipe);
+  final FavouriteService favouriteService;
+  RecipeWidget(this.recipe, this.favouriteService);
+  _RecipeState createState() => new _RecipeState();
+}
+
+class _RecipeState extends State<RecipeWidget> {
   @override
   Widget build(BuildContext context) {
     return new Container(
         child: new GridTile(
-            child: new RecipeImageWidget(recipe),
+            child: new RecipeImageWidget(widget.recipe),
             footer: new GridTileBar(
-              title: new RecipeText(recipe.title),
-              subtitle: new RecipeText(recipe.publisher),
+              title: new RecipeText(widget.recipe.title),
+              subtitle: new RecipeText(widget.recipe.publisher),
               backgroundColor: Colors.black45,
-              trailing: new RecipeFavouriteIcon(recipe.recipeID, false),
+              trailing: new RecipeFavouriteIcon(widget.recipe.recipeID,
+              widget.favouriteService.isFavourite(widget.recipe.recipeID)),
             )),
         width: 500.00,
         height: 400.00);
