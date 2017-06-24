@@ -3,7 +3,7 @@ import 'RecipeWidget.dart' show RecipeWidget;
 import 'package:eggfn/services/Recipe.dart';
 import 'package:eggfn/services/MockRecipeService.dart' show mockrecipes;
 import 'package:flutter/foundation.dart';
-import 'dart:async';
+import 'package:eggfn/services/FavouriteService.dart';
 
 class EggCrackin extends StatelessWidget {
   @override
@@ -95,8 +95,19 @@ class RecipesWidget extends StatefulWidget {
 }
 
 class _RecipesState extends State<RecipesWidget> {
-  _RecipesState();
   final List<Recipe> recipes = mockrecipes;
+  Set<String> _favourites;
+  FavouriteService favouriteService;
+
+  @override
+  void initState() {
+    super.initState();
+    favouriteService = new FavouriteService();
+    favouriteService.restoreFavourites();
+    _favourites = favouriteService.favourites;
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -105,10 +116,16 @@ class _RecipesState extends State<RecipesWidget> {
       new RecipeSearch(open: widget.open),
     new Expanded(child:
     new GridView.extent(
-        children: mockrecipes.map((i) => new RecipeWidget(i)).toList(),
+        children: mockrecipes.map((i) => new RecipeWidget(i, favouriteService)).toList(),
         maxCrossAxisExtent: 340.00),
     ),
     ]);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    favouriteService.saveFavourites();
   }
 }
 
