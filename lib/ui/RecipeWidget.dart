@@ -28,14 +28,29 @@ class RecipeStyle extends TextStyle {
 }
 
 class RecipeWidget extends StatefulWidget {
-
   final Recipe recipe;
   final FavouriteService favouriteService;
-  RecipeWidget(this.recipe, this.favouriteService);
+  RecipeWidget({this.recipe, this.favouriteService);
   _RecipeState createState() => new _RecipeState();
 }
 
 class _RecipeState extends State<RecipeWidget> {
+  bool _favourite;
+
+  @override
+  void initState() {
+    super.initState();
+    _favourite = widget.favouriteService.isFavourite(widget.recipe.recipeID);
+  }
+
+  void _handleFavouriteChange() {
+    if (widget.favouriteService.isFavourite(widget.recipe.recipeID)) {
+      widget.favouriteService.deleteFavourite(widget.recipe.recipeID);
+    } else {
+      widget.favouriteService.addFavourite(widget.recipe.recipeID);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Container(
@@ -45,8 +60,8 @@ class _RecipeState extends State<RecipeWidget> {
               title: new RecipeText(widget.recipe.title),
               subtitle: new RecipeText(widget.recipe.publisher),
               backgroundColor: Colors.black45,
-              trailing: new RecipeFavouriteIcon(widget.recipe.recipeID,
-              widget.favouriteService.isFavourite(widget.recipe.recipeID)),
+              trailing:
+                  new RecipeFavouriteIcon(widget.recipe.recipeID, _favourite),
             )),
         width: 500.00,
         height: 400.00);
@@ -282,9 +297,9 @@ class RecipeText extends StatelessWidget {
 }
 
 class RecipeFavouriteIcon extends StatefulWidget {
-  final String recipeid;
+  RecipeFavouriteIcon({this.isFavourite, this.onChanged});
   final bool isFavourite;
-  RecipeFavouriteIcon(this.recipeid, this.isFavourite);
+  final ValueChanged<bool> onChanged;
 
   @override
   _FavouriteIconState createState() => new _FavouriteIconState();
@@ -300,13 +315,8 @@ class _FavouriteIconState extends State<RecipeFavouriteIcon> {
   }
 
   void _toggleFavourite() {
-    setState(() {
-      if (_isFavourite) {
-        _isFavourite = false;
-      } else {
-        _isFavourite = true;
-      }
-    });
+    _isFavourite = !_isFavourite;
+    widget.onChanged(!widget.isFavourite);
   }
 
   @override
