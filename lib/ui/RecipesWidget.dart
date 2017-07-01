@@ -16,19 +16,18 @@ class EggCrackin extends StatelessWidget {
 }
 
 class RecipesHome extends StatefulWidget {
-
   RecipesHomeState createState() => new RecipesHomeState();
 }
 
-class RecipesHomeState  extends State<RecipesHome> {
+class RecipesHomeState extends State<RecipesHome> {
   ValueNotifier<bool> open = new ValueNotifier<bool>(false);
-
 
   void _handlePress() {
     setState(() {
       open.value = !open.value;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -45,6 +44,7 @@ class RecipesHomeState  extends State<RecipesHome> {
     );
   }
 }
+
 class RecipeSearch extends AnimatedWidget {
   final ValueNotifier<bool> open;
   RecipeSearch({@required this.open}) : super(listenable: open);
@@ -53,15 +53,14 @@ class RecipeSearch extends AnimatedWidget {
     return new AnimatedCrossFade(
       firstChild: new Container(),
       secondChild: new RecipeSearchInput(),
-      crossFadeState: open.value ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+      crossFadeState:
+          open.value ? CrossFadeState.showSecond : CrossFadeState.showFirst,
       duration: new Duration(milliseconds: 300),
     );
   }
-
 }
 
 class RecipeSearchInput extends StatefulWidget {
-
   _RecipeSearchInputState createState() => new _RecipeSearchInputState();
 }
 
@@ -73,59 +72,57 @@ class _RecipeSearchInputState extends State<RecipeSearchInput> {
     return new TextField(
       controller: _controller,
       onSubmitted: _handleSubmit,
-      decoration: new InputDecoration(
-        hintText: "Search for Recipes or Ingredients"
-      ),
-
+      decoration:
+          new InputDecoration(hintText: "Search for Recipes or Ingredients"),
     );
   }
 
   void _handleSubmit(String text) {
     // TODO Search using food2fork api.
-   // TODO setup streambuilder to load recipes.
+    // TODO setup streambuilder to load recipes.
     print(text);
   }
 }
+
 class RecipesWidget extends StatefulWidget {
   // TODO load recipes asynchronously.
   final ValueNotifier<bool> open;
   RecipesWidget(this.open);
+
   @override
   _RecipesState createState() => new _RecipesState();
 }
 
 class _RecipesState extends State<RecipesWidget> {
   final List<Recipe> recipes = mockrecipes;
+  FavouriteService _favouriteService;
   Set<String> _favourites;
-  FavouriteService favouriteService;
 
   @override
   void initState() {
     super.initState();
-    favouriteService = new FavouriteService();
-    favouriteService.restoreFavourites();
-    _favourites = favouriteService.favourites;
+    _favouriteService = new FavouriteService();
+    _favouriteService.restoreFavourites();
+    _favourites = _favouriteService.favourites;
+    print(_favourites);
   }
-
 
 
   @override
   Widget build(BuildContext context) {
-
     return new Column(children: <Widget>[
       new RecipeSearch(open: widget.open),
-    new Expanded(child:
-    new GridView.extent(
-        children: mockrecipes.map((i) => new RecipeWidget(i, favouriteService)).toList(),
-        maxCrossAxisExtent: 340.00),
-    ),
+      new Expanded(
+        child: new GridView.extent(
+            children: mockrecipes
+                .map((i) => new RecipeWidget(
+                      recipe: i,
+                      isFavourite: _favourites.contains(i.recipeID),
+                    ))
+                .toList(),
+            maxCrossAxisExtent: 340.00),
+      ),
     ]);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    favouriteService.saveFavourites();
   }
 }
 

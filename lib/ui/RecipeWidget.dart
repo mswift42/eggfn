@@ -29,26 +29,32 @@ class RecipeStyle extends TextStyle {
 
 class RecipeWidget extends StatefulWidget {
   final Recipe recipe;
-  final FavouriteService favouriteService;
-  RecipeWidget({this.recipe, this.favouriteService);
+  final bool isFavourite;
+  RecipeWidget({this.recipe, this.isFavourite});
   _RecipeState createState() => new _RecipeState();
 }
 
 class _RecipeState extends State<RecipeWidget> {
   bool _favourite;
+  final FavouriteService favouriteService = new FavouriteService();
 
   @override
   void initState() {
     super.initState();
-    _favourite = widget.favouriteService.isFavourite(widget.recipe.recipeID);
+    _favourite = widget.isFavourite;
   }
 
-  void _handleFavouriteChange() {
-    if (widget.favouriteService.isFavourite(widget.recipe.recipeID)) {
-      widget.favouriteService.deleteFavourite(widget.recipe.recipeID);
-    } else {
-      widget.favouriteService.addFavourite(widget.recipe.recipeID);
-    }
+  void _handleFavouriteChange(bool newValue) {
+    setState(() {
+      _favourite = newValue;
+      if (newValue) {
+        favouriteService.addFavourite(widget.recipe.recipeID);
+        print(favouriteService.favourites);
+      } else {
+        favouriteService.deleteFavourite(widget.recipe.recipeID);
+        print(favouriteService.favourites);
+      }
+    });
   }
 
   @override
@@ -60,8 +66,10 @@ class _RecipeState extends State<RecipeWidget> {
               title: new RecipeText(widget.recipe.title),
               subtitle: new RecipeText(widget.recipe.publisher),
               backgroundColor: Colors.black45,
-              trailing:
-                  new RecipeFavouriteIcon(widget.recipe.recipeID, _favourite),
+              trailing: new RecipeFavouriteIcon(
+                isFavourite: _favourite,
+                onChanged: _handleFavouriteChange,
+              ),
             )),
         width: 500.00,
         height: 400.00);
@@ -282,7 +290,7 @@ class _RecipeIngredientView extends StatelessWidget {
 }
 
 class RecipeText extends StatelessWidget {
-  RecipeText(this.title);
+  const RecipeText(this.title);
 
   final String title;
 
@@ -315,8 +323,10 @@ class _FavouriteIconState extends State<RecipeFavouriteIcon> {
   }
 
   void _toggleFavourite() {
-    _isFavourite = !_isFavourite;
-    widget.onChanged(!widget.isFavourite);
+    setState(() {
+      _isFavourite = !_isFavourite;
+      widget.onChanged(!widget.isFavourite);
+    });
   }
 
   @override

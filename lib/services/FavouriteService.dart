@@ -10,10 +10,13 @@ class FavouriteService {
 
   void addFavourite(String recipeid) {
     _favourites.add(recipeid);
+    saveFavourites();
+    restoreFavourites();
   }
 
   void deleteFavourite(String recipeid) {
     _favourites.remove(recipeid);
+    saveFavourites();
   }
 
   bool isFavourite(String recipeid) {
