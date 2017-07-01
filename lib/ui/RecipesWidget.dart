@@ -4,6 +4,10 @@ import 'package:eggfn/services/Recipe.dart';
 import 'package:eggfn/services/MockRecipeService.dart' show mockrecipes;
 import 'package:flutter/foundation.dart';
 import 'package:eggfn/services/FavouriteService.dart';
+import 'package:path_provider/path_provider.dart'
+    show getApplicationDocumentsDirectory;
+import 'dart:io';
+import 'dart:async';
 
 class EggCrackin extends StatelessWidget {
   @override
@@ -138,6 +142,32 @@ class _RecipesState extends State<RecipesWidget> {
 
   bool isFavourite(String recipeid) {
     return _favourites.contains(recipeid);
+  }
+
+  Future<File> _getLocalFile() async {
+    String dir = (await getApplicationDocumentsDirectory()).path;
+    return new File('$dir/favourites.txt');
+  }
+
+  Future<String> _readFavourites() async {
+    try {
+      File file = await _getLocalFile();
+      String contents = await file.readAsString();
+      return contents;
+    } on FileSystemException {
+      return "";
+    }
+  }
+
+  Future<Null> saveFavourites() async {
+    String contents = _favourites.join(",");
+    await (await _getLocalFile()).writeAsString(contents);
+  }
+
+  void restoreFavourites() {
+    _readFavourites().then((String contents) {
+      _favourites = contents.split(",").toSet();
+    });
   }
 }
 
