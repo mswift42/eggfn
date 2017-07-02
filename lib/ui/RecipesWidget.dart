@@ -108,7 +108,6 @@ class _RecipesState extends State<RecipesWidget> {
       setState(() {
         _favourites = contents.split(",").toSet();
       });
-      print(_favourites);
     });
   }
 
@@ -150,13 +149,11 @@ class _RecipesState extends State<RecipesWidget> {
   Future<Null> addFavourite(String recipeid) async {
     _favourites.add(recipeid);
     await saveFavourites();
-    print(_favourites);
   }
 
   Future<Null> deleteFavourite(String recipeid) async  {
     _favourites.remove(recipeid);
     await saveFavourites();
-    print(_favourites);
   }
 
   bool isFavourite(String recipeid) {
