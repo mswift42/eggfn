@@ -119,11 +119,13 @@ class _RecipesState extends State<RecipesWidget> {
   }
 
   void _handleFavouriteToggle(String newValue) {
-    if (isFavourite(newValue)) {
-      deleteFavourite(newValue);
-    } else {
-      addFavourite(newValue);
-    }
+    setState(() {
+      if (isFavourite(newValue)) {
+        deleteFavourite(newValue);
+      } else {
+        addFavourite(newValue);
+      }
+    });
   }
   @override
   Widget build(BuildContext context) {
