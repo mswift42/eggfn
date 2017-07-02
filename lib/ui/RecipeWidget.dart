@@ -30,7 +30,8 @@ class RecipeStyle extends TextStyle {
 class RecipeWidget extends StatefulWidget {
   final Recipe recipe;
   final bool isFavourite;
-  RecipeWidget({this.recipe, this.isFavourite});
+  RecipeWidget({this.recipe, this.isFavourite, this.onChanged});
+  final ValueChanged<String> onChanged;
   _RecipeState createState() => new _RecipeState();
 }
 
@@ -44,18 +45,13 @@ class _RecipeState extends State<RecipeWidget> {
     _favourite = widget.isFavourite;
   }
 
-  void _handleFavouriteChange(bool newValue) {
+  void _onChanged(bool newValue) {
     setState(() {
-      _favourite = newValue;
-      if (newValue) {
-        favouriteService.addFavourite(widget.recipe.recipeID);
-        print(favouriteService.favourites);
-      } else {
-        favouriteService.deleteFavourite(widget.recipe.recipeID);
-        print(favouriteService.favourites);
-      }
+      widget.onChanged(widget.recipe.recipeID);
+      _favourite = !newValue;
     });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +64,7 @@ class _RecipeState extends State<RecipeWidget> {
               backgroundColor: Colors.black45,
               trailing: new RecipeFavouriteIcon(
                 isFavourite: _favourite,
-                onChanged: _handleFavouriteChange,
+                onChanged: _onChanged,
               ),
             )),
         width: 500.00,
@@ -304,34 +300,19 @@ class RecipeText extends StatelessWidget {
   }
 }
 
-class RecipeFavouriteIcon extends StatefulWidget {
+class RecipeFavouriteIcon extends StatelessWidget {
   RecipeFavouriteIcon({this.isFavourite, this.onChanged});
   final bool isFavourite;
   final ValueChanged<bool> onChanged;
 
-  @override
-  _FavouriteIconState createState() => new _FavouriteIconState();
-}
-
-class _FavouriteIconState extends State<RecipeFavouriteIcon> {
-  bool _isFavourite;
-
-  @override
-  void initState() {
-    super.initState();
-    _isFavourite = widget.isFavourite;
-  }
 
   void _toggleFavourite() {
-    setState(() {
-      _isFavourite = !_isFavourite;
-      widget.onChanged(!widget.isFavourite);
-    });
+      onChanged(!isFavourite);
   }
 
   @override
   Widget build(BuildContext context) {
-    IconData favIcon = _isFavourite ? Icons.star : Icons.star_border;
+    IconData favIcon = isFavourite ? Icons.star : Icons.star_border;
     return new Container(
       child:
           new IconButton(icon: new Icon(favIcon), onPressed: _toggleFavourite),
