@@ -3,7 +3,6 @@ import 'RecipeWidget.dart' show RecipeWidget;
 import 'package:eggfn/services/Recipe.dart';
 import 'package:eggfn/services/MockRecipeService.dart' show mockrecipes;
 import 'package:flutter/foundation.dart';
-import 'package:eggfn/services/FavouriteService.dart';
 import 'package:path_provider/path_provider.dart'
     show getApplicationDocumentsDirectory;
 import 'dart:io';
@@ -99,20 +98,33 @@ class RecipesWidget extends StatefulWidget {
 
 class _RecipesState extends State<RecipesWidget> {
   final List<Recipe> recipes = mockrecipes;
-  FavouriteService _favouriteService;
   Set<String> _favourites = new Set<String>();
 
 
   @override
   void initState() {
     super.initState();
-    _favouriteService = new FavouriteService();
-    _favouriteService.restoreFavourites();
-    _favourites = _favouriteService.favourites;
-    print(_favourites);
+    _readFavourites().then((String contents) {
+      setState(() {
+        _favourites = contents.split(",").toSet();
+      });
+      print(_favourites);
+    });
   }
 
+  @override
+  void dispose() {
+    saveFavourites();
+    super.dispose();
+  }
 
+  void _handleFavouriteToggle(String newValue) {
+    if (isFavourite(newValue)) {
+      deleteFavourite(newValue);
+    } else {
+      addFavourite(newValue);
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return new Column(children: <Widget>[
@@ -123,6 +135,7 @@ class _RecipesState extends State<RecipesWidget> {
                 .map((i) => new RecipeWidget(
                       recipe: i,
                       isFavourite: _favourites.contains(i.recipeID),
+                      onChanged: _handleFavouriteToggle,
                     ))
                 .toList(),
             maxCrossAxisExtent: 340.00),
@@ -132,12 +145,16 @@ class _RecipesState extends State<RecipesWidget> {
 
   Set<String> get favourites => _favourites;
 
-  void addFavourite(String recipeid) {
+  Future<Null> addFavourite(String recipeid) async {
     _favourites.add(recipeid);
+    await saveFavourites();
+    print(_favourites);
   }
 
-  void deleteFavourite(String recipeid) {
+  Future<Null> deleteFavourite(String recipeid) async  {
     _favourites.remove(recipeid);
+    await saveFavourites();
+    print(_favourites);
   }
 
   bool isFavourite(String recipeid) {
