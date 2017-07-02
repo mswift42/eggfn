@@ -27,32 +27,29 @@ class RecipeStyle extends TextStyle {
             height: height);
 }
 
-class RecipeWidget extends StatefulWidget {
+class RecipeWidget extends StatelessWidget {
   final Recipe recipe;
   final bool isFavourite;
   RecipeWidget({this.recipe, this.isFavourite, this.onChanged});
   final ValueChanged<String> onChanged;
-  _RecipeState createState() => new _RecipeState();
-}
 
-class _RecipeState extends State<RecipeWidget> {
 
 
   void _onChanged(bool newValue) {
-      widget.onChanged(widget.recipe.recipeID);
+      onChanged(recipe.recipeID);
   }
 
   @override
   Widget build(BuildContext context) {
     return new Container(
         child: new GridTile(
-            child: new RecipeImageWidget(widget.recipe),
+            child: new RecipeImageWidget(recipe),
             footer: new GridTileBar(
-              title: new RecipeText(widget.recipe.title),
-              subtitle: new RecipeText(widget.recipe.publisher),
+              title: new RecipeText(recipe.title),
+              subtitle: new RecipeText(recipe.publisher),
               backgroundColor: Colors.black45,
               trailing: new RecipeFavouriteIcon(
-                isFavourite:  widget.isFavourite,
+                isFavourite:  isFavourite,
                 onChanged: _onChanged,
               ),
             )),
