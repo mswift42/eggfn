@@ -40,4 +40,24 @@ void main() {
     expect(find.byType(RecipeDetailImageView), findsOneWidget);
     expect(find.byType(RecipeDetailBottomView), findsOneWidget);
   });
+  testWidgets(
+      'RecipeFavouriteIcon has correct Icon', (WidgetTester tester) async {
+        await tester.pumpWidget(new Material(
+          child: new RecipeFavouriteIcon(
+              isFavourite: false,
+              onChanged: null,
+        ),
+        ));
+        expect(find.byType(IconButton), findsOneWidget);
+        expect(find.byIcon(Icons.star_border), findsOneWidget);
+        expect(find.byIcon(Icons.star), findsNothing);
+        await tester.pumpWidget(new Material(
+          child: new RecipeFavouriteIcon(
+            isFavourite: true,
+              onChanged: null,
+          )
+        ));
+        expect(find.byIcon(Icons.star_border), findsNothing);
+        expect(find.byIcon(Icons.star), findsOneWidget);
+  });
 }

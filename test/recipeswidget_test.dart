@@ -6,11 +6,12 @@ void main() {
   testWidgets('EggCrackin uses _kThemeData', (WidgetTester tester) async {
     await tester.pumpWidget(new EggCrackin());
     MaterialApp map = tester.widget(find.byType(MaterialApp));
-      expect(map.theme.brightness, Brightness.light);
-      expect(map.theme.accentColor, Colors.pink);
-      expect(map.theme.buttonColor, Colors.grey[200]);
+    expect(map.theme.brightness, Brightness.light);
+    expect(map.theme.accentColor, Colors.pink);
+    expect(map.theme.buttonColor, Colors.grey[200]);
   });
-  testWidgets('Eggcrackin Widgets home is RecipesHome', (WidgetTester tester) async {
+  testWidgets('Eggcrackin Widgets home is RecipesHome',
+      (WidgetTester tester) async {
     await tester.pumpWidget(new EggCrackin());
     MaterialApp map = tester.widget(find.byType(MaterialApp));
     expect(map.home.toString(), 'RecipesHome');
