@@ -4,6 +4,14 @@ import 'package:eggfn/ui/RecipeWidget.dart';
 import 'package:eggfn/services/Recipe.dart';
 import 'package:eggfn/services/MockRecipeService.dart';
 
+class MockOnPressedFunction implements Function {
+  int called = 0;
+
+  void call() {
+    called++;
+  }
+}
+
 void main() {
   Recipe rec = mockrecipes[0];
   testWidgets('RecipeText has a Text child', (WidgetTester tester) async {
@@ -40,24 +48,29 @@ void main() {
     expect(find.byType(RecipeDetailImageView), findsOneWidget);
     expect(find.byType(RecipeDetailBottomView), findsOneWidget);
   });
-  testWidgets(
-      'RecipeFavouriteIcon has correct Icon', (WidgetTester tester) async {
-        await tester.pumpWidget(new Material(
-          child: new RecipeFavouriteIcon(
-              isFavourite: false,
-              onChanged: null,
-        ),
-        ));
-        expect(find.byType(IconButton), findsOneWidget);
-        expect(find.byIcon(Icons.star_border), findsOneWidget);
-        expect(find.byIcon(Icons.star), findsNothing);
-        await tester.pumpWidget(new Material(
-          child: new RecipeFavouriteIcon(
-            isFavourite: true,
-              onChanged: null,
-          )
-        ));
-        expect(find.byIcon(Icons.star_border), findsNothing);
-        expect(find.byIcon(Icons.star), findsOneWidget);
+  testWidgets('RecipeFavouriteIcon has correct Icon',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(new Material(
+      child: new RecipeFavouriteIcon(
+        isFavourite: false,
+        onChanged: null,
+      ),
+    ));
+    expect(find.byType(IconButton), findsOneWidget);
+    expect(find.byIcon(Icons.star_border), findsOneWidget);
+    expect(find.byIcon(Icons.star), findsNothing);
+    await tester.pumpWidget(new Material(
+        child: new RecipeFavouriteIcon(
+      isFavourite: true,
+      onChanged: null,
+    )));
+    expect(find.byIcon(Icons.star_border), findsNothing);
+    expect(find.byIcon(Icons.star), findsOneWidget);
+
+    MockOnPressedFunction mockOnPressedFunction;
+
+    setUp(() {
+      mockOnPressedFunction = new MockOnPressedFunction();
+    });
   });
 }
