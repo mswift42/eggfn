@@ -25,4 +25,15 @@ class Recipe {
     s = s.replaceAll("&#8217;", "'");
     return s.replaceAll("&amp;", "&");
   }
+
+  Map<String, String> toJson() {
+    return {
+      "title": title,
+      "publisher": publisher,
+      "source_url": sourceUrl,
+      "image_url": imageUrl,
+      "publisher_url": publisherUrl,
+      "recipe_id": recipeID
+    };
+  }
 }
