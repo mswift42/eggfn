@@ -5,14 +5,17 @@ import 'package:eggfn/services/Recipe.dart';
 import 'package:eggfn/services/MockRecipeService.dart';
 
 class MockOnPressedFunction implements Function {
-  ValueChanged<bool> onChanged;
-
+  bool toggled = false;
   void call(bool newValue) {
-    onChanged(newValue);
+    toggled = !toggled;
   }
 }
 
 void main() {
+  MockOnPressedFunction mockOnPressedFunction;
+  setUp(() {
+    mockOnPressedFunction = new MockOnPressedFunction();
+  });
   Recipe rec = mockrecipes[0];
   testWidgets('RecipeText has a Text child', (WidgetTester tester) async {
     await tester.pumpWidget(new RecipeText("testtitle"));
@@ -66,19 +69,17 @@ void main() {
     )));
     expect(find.byIcon(Icons.star_border), findsNothing);
     expect(find.byIcon(Icons.star), findsOneWidget);
-
-    MockOnPressedFunction mockOnPressedFunction;
-
-    setUp(() {
-      mockOnPressedFunction = new MockOnPressedFunction();
-    });
+  });
+  testWidgets('RecipeFavouriteIcons can be assigned onChanged callback',
+      (WidgetTester tester) async {
     await tester.pumpWidget(new Material(
-      child: new RecipeFavouriteIcon(
-        isFavourite: true,
-        onChanged: mockOnPressedFunction,
-      )
-    ));
+        child: new RecipeFavouriteIcon(
+      isFavourite: false,
+      onChanged: mockOnPressedFunction,
+    )));
     await tester.tap(find.byType(IconButton));
-    expect(mockOnPressedFunction.onChanged, false);
+    expect(mockOnPressedFunction.toggled, true);
+    await tester.tap(find.byType(IconButton));
+    expect(mockOnPressedFunction.toggled, false);
   });
 }
