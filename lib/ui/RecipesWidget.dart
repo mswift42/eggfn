@@ -7,6 +7,7 @@ import 'package:path_provider/path_provider.dart'
     show getApplicationDocumentsDirectory;
 import 'dart:io';
 import 'dart:async';
+import 'dart:convert';
 
 class EggCrackin extends StatelessWidget {
   @override
@@ -100,7 +101,6 @@ class _RecipesState extends State<RecipesWidget> {
   final List<Recipe> recipes = mockrecipes;
   Set<String> _favourites = new Set<String>();
 
-
   @override
   void initState() {
     super.initState();
@@ -126,6 +126,7 @@ class _RecipesState extends State<RecipesWidget> {
       }
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return new Column(children: <Widget>[
@@ -151,7 +152,7 @@ class _RecipesState extends State<RecipesWidget> {
     await saveFavourites();
   }
 
-  Future<Null> deleteFavourite(String recipeid) async  {
+  Future<Null> deleteFavourite(String recipeid) async {
     _favourites.remove(recipeid);
     await saveFavourites();
   }
@@ -165,6 +166,11 @@ class _RecipesState extends State<RecipesWidget> {
     return new File('$dir/favourites.txt');
   }
 
+  Future<File> _getLocalJsonFile() async {
+    String dir = (await getApplicationDocumentsDirectory()).path;
+    return new File('$dir/favourites.json');
+  }
+
   Future<String> _readFavourites() async {
     try {
       File file = await _getLocalFile();
@@ -172,6 +178,27 @@ class _RecipesState extends State<RecipesWidget> {
       return contents;
     } on FileSystemException {
       return "";
+    }
+  }
+
+  List<Recipe> _convertToRecipes(String contents) {
+    List parsedList = JSON.decode(contents);
+    return parsedList.map((i) => new Recipe(
+        publisher: i["publisher"],
+        title: i["title"],
+        sourceUrl: i["source_url"],
+        imageUrl: i["image_url"],
+        publisherUrl: i["publisher_url"],
+        recipeID: i["recipe_id"]));
+  }
+
+  Future<List<Recipe>> _readJsonFavourites() async {
+    try {
+      File file = await _getLocalJsonFile();
+      String contents = await file.readAsString();
+      return _convertToRecipes(contents);
+    } on FileSystemException {
+      return new List();
     }
   }
 
