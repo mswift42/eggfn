@@ -5,10 +5,10 @@ import 'package:eggfn/services/Recipe.dart';
 import 'package:eggfn/services/MockRecipeService.dart';
 
 class MockOnPressedFunction implements Function {
-  int called = 0;
+  ValueChanged<bool> onChanged;
 
-  void call() {
-    called++;
+  void call(bool newValue) {
+    onChanged(newValue);
   }
 }
 
@@ -72,5 +72,13 @@ void main() {
     setUp(() {
       mockOnPressedFunction = new MockOnPressedFunction();
     });
+    await tester.pumpWidget(new Material(
+      child: new RecipeFavouriteIcon(
+        isFavourite: true,
+        onChanged: mockOnPressedFunction,
+      )
+    ));
+    await tester.tap(find.byType(IconButton));
+    expect(mockOnPressedFunction.onChanged, false);
   });
 }
