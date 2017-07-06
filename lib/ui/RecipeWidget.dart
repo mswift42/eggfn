@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:eggfn/services/FavouriteService.dart' show FavouriteService;
+import 'package:eggfn/services/Favourites.dart' show FavouriteService;
 import 'package:eggfn/services/Recipe.dart' show Recipe;
 import 'package:flutter/gestures.dart' show TapGestureRecognizer;
 import 'package:url_launcher/url_launcher.dart';
