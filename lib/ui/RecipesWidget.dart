@@ -181,6 +181,8 @@ class _RecipesState extends State<RecipesWidget> {
     }
   }
 
+
+
   List<Recipe> _convertToRecipes(String contents) {
     List parsedList = JSON.decode(contents);
     return parsedList.map((i) => new Recipe(
@@ -190,6 +192,11 @@ class _RecipesState extends State<RecipesWidget> {
         imageUrl: i["image_url"],
         publisherUrl: i["publisher_url"],
         recipeID: i["recipe_id"]));
+  }
+
+  String _convertFavouritesToJson(List<Recipe> favourites) {
+    List favmap = recipes.map((i) => i.toJson()).toList();
+    return JSON.encode(favmap);
   }
 
   Future<List<Recipe>> _readJsonFavourites() async {
@@ -205,6 +212,11 @@ class _RecipesState extends State<RecipesWidget> {
   Future<Null> saveFavourites() async {
     String contents = _favourites.join(",");
     await (await _getLocalFile()).writeAsString(contents);
+  }
+
+  Future<Null> saveFavouritesToJson() async {
+    String contents = _convertFavouritesToJson(recipes);
+    await (await _getLocalJsonFile()).writeAsString(contents);
   }
 
   void restoreFavourites() {
