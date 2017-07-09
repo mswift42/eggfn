@@ -104,9 +104,9 @@ class _RecipesState extends State<RecipesWidget> {
   @override
   void initState() {
     super.initState();
-    _readFavourites().then((String contents) {
+    _readFavourites().then((List<Recipe> contents) {
       setState(() {
-        _favourites = contents.split(",").toSet();
+        _favourites = contents.toSet();
       });
     });
   }
@@ -119,7 +119,7 @@ class _RecipesState extends State<RecipesWidget> {
 
   void _handleFavouriteToggle(Recipe recipe) {
     setState(() {
-      if (isFavourite(recipe.recipeID)) {
+      if (isFavourite(recipe)) {
         deleteFavourite(recipe);
       } else {
         addFavourite(recipe);
@@ -203,8 +203,8 @@ class _RecipesState extends State<RecipesWidget> {
 
 
   void restoreFavourites() {
-    _readFavourites().then((String contents) {
-      _favourites = contents.split(",").toSet();
+    _readFavourites().then((List<Recipe> contents) {
+      _favourites = contents.toSet()
     });
   }
 }
