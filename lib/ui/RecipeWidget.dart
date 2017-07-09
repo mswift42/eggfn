@@ -31,12 +31,12 @@ class RecipeWidget extends StatelessWidget {
   final Recipe recipe;
   final bool isFavourite;
   RecipeWidget({this.recipe, this.isFavourite, this.onChanged});
-  final ValueChanged<String> onChanged;
+  final ValueChanged<Recipe> onChanged;
 
 
 
   void _onChanged(bool newValue) {
-      onChanged(recipe.recipeID);
+      onChanged(recipe);
   }
 
   @override

@@ -100,6 +100,7 @@ class RecipesWidget extends StatefulWidget {
 class _RecipesState extends State<RecipesWidget> {
   final List<Recipe> recipes = mockrecipes;
   Set<String> _favourites = new Set<String>();
+  final List<Recipe> favourites = new List();
 
   @override
   void initState() {
@@ -117,12 +118,12 @@ class _RecipesState extends State<RecipesWidget> {
     super.dispose();
   }
 
-  void _handleFavouriteToggle(String newValue) {
+  void _handleFavouriteToggle(Recipe recipe) {
     setState(() {
-      if (isFavourite(newValue)) {
-        deleteFavourite(newValue);
+      if (isFavourite(recipe.recipeID)) {
+        deleteFavourite(recipe);
       } else {
-        addFavourite(newValue);
+        addFavourite(recipe);
       }
     });
   }
