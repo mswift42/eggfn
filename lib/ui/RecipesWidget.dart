@@ -99,8 +99,7 @@ class RecipesWidget extends StatefulWidget {
 
 class _RecipesState extends State<RecipesWidget> {
   final List<Recipe> recipes = mockrecipes;
-  Set<String> _favourites = new Set<String>();
-  final List<Recipe> favourites = new List();
+  Set<Recipe> _favourites = new Set<Recipe>();
 
   @override
   void initState() {
@@ -148,37 +147,33 @@ class _RecipesState extends State<RecipesWidget> {
 
   Set<String> get favourites => _favourites;
 
-  Future<Null> addFavourite(String recipeid) async {
-    _favourites.add(recipeid);
+  Future<Null> addFavourite(Recipe recipe) async {
+    _favourites.add(recipe);
     await saveFavourites();
   }
 
-  Future<Null> deleteFavourite(String recipeid) async {
-    _favourites.remove(recipeid);
+  Future<Null> deleteFavourite(Recipe recipe) async {
+    _favourites.remove(recipe);
     await saveFavourites();
   }
 
-  bool isFavourite(String recipeid) {
-    return _favourites.contains(recipeid);
+  bool isFavourite(Recipe recipe) {
+    return _favourites.contains(recipe);
   }
 
   Future<File> _getLocalFile() async {
     String dir = (await getApplicationDocumentsDirectory()).path;
-    return new File('$dir/favourites.txt');
-  }
-
-  Future<File> _getLocalJsonFile() async {
-    String dir = (await getApplicationDocumentsDirectory()).path;
     return new File('$dir/favourites.json');
   }
 
-  Future<String> _readFavourites() async {
+
+  Future<List<Recipe>> _readFavourites() async {
     try {
       File file = await _getLocalFile();
       String contents = await file.readAsString();
-      return contents;
+      return _convertToRecipes(contents);
     } on FileSystemException {
-      return "";
+      return new List();
     }
   }
 
@@ -200,25 +195,12 @@ class _RecipesState extends State<RecipesWidget> {
     return JSON.encode(favmap);
   }
 
-  Future<List<Recipe>> _readJsonFavourites() async {
-    try {
-      File file = await _getLocalJsonFile();
-      String contents = await file.readAsString();
-      return _convertToRecipes(contents);
-    } on FileSystemException {
-      return new List();
-    }
-  }
 
   Future<Null> saveFavourites() async {
-    String contents = _favourites.join(",");
+    String contents = _convertFavouritesToJson(_favourites.toList());
     await (await _getLocalFile()).writeAsString(contents);
   }
 
-  Future<Null> saveFavouritesToJson() async {
-    String contents = _convertFavouritesToJson(recipes);
-    await (await _getLocalJsonFile()).writeAsString(contents);
-  }
 
   void restoreFavourites() {
     _readFavourites().then((String contents) {
