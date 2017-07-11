@@ -117,7 +117,8 @@ class _RecipesState extends State<RecipesWidget> {
     super.dispose();
   }
 
-  void _handleFavouriteToggle(Recipe recipe) {
+  void _handleFavouriteToggle(String recipeid) {
+    Recipe recipe = recipes.firstWhere((i) => i.recipeID == recipeid);
     setState(() {
       if (isFavourite(recipe)) {
         deleteFavourite(recipe);
@@ -136,7 +137,7 @@ class _RecipesState extends State<RecipesWidget> {
             children: mockrecipes
                 .map((i) => new RecipeWidget(
                       recipe: i,
-                      isFavourite: _favourites.contains(i.recipeID),
+                      isFavourite: isFavourite(i),
                       onChanged: _handleFavouriteToggle,
                     ))
                 .toList(),
@@ -145,7 +146,7 @@ class _RecipesState extends State<RecipesWidget> {
     ]);
   }
 
-  Set<String> get favourites => _favourites;
+  Set<Recipe> get favourites => _favourites;
 
   Future<Null> addFavourite(Recipe recipe) async {
     _favourites.add(recipe);
@@ -158,7 +159,7 @@ class _RecipesState extends State<RecipesWidget> {
   }
 
   bool isFavourite(Recipe recipe) {
-    return _favourites.contains(recipe);
+    return _favourites.any((i) => i.recipeID == recipe.recipeID);
   }
 
   Future<File> _getLocalFile() async {
@@ -166,45 +167,48 @@ class _RecipesState extends State<RecipesWidget> {
     return new File('$dir/favourites.json');
   }
 
-
   Future<List<Recipe>> _readFavourites() async {
     try {
       File file = await _getLocalFile();
       String contents = await file.readAsString();
-      return _convertToRecipes(contents);
+      if (contents == "") {
+        return new List<Recipe>();
+      } else {
+        print(contents);
+        return _convertToRecipes(contents);
+      }
     } on FileSystemException {
       return new List();
     }
   }
 
-
-
   List<Recipe> _convertToRecipes(String contents) {
     List parsedList = JSON.decode(contents);
-    return parsedList.map((i) => new Recipe(
-        publisher: i["publisher"],
-        title: i["title"],
-        sourceUrl: i["source_url"],
-        imageUrl: i["image_url"],
-        publisherUrl: i["publisher_url"],
-        recipeID: i["recipe_id"]));
+    return parsedList
+            .map((i) => new Recipe(
+                publisher: i["publisher"],
+                title: i["title"],
+                sourceUrl: i["source_url"],
+                imageUrl: i["image_url"],
+                publisherUrl: i["publisher_url"],
+                recipeID: i["recipe_id"]))
+            .toList() ??
+        new List();
   }
 
   String _convertFavouritesToJson(List<Recipe> favourites) {
-    List favmap = recipes.map((i) => i.toJson()).toList();
+    List favmap = favourites.map((i) => i.toJson()).toList();
     return JSON.encode(favmap);
   }
-
 
   Future<Null> saveFavourites() async {
     String contents = _convertFavouritesToJson(_favourites.toList());
     await (await _getLocalFile()).writeAsString(contents);
   }
 
-
   void restoreFavourites() {
     _readFavourites().then((List<Recipe> contents) {
-      _favourites = contents.toSet()
+      _favourites = contents.toSet();
     });
   }
 }
