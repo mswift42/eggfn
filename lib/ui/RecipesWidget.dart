@@ -154,7 +154,8 @@ class _RecipesState extends State<RecipesWidget> {
   }
 
   Future<Null> deleteFavourite(Recipe recipe) async {
-    _favourites.remove(recipe);
+    _favourites =
+        _favourites.where((i) => (i.recipeID != recipe.recipeID)).toSet();
     await saveFavourites();
   }
 
@@ -174,7 +175,6 @@ class _RecipesState extends State<RecipesWidget> {
       if (contents == "") {
         return new List<Recipe>();
       } else {
-        print(contents);
         return _convertToRecipes(contents);
       }
     } on FileSystemException {
