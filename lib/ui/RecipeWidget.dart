@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:eggfn/services/Favourites.dart' show FavouriteService;
 import 'package:eggfn/services/Recipe.dart' show Recipe;
 import 'package:flutter/gestures.dart' show TapGestureRecognizer;
 import 'package:url_launcher/url_launcher.dart';
@@ -31,12 +30,10 @@ class RecipeWidget extends StatelessWidget {
   final Recipe recipe;
   final bool isFavourite;
   RecipeWidget({this.recipe, this.isFavourite, this.onChanged});
-  final ValueChanged<Recipe> onChanged;
-
-
+  final ValueChanged<String> onChanged;
 
   void _onChanged(bool newValue) {
-      onChanged(recipe);
+    onChanged(recipe.recipeID);
   }
 
   @override
@@ -49,7 +46,7 @@ class RecipeWidget extends StatelessWidget {
               subtitle: new RecipeText(recipe.publisher),
               backgroundColor: Colors.black45,
               trailing: new RecipeFavouriteIcon(
-                isFavourite:  isFavourite,
+                isFavourite: isFavourite,
                 onChanged: _onChanged,
               ),
             )),
