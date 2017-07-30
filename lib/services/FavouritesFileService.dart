@@ -16,8 +16,8 @@ class FavouritesFileService {
     return JSON.encode(favmap);
   }
 
-  static Future<Null> saveFavourites(List<Recipe> favourites) async {
-    String contents = _convertFavouritesToJson(favourites);
+  static Future<Null> saveFavourites(Set<Recipe> favourites) async {
+    String contents = _convertFavouritesToJson(favourites.toList());
     await (await _getLocalFile()).writeAsString(contents);
   }
 
