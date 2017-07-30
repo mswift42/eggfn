@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'RecipeWidget.dart' show RecipeWidget;
 import 'package:eggfn/services/Recipe.dart';
 import 'package:eggfn/services/MockRecipeService.dart' show mockrecipes;
+import 'package:eggfn/services/FavouritesFileService.dart';
 import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart'
     show getApplicationDocumentsDirectory;
@@ -104,7 +105,7 @@ class _RecipesState extends State<RecipesWidget> {
   @override
   void initState() {
     super.initState();
-    _readFavourites().then((List<Recipe> contents) {
+    FavouritesFileService.readFavourites().then((List<Recipe> contents) {
       setState(() {
         _favourites = contents.toSet();
       });
@@ -113,7 +114,7 @@ class _RecipesState extends State<RecipesWidget> {
 
   @override
   void dispose() {
-    saveFavourites();
+    FavouritesFileService.saveFavourites(_favourites);
     super.dispose();
   }
 
@@ -150,67 +151,20 @@ class _RecipesState extends State<RecipesWidget> {
 
   Future<Null> addFavourite(Recipe recipe) async {
     _favourites.add(recipe);
-    await saveFavourites();
+    await FavouritesFileService.saveFavourites(_favourites);
   }
 
   Future<Null> deleteFavourite(Recipe recipe) async {
     _favourites =
         _favourites.where((i) => (i.recipeID != recipe.recipeID)).toSet();
-    await saveFavourites();
+    await FavouritesFileService.saveFavourites(_favourites);
   }
 
   bool isFavourite(Recipe recipe) {
     return _favourites.any((i) => i.recipeID == recipe.recipeID);
   }
 
-  Future<File> _getLocalFile() async {
-    String dir = (await getApplicationDocumentsDirectory()).path;
-    return new File('$dir/favourites.json');
-  }
 
-  Future<List<Recipe>> _readFavourites() async {
-    try {
-      File file = await _getLocalFile();
-      String contents = await file.readAsString();
-      if (contents == "") {
-        return new List<Recipe>();
-      } else {
-        return _convertToRecipes(contents);
-      }
-    } on FileSystemException {
-      return new List();
-    }
-  }
-
-  List<Recipe> _convertToRecipes(String contents) {
-    List parsedList = JSON.decode(contents);
-    return parsedList
-            .map((i) => new Recipe(
-                publisher: i["publisher"],
-                title: i["title"],
-                sourceUrl: i["source_url"],
-                imageUrl: i["image_url"],
-                publisherUrl: i["publisher_url"],
-                recipeID: i["recipe_id"]))
-            .toList() ??
-        new List();
-  }
-
-  String _convertFavouritesToJson(List<Recipe> favourites) {
-    List favmap = favourites.map((i) => i.toJson()).toList();
-    return JSON.encode(favmap);
-  }
-
-  Future<Null> saveFavourites() async {
-    String contents = _convertFavouritesToJson(_favourites.toList());
-    await (await _getLocalFile()).writeAsString(contents);
-  }
-
-  void restoreFavourites() {
-    _readFavourites().then((List<Recipe> contents) {
-      _favourites = contents.toSet();
-    });
-  }
 }
 
 final _kThemeData = new ThemeData(
