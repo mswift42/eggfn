@@ -4,11 +4,7 @@ import 'package:eggfn/services/Recipe.dart';
 import 'package:eggfn/services/MockRecipeService.dart' show mockrecipes;
 import 'package:eggfn/services/FavouritesFileService.dart';
 import 'package:flutter/foundation.dart';
-import 'package:path_provider/path_provider.dart'
-    show getApplicationDocumentsDirectory;
-import 'dart:io';
 import 'dart:async';
-import 'dart:convert';
 
 class EggCrackin extends StatelessWidget {
   @override
