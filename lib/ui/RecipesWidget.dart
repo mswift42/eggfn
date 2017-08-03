@@ -3,6 +3,7 @@ import 'RecipeWidget.dart' show RecipeWidget;
 import 'package:eggfn/services/Recipe.dart';
 import 'package:eggfn/services/MockRecipeService.dart' show mockrecipes;
 import 'package:eggfn/services/FavouritesFileService.dart';
+import 'package:eggfn/ui/FavouritesWidget.dart' show FavouritesWidget;
 import 'package:flutter/foundation.dart';
 import 'dart:async';
 
@@ -29,6 +30,16 @@ class RecipesHomeState extends State<RecipesHome> {
     });
   }
 
+  void showFavourites(BuildContext context) {
+    Navigator.push(context,
+        new MaterialPageRoute(builder: (BuildContext context) {
+      return new Scaffold(
+        appBar: new AppBar(title: new Text("Favourites")),
+        body: new FavouritesWidget(),
+      );
+    }));
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -39,6 +50,11 @@ class RecipesHomeState extends State<RecipesHome> {
               icon:
                   new Icon(Icons.search, color: Theme.of(context).buttonColor),
               onPressed: _handlePress),
+          new IconButton(
+              icon: new Icon(Icons.star),
+              onPressed: () {
+                showFavourites(context);
+              }),
         ],
       ),
       body: new RecipesWidget(open),
@@ -159,8 +175,6 @@ class _RecipesState extends State<RecipesWidget> {
   bool isFavourite(Recipe recipe) {
     return _favourites.any((i) => i.recipeID == recipe.recipeID);
   }
-
-
 }
 
 final _kThemeData = new ThemeData(
