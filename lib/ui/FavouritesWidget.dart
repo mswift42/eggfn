@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:eggfn/services/Recipe.dart';
+import 'package:eggfn/ui/RecipeWidget.dart';
 import 'package:eggfn/services/FavouritesFileService.dart';
 import 'dart:async';
 
@@ -19,15 +20,38 @@ class _FavouritesState extends State<FavouritesWidget> {
       )).toList(),
         maxCrossAxisExtent: 400.00);
   }
+
+  void _handleDelete(String recipeid) {
+
+  }
 }
 
 class FavouriteWidget extends StatelessWidget {
   final Recipe recipe;
-  FavouriteWidget({this.recipe});
+  final ValueChanged<String> onChanged;
+  FavouriteWidget({this.recipe, this.onChanged});
+
+  void _onChanged(bool newValue) {
+    onChanged(recipe.recipeID);
+  }
 
   @override
   Widget build(BuildContext context) {
     return new GridTile(
-        child: null);
+        child: new RecipeImageWidget(recipe),
+      footer: new GridTileBar(
+        title: new RecipeText(recipe.title),
+        subtitle: new RecipeText(recipe.title),
+        backgroundColor: Colors.black54,
+        trailing: new FavouriteDeleteIcon(
+          onChanged: _onChanged,
+        ),
+      ),
+    );
   }
+}
+
+class FavouriteDeleteIcon extends StatelessWidget {
+  final ValueChanged<bool> onChanged;
+  FavouriteDeleteIcon({this.onChanged});
 }
