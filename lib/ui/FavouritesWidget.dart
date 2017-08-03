@@ -13,6 +13,16 @@ class _FavouritesState extends State<FavouritesWidget> {
  List<Recipe> _favourites = new List<Recipe>();
 
   @override
+  void initState() {
+    super.initState();
+    FavouritesFileService.readFavourites().then((List<Recipe> contents) {
+      setState(() {
+        _favourites = contents;
+      });
+    });
+ }
+
+  @override
   Widget build(BuildContext context) {
     return new GridView.extent(
       children: _favourites.map((i) => new FavouriteWidget(
