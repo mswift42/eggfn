@@ -22,6 +22,11 @@ class _FavouritesState extends State<FavouritesWidget> {
     });
  }
 
+ @override
+ void dispose() {
+    FavouritesFileService.saveFavourites(_favourites.toSet());
+ }
+
   @override
   Widget build(BuildContext context) {
     return new GridView.extent(
@@ -32,7 +37,8 @@ class _FavouritesState extends State<FavouritesWidget> {
   }
 
   void _handleDelete(String recipeid) {
-
+    _favourites =
+        _favourites.where((i) => (i.recipeID == recipeid)).toList();
   }
 }
 
