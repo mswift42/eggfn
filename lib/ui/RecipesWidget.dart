@@ -109,7 +109,9 @@ class RecipesWidget extends StatefulWidget {
   @override
   _RecipesState createState() => new _RecipesState();
 }
-
+// TODO on route pop setState for favourites.
+// TODO when loading / saving favourites handle ingredients.
+// TODO add snackbar for undoing of favourite delete.
 class _RecipesState extends State<RecipesWidget> {
   final List<Recipe> recipes = mockrecipes;
   Set<Recipe> _favourites = new Set<Recipe>();
