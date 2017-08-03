@@ -25,6 +25,7 @@ class _FavouritesState extends State<FavouritesWidget> {
  @override
  void dispose() {
     FavouritesFileService.saveFavourites(_favourites.toSet());
+    super.dispose();
  }
 
   @override
