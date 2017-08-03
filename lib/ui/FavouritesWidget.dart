@@ -33,13 +33,17 @@ class _FavouritesState extends State<FavouritesWidget> {
     return new GridView.extent(
       children: _favourites.map((i) => new FavouriteWidget(
         recipe: i,
+        onChanged: _handleDelete,
       )).toList(),
         maxCrossAxisExtent: 400.00);
   }
 
   void _handleDelete(String recipeid) {
-    _favourites =
-        _favourites.where((i) => (i.recipeID == recipeid)).toList();
+    setState(() {
+      _favourites =
+          _favourites.where((i) => (i.recipeID != recipeid)).toList();
+      FavouritesFileService.saveFavourites(_favourites.toSet());
+    });
   }
 }
 
@@ -58,7 +62,7 @@ class FavouriteWidget extends StatelessWidget {
         child: new RecipeImageWidget(recipe),
       footer: new GridTileBar(
         title: new RecipeText(recipe.title),
-        subtitle: new RecipeText(recipe.title),
+        subtitle: new RecipeText(recipe.publisher),
         backgroundColor: Colors.black54,
         trailing: new FavouriteDeleteIcon(
           onChanged: _onChanged,
