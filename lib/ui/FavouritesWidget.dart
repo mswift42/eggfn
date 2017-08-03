@@ -70,4 +70,16 @@ class FavouriteWidget extends StatelessWidget {
 class FavouriteDeleteIcon extends StatelessWidget {
   final ValueChanged<bool> onChanged;
   FavouriteDeleteIcon({this.onChanged});
+
+  void _handleChanged() {
+    onChanged(true);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new IconButton(
+        icon: new Icon(Icons.delete),
+        onPressed: _handleChanged,
+    );
+  }
 }
