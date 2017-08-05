@@ -24,15 +24,15 @@ class FavouritesFileService {
   static List<Recipe> _convertToRecipes(String contents) {
     List parsedList = JSON.decode(contents);
     return parsedList
-        .map((i) =>
-    new Recipe(
-        publisher: i["publisher"],
-        title: i["title"],
-        sourceUrl: i["source_url"],
-        imageUrl: i["image_url"],
-        publisherUrl: i["publisher_url"],
-        recipeID: i["recipe_id"]))
-        .toList() ??
+            .map((i) => new Recipe(
+                publisher: i["publisher"],
+                title: i["title"],
+                sourceUrl: i["source_url"],
+                imageUrl: i["image_url"],
+                publisherUrl: i["publisher_url"],
+                recipeID: i["recipe_id"],
+                ingredients: i["ingredients"] ?? new List<String>()))
+            .toList() ??
         new List();
   }
 
