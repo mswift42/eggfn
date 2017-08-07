@@ -3,34 +3,18 @@ import 'package:eggfn/services/Recipe.dart';
 import 'package:eggfn/ui/RecipeWidget.dart';
 import 'package:eggfn/services/FavouritesFileService.dart';
 
-class FavouritesWidget extends StatefulWidget {
+class FavouritesWidget extends StatelessWidget {
 
-  _FavouritesState createState() => new _FavouritesState();
-}
+  FavouritesWidget({this.favourites, this.onChanged});
+ final List<Recipe> favourites;
+ final ValueChanged<String> onChanged;
 
-class _FavouritesState extends State<FavouritesWidget> {
- List<Recipe> _favourites = new List<Recipe>();
 
-  @override
-  void initState() {
-    super.initState();
-    FavouritesFileService.readFavourites().then((List<Recipe> contents) {
-      setState(() {
-        _favourites = contents;
-      });
-    });
- }
-
- @override
- void dispose() {
-    FavouritesFileService.saveFavourites(_favourites.toSet());
-    super.dispose();
- }
 
   @override
   Widget build(BuildContext context) {
     return new GridView.extent(
-      children: _favourites.map((i) => new FavouriteWidget(
+      children: favourites.map((i) => new FavouriteWidget(
         recipe: i,
         onChanged: _handleDelete,
       )).toList(),
@@ -38,11 +22,7 @@ class _FavouritesState extends State<FavouritesWidget> {
   }
 
   void _handleDelete(String recipeid) {
-    setState(() {
-      _favourites =
-          _favourites.where((i) => (i.recipeID != recipeid)).toList();
-      FavouritesFileService.saveFavourites(_favourites.toSet());
-    });
+    onChanged(recipeid);
   }
 }
 
