@@ -23,6 +23,17 @@ class RecipesHome extends StatefulWidget {
 
 class RecipesHomeState extends State<RecipesHome> {
   ValueNotifier<bool> open = new ValueNotifier<bool>(false);
+  Set<Recipe> _favourites = new Set<Recipe>();
+
+  @override
+  void initState() {
+    super.initState();
+    FavouritesFileService.readFavourites().then((List<Recipe> contents) {
+      setState(() {
+        _favourites = contents.toSet();
+      });
+    });
+  }
 
   void _handlePress() {
     setState(() {
@@ -31,13 +42,18 @@ class RecipesHomeState extends State<RecipesHome> {
   }
 
   void showFavourites(BuildContext context) {
-    Navigator.push(context,
-        new MaterialPageRoute(builder: (BuildContext context) {
-      return new Scaffold(
-        appBar: new AppBar(title: new Text("Favourites")),
-        body: new FavouritesWidget(),
-      );
-    }));
+    Navigator.push(
+        context,
+        new MaterialPageRoute(
+            maintainState: false,
+            builder: (BuildContext context) {
+              return new Scaffold(
+                appBar: new AppBar(title: new Text("Favourites")),
+                body: new FavouritesWidget(
+                  favourites: _favourites,
+                ),
+              );
+            }));
   }
 
   @override
@@ -109,8 +125,8 @@ class RecipesWidget extends StatefulWidget {
   @override
   _RecipesState createState() => new _RecipesState();
 }
+
 // TODO on route pop setState for favourites.
-// TODO when loading / saving favourites handle ingredients.
 // TODO add snackbar for undoing of favourite delete.
 class _RecipesState extends State<RecipesWidget> {
   final List<Recipe> recipes = mockrecipes;
