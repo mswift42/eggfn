@@ -41,6 +41,13 @@ class RecipesHomeState extends State<RecipesHome> {
     });
   }
 
+  void _deleteFavourite(String recipeid) {
+    setState(() {
+      _favourites = _favourites.where((i) => i.recipeID != recipeid).toSet();
+    });
+    FavouritesFileService.saveFavourites(_favourites);
+  }
+
   void showFavourites(BuildContext context) {
     Navigator.push(
         context,
@@ -50,7 +57,8 @@ class RecipesHomeState extends State<RecipesHome> {
               return new Scaffold(
                 appBar: new AppBar(title: new Text("Favourites")),
                 body: new FavouritesWidget(
-                  favourites: _favourites,
+                  favourites: _favourites.toList(),
+                  onChanged: _deleteFavourite,
                 ),
               );
             }));
@@ -73,7 +81,10 @@ class RecipesHomeState extends State<RecipesHome> {
               }),
         ],
       ),
-      body: new RecipesWidget(open),
+      body: new RecipesWidget(
+        open: open,
+        favourites: _favourites.toList(),
+      ),
     );
   }
 }
@@ -120,7 +131,12 @@ class _RecipeSearchInputState extends State<RecipeSearchInput> {
 class RecipesWidget extends StatefulWidget {
   // TODO load recipes asynchronously.
   final ValueNotifier<bool> open;
-  RecipesWidget(this.open);
+  final ValueChanged<String> onChanged;
+  final ValueChanged<String> onDelete;
+  final ValueChanged<String> onAdd;
+  final List<Recipe> favourites;
+  RecipesWidget({this.open, this.onChanged, this.favourites,
+  this.onDelete, this.onAdd});
 
   @override
   _RecipesState createState() => new _RecipesState();
@@ -130,33 +146,18 @@ class RecipesWidget extends StatefulWidget {
 // TODO add snackbar for undoing of favourite delete.
 class _RecipesState extends State<RecipesWidget> {
   final List<Recipe> recipes = mockrecipes;
-  Set<Recipe> _favourites = new Set<Recipe>();
 
-  @override
-  void initState() {
-    super.initState();
-    FavouritesFileService.readFavourites().then((List<Recipe> contents) {
-      setState(() {
-        _favourites = contents.toSet();
-      });
-    });
-  }
 
-  @override
-  void dispose() {
-    FavouritesFileService.saveFavourites(_favourites);
-    super.dispose();
+  bool _isFavourite(String recipeid) {
+    return widget.favourites.any((i) => i.recipeID == recipeid);
   }
 
   void _handleFavouriteToggle(String recipeid) {
-    Recipe recipe = recipes.firstWhere((i) => i.recipeID == recipeid);
-    setState(() {
-      if (isFavourite(recipe)) {
-        deleteFavourite(recipe);
+      if (_isFavourite(recipeid)) {
+        widget.onDelete(recipeid);
       } else {
-        addFavourite(recipe);
+        widget.onAdd(recipeid);
       }
-    });
   }
 
   @override
@@ -168,7 +169,7 @@ class _RecipesState extends State<RecipesWidget> {
             children: mockrecipes
                 .map((i) => new RecipeWidget(
                       recipe: i,
-                      isFavourite: isFavourite(i),
+                      isFavourite: _isFavourite(i.recipeID),
                       onChanged: _handleFavouriteToggle,
                     ))
                 .toList(),
@@ -177,22 +178,6 @@ class _RecipesState extends State<RecipesWidget> {
     ]);
   }
 
-  Set<Recipe> get favourites => _favourites;
-
-  Future<Null> addFavourite(Recipe recipe) async {
-    _favourites.add(recipe);
-    await FavouritesFileService.saveFavourites(_favourites);
-  }
-
-  Future<Null> deleteFavourite(Recipe recipe) async {
-    _favourites =
-        _favourites.where((i) => (i.recipeID != recipe.recipeID)).toSet();
-    await FavouritesFileService.saveFavourites(_favourites);
-  }
-
-  bool isFavourite(Recipe recipe) {
-    return _favourites.any((i) => i.recipeID == recipe.recipeID);
-  }
 }
 
 final _kThemeData = new ThemeData(
