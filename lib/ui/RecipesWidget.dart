@@ -40,6 +40,12 @@ class RecipesHomeState extends State<RecipesHome> {
       open.value = !open.value;
     });
   }
+  void _addFavourite(Recipe recipe) {
+    setState(() {
+      _favourites.add(recipe);
+    });
+    FavouritesFileService.saveFavourites(_favourites);
+  }
 
   void _deleteFavourite(String recipeid) {
     setState(() {
@@ -84,6 +90,8 @@ class RecipesHomeState extends State<RecipesHome> {
       body: new RecipesWidget(
         open: open,
         favourites: _favourites.toList(),
+        onAdd: _addFavourite,
+        onDelete: _deleteFavourite,
       ),
     );
   }
@@ -133,7 +141,7 @@ class RecipesWidget extends StatefulWidget {
   final ValueNotifier<bool> open;
   final ValueChanged<String> onChanged;
   final ValueChanged<String> onDelete;
-  final ValueChanged<String> onAdd;
+  final ValueChanged<Recipe> onAdd;
   final List<Recipe> favourites;
   RecipesWidget({this.open, this.onChanged, this.favourites,
   this.onDelete, this.onAdd});
@@ -153,10 +161,11 @@ class _RecipesState extends State<RecipesWidget> {
   }
 
   void _handleFavouriteToggle(String recipeid) {
+    Recipe recipe = recipes.firstWhere((i) => recipeid == i.recipeID);
       if (_isFavourite(recipeid)) {
         widget.onDelete(recipeid);
       } else {
-        widget.onAdd(recipeid);
+        widget.onAdd(recipe);
       }
   }
 
