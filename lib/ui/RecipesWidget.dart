@@ -23,14 +23,14 @@ class RecipesHome extends StatefulWidget {
 
 class RecipesHomeState extends State<RecipesHome> {
   ValueNotifier<bool> open = new ValueNotifier<bool>(false);
-  Set<Recipe> _favourites = new Set<Recipe>();
+  List<Recipe> _favourites = new List<Recipe>();
 
   @override
   void initState() {
     super.initState();
     FavouritesFileService.readFavourites().then((List<Recipe> contents) {
       setState(() {
-        _favourites = contents.toSet();
+        _favourites = contents;
       });
     });
   }
@@ -44,27 +44,26 @@ class RecipesHomeState extends State<RecipesHome> {
     setState(() {
       _favourites.add(recipe);
     });
-    FavouritesFileService.saveFavourites(_favourites);
+    FavouritesFileService.saveFavourites(_favourites.toSet());
   }
 
   void _deleteFavourite(String recipeid) {
     setState(() {
-      _favourites = _favourites.where((i) => i.recipeID != recipeid).toSet();
+      _favourites = _favourites.where((i) => i.recipeID != recipeid).toList();
     });
-    FavouritesFileService.saveFavourites(_favourites);
+    FavouritesFileService.saveFavourites(_favourites.toSet());
   }
 
   void showFavourites(BuildContext context) {
     Navigator.push(
         context,
         new MaterialPageRoute(
-            maintainState: false,
             builder: (BuildContext context) {
               return new Scaffold(
                 appBar: new AppBar(title: new Text("Favourites")),
                 body: new FavouritesWidget(
-                  favourites: _favourites.toList(),
-                  onChanged: _deleteFavourite,
+                  favourites: _favourites,
+                  onDelete: _deleteFavourite,
                 ),
               );
             }));
