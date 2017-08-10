@@ -3,18 +3,30 @@ import 'package:eggfn/services/Recipe.dart';
 import 'package:eggfn/ui/RecipeWidget.dart';
 import 'package:eggfn/services/FavouritesFileService.dart';
 
-class FavouritesWidget extends StatelessWidget {
+class FavouritesWidget extends StatefulWidget {
 
-  FavouritesWidget({this.favourites, this.onChanged});
- final List<Recipe> favourites;
- final ValueChanged<String> onChanged;
+  FavouritesWidget({this.favourites, this.onDelete});
+  List<Recipe> favourites;
+  final ValueChanged<String> onDelete;
+
+  FavouritesState createState() => new FavouritesState();
+}
+
+class FavouritesState extends State<FavouritesWidget> {
+  List<Recipe> _favourites = new List<Recipe>();
+
+  @override
+  void initState() {
+    super.initState();
+    _favourites = widget.favourites;
+  }
 
 
 
   @override
   Widget build(BuildContext context) {
     return new GridView.extent(
-      children: favourites.map((i) => new FavouriteWidget(
+      children: _favourites.map((i) => new FavouriteWidget(
         recipe: i,
         onChanged: _handleDelete,
       )).toList(),
@@ -22,7 +34,10 @@ class FavouritesWidget extends StatelessWidget {
   }
 
   void _handleDelete(String recipeid) {
-    onChanged(recipeid);
+    setState(() {
+      _favourites = _favourites.where((i) => i.recipeID != recipeid).toList();
+      widget.onDelete(recipeid);
+    });
   }
 }
 
