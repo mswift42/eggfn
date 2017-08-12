@@ -48,8 +48,9 @@ class RecipesHomeState extends State<RecipesHome> {
   }
 
   void _deleteFavourite(String recipeid) {
+    Recipe recipe = _favourites.firstWhere((i) => i.recipeID == recipeid);
     setState(() {
-      _favourites = _favourites.where((i) => i.recipeID != recipeid).toList();
+      _favourites.remove(recipe);
     });
     FavouritesFileService.saveFavourites(_favourites.toSet());
   }
@@ -68,7 +69,6 @@ class RecipesHomeState extends State<RecipesHome> {
               );
             }));
   }
-
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
