@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:eggfn/services/Recipe.dart';
 import 'package:eggfn/ui/RecipeWidget.dart';
-import 'package:eggfn/services/FavouritesFileService.dart';
 
 class FavouritesWidget extends StatefulWidget {
 
   FavouritesWidget({this.favourites, this.onDelete});
-  List<Recipe> favourites;
+  final List<Recipe> favourites;
   final ValueChanged<String> onDelete;
 
   FavouritesState createState() => new FavouritesState();
