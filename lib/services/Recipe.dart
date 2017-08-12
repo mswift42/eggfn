@@ -1,3 +1,5 @@
+import 'package:quiver/core.dart' show hash2;
+
 class Recipe {
   Recipe(
       {this.publisher,
@@ -9,6 +11,12 @@ class Recipe {
       this.ingredients});
   String publisher, title, sourceUrl, imageUrl, publisherUrl, recipeID;
   List<String> ingredients;
+
+  bool operator ==(o) => o is Recipe && o.recipeID == recipeID;
+
+  int get hashCode => hash2(title.hashCode, recipeID.hashCode);
+
+
 
   Recipe.fromJsonMap(Map recipemap) {
     publisher = recipemap["publisher"];
