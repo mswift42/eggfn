@@ -3,7 +3,6 @@ import 'package:eggfn/services/Recipe.dart';
 import 'package:eggfn/ui/RecipeWidget.dart';
 
 class FavouritesWidget extends StatefulWidget {
-
   FavouritesWidget({this.favourites, this.onDelete});
   final List<Recipe> favourites;
   final ValueChanged<String> onDelete;
@@ -20,15 +19,15 @@ class FavouritesState extends State<FavouritesWidget> {
     _favourites = widget.favourites;
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return new GridView.extent(
-      children: _favourites.map((i) => new FavouriteWidget(
-        recipe: i,
-        onChanged: _handleDelete,
-      )).toList(),
+        children: _favourites
+            .map((i) => new FavouriteWidget(
+                  recipe: i,
+                  onChanged: _handleDelete,
+                ))
+            .toList(),
         maxCrossAxisExtent: 400.00);
   }
 
@@ -52,7 +51,7 @@ class FavouriteWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new GridTile(
-        child: new RecipeImageWidget(recipe),
+      child: new RecipeImageWidget(recipe),
       footer: new GridTileBar(
         title: new RecipeText(recipe.title),
         subtitle: new RecipeText(recipe.publisher),
@@ -76,8 +75,8 @@ class FavouriteDeleteIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new IconButton(
-        icon: new Icon(Icons.delete),
-        onPressed: _handleChanged,
+      icon: new Icon(Icons.delete),
+      onPressed: _handleChanged,
     );
   }
 }
