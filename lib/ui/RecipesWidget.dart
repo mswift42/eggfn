@@ -39,6 +39,7 @@ class RecipesHomeState extends State<RecipesHome> {
       open.value = !open.value;
     });
   }
+
   void _addFavourite(Recipe recipe) {
     setState(() {
       _favourites.add(recipe);
@@ -55,19 +56,18 @@ class RecipesHomeState extends State<RecipesHome> {
   }
 
   void showFavourites(BuildContext context) {
-    Navigator.push(
-        context,
-        new MaterialPageRoute(
-            builder: (BuildContext context) {
-              return new Scaffold(
-                appBar: new AppBar(title: new Text("Favourites")),
-                body: new FavouritesWidget(
-                  favourites: _favourites,
-                  onDelete: _deleteFavourite,
-                ),
-              );
-            }));
+    Navigator.push(context,
+        new MaterialPageRoute(builder: (BuildContext context) {
+      return new Scaffold(
+        appBar: new AppBar(title: new Text("Favourites")),
+        body: new FavouritesWidget(
+          favourites: _favourites,
+          onDelete: _deleteFavourite,
+        ),
+      );
+    }));
   }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -141,8 +141,8 @@ class RecipesWidget extends StatefulWidget {
   final ValueChanged<String> onDelete;
   final ValueChanged<Recipe> onAdd;
   final List<Recipe> favourites;
-  RecipesWidget({this.open, this.onChanged, this.favourites,
-  this.onDelete, this.onAdd});
+  RecipesWidget(
+      {this.open, this.onChanged, this.favourites, this.onDelete, this.onAdd});
 
   @override
   _RecipesState createState() => new _RecipesState();
@@ -153,18 +153,17 @@ class RecipesWidget extends StatefulWidget {
 class _RecipesState extends State<RecipesWidget> {
   final List<Recipe> recipes = mockrecipes;
 
-
   bool _isFavourite(String recipeid) {
     return widget.favourites.any((i) => i.recipeID == recipeid);
   }
 
   void _handleFavouriteToggle(String recipeid) {
     Recipe recipe = recipes.firstWhere((i) => recipeid == i.recipeID);
-      if (_isFavourite(recipeid)) {
-        widget.onDelete(recipeid);
-      } else {
-        widget.onAdd(recipe);
-      }
+    if (_isFavourite(recipeid)) {
+      widget.onDelete(recipeid);
+    } else {
+      widget.onAdd(recipe);
+    }
   }
 
   @override
@@ -184,7 +183,6 @@ class _RecipesState extends State<RecipesWidget> {
       ),
     ]);
   }
-
 }
 
 final _kThemeData = new ThemeData(
