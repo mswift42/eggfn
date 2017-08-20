@@ -18,12 +18,16 @@ class RecipeService {
     return url;
   }
 
-  Future<String> getRecipesResponse(String query) async {
+  Future<String> _getRecipesResponse(String query) async {
     var url = queryUrl(query);
     var httpClient = createHttpClient();
     var response = await httpClient.read(url);
-    print(response);
     return response;
+  }
+
+  Future<List<Recipe>> getRecipes(String query) async {
+     List parsedList = JSON.decode(await _getRecipesResponse(query))["recipes"];
+     return parsedList.map((i) => new Recipe.fromJsonMap(i)).toList();
   }
 
   Future<List<String>> getIngredients(String recipeid) async {
