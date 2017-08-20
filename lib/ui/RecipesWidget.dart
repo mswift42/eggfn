@@ -139,13 +139,12 @@ class _RecipeSearchInputState extends State<RecipeSearchInput> {
   }
 
   void _handleSubmit(String text) {
-    // TODO Search using food2fork api.
     widget.onSubmit(text);
   }
 }
-
+// TODO show spinner while loading of recipes.
+// TODO show Landing Page on startup.
 class RecipesWidget extends StatefulWidget {
-  // TODO load recipes asynchronously.
   final ValueNotifier<bool> open;
   final ValueChanged<String> onChanged;
   final ValueChanged<String> onDelete;
@@ -158,7 +157,6 @@ class RecipesWidget extends StatefulWidget {
   _RecipesState createState() => new _RecipesState();
 }
 
-// TODO on route pop setState for favourites.
 // TODO add snackbar for undoing of favourite delete.
 class _RecipesState extends State<RecipesWidget> {
   List<Recipe> recipes = new List();

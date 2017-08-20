@@ -25,7 +25,7 @@ class RecipeStyle extends TextStyle {
             letterSpacing: letterSpacing,
             height: height);
 }
-
+// TODO load Ingredients if recipe.ingredients = null.
 class RecipeWidget extends StatelessWidget {
   final Recipe recipe;
   final bool isFavourite;
