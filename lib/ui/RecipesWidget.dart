@@ -6,6 +6,7 @@ import 'package:eggfn/services/FavouritesFileService.dart';
 import 'package:eggfn/ui/FavouritesWidget.dart' show FavouritesWidget;
 import 'package:flutter/foundation.dart';
 import 'package:eggfn/services/RecipeService.dart';
+import 'dart:async';
 
 class EggCrackin extends StatelessWidget {
   @override
@@ -98,12 +99,16 @@ class RecipesHomeState extends State<RecipesHome> {
 
 class RecipeSearch extends AnimatedWidget {
   final ValueNotifier<bool> open;
-  RecipeSearch({@required this.open}) : super(listenable: open);
+  final ValueChanged<String> onSubmit;
+  RecipeSearch({@required this.open, @required this.onSubmit})
+      : super(listenable: open);
   @override
   Widget build(BuildContext context) {
     return new AnimatedCrossFade(
       firstChild: new Container(),
-      secondChild: new RecipeSearchInput(),
+      secondChild: new RecipeSearchInput(
+        onSubmit: onSubmit,
+      ),
       crossFadeState:
           open.value ? CrossFadeState.showSecond : CrossFadeState.showFirst,
       duration: new Duration(milliseconds: 300),
@@ -135,7 +140,6 @@ class _RecipeSearchInputState extends State<RecipeSearchInput> {
 
   void _handleSubmit(String text) {
     // TODO Search using food2fork api.
-    // TODO setup streambuilder to load recipes.
     widget.onSubmit(text);
   }
 }
@@ -157,7 +161,8 @@ class RecipesWidget extends StatefulWidget {
 // TODO on route pop setState for favourites.
 // TODO add snackbar for undoing of favourite delete.
 class _RecipesState extends State<RecipesWidget> {
-  final List<Recipe> recipes = mockrecipes;
+  List<Recipe> recipes = new List();
+  final RecipeService _recipeService = new RecipeService();
 
   bool _isFavourite(String recipeid) {
     return widget.favourites.any((i) => i.recipeID == recipeid);
@@ -172,13 +177,23 @@ class _RecipesState extends State<RecipesWidget> {
     }
   }
 
+  Future<Null> _handleSubmit(String query) async {
+      var rs = await _recipeService.getRecipes(query);
+      setState(() {
+        recipes = rs;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Column(children: <Widget>[
-      new RecipeSearch(open: widget.open),
+      new RecipeSearch(
+        open: widget.open,
+        onSubmit: _handleSubmit,
+      ),
       new Expanded(
         child: new GridView.extent(
-            children: mockrecipes
+            children: recipes
                 .map((i) => new RecipeWidget(
                       recipe: i,
                       isFavourite: _isFavourite(i.recipeID),
