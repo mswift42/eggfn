@@ -5,6 +5,7 @@ import 'package:eggfn/services/MockRecipeService.dart' show mockrecipes;
 import 'package:eggfn/services/FavouritesFileService.dart';
 import 'package:eggfn/ui/FavouritesWidget.dart' show FavouritesWidget;
 import 'package:flutter/foundation.dart';
+import 'package:eggfn/services/RecipeService.dart';
 
 class EggCrackin extends StatelessWidget {
   @override
@@ -111,11 +112,16 @@ class RecipeSearch extends AnimatedWidget {
 }
 
 class RecipeSearchInput extends StatefulWidget {
+  final ValueChanged<String> onSubmit;
+  RecipeSearchInput({this.onSubmit});
+
+  @override
   _RecipeSearchInputState createState() => new _RecipeSearchInputState();
 }
 
 class _RecipeSearchInputState extends State<RecipeSearchInput> {
   final TextEditingController _controller = new TextEditingController();
+  final RecipeService _recipeService = new RecipeService();
 
   @override
   Widget build(BuildContext context) {
@@ -130,7 +136,7 @@ class _RecipeSearchInputState extends State<RecipeSearchInput> {
   void _handleSubmit(String text) {
     // TODO Search using food2fork api.
     // TODO setup streambuilder to load recipes.
-    print(text);
+    widget.onSubmit(text);
   }
 }
 
