@@ -18,7 +18,7 @@ class RecipeService {
     return url;
   }
 
-  Future<String> getRecipes(String query) async {
+  Future<String> getRecipesResponse(String query) async {
     var url = queryUrl(query);
     var httpClient = createHttpClient();
     var response = await httpClient.read(url);
