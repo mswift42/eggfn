@@ -177,7 +177,9 @@ class RecipeDetailBottomView extends StatelessWidget {
               margin: new EdgeInsets.symmetric(vertical: 16.0),
             ),
             new _RecipeIngredientsView(
-                recipe.ingredients, height - _kRecipeDetailPublisherHeight),
+                recipe: recipe,
+                height: height - _kRecipeDetailPublisherHeight,
+            ),
             new Padding(
               padding: new EdgeInsets.symmetric(
                 vertical: 8.0,
@@ -219,16 +221,16 @@ class RecipeDetailPublisherView extends StatelessWidget {
 }
 
 class _RecipeIngredientsView extends StatelessWidget {
-  _RecipeIngredientsView(this.ingredients, this.height);
+  _RecipeIngredientsView({this.recipe, this.height});
 
-  final List<String> ingredients;
+  final Recipe recipe;
   final double height;
 
   @override
   Widget build(BuildContext context) {
     return new Expanded(
       child: new GridView.extent(
-        children: ingredients.map((i) => new _RecipeIngredientView(i)).toList(),
+        children: recipe.ingredients.map((i) => new _RecipeIngredientView(i)).toList(),
         maxCrossAxisExtent: 500.00,
         crossAxisSpacing: 20.00,
         childAspectRatio: 18.0,
