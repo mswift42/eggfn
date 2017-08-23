@@ -220,17 +220,23 @@ class RecipeDetailPublisherView extends StatelessWidget {
   }
 }
 
-class _RecipeIngredientsView extends StatelessWidget {
+class _RecipeIngredientsView extends StatefulWidget {
   _RecipeIngredientsView({this.recipe, this.height});
 
   final Recipe recipe;
   final double height;
+  _RecipeIngredientsState createState() =>new _RecipeIngredientsState();
+
+}
+
+class _RecipeIngredientsState extends State<_RecipeIngredientsView> {
+
 
   @override
   Widget build(BuildContext context) {
     return new Expanded(
       child: new GridView.extent(
-        children: recipe.ingredients.map((i) => new _RecipeIngredientView(i)).toList(),
+        children: widget.recipe.ingredients.map((i) => new _RecipeIngredientView(i)).toList(),
         maxCrossAxisExtent: 500.00,
         crossAxisSpacing: 20.00,
         childAspectRatio: 18.0,
