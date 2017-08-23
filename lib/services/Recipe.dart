@@ -25,7 +25,7 @@ class Recipe {
     imageUrl = recipemap["image_url"];
     publisherUrl = recipemap["publisher_url"];
     recipeID = recipemap["recipe_id"];
-    ingredients = recipemap["ingredients"];
+    ingredients = recipemap["ingredients"] ?? new List<String>();
   }
 
   String _unsanitize(String s) {

@@ -233,17 +233,16 @@ class _RecipeIngredientsView extends StatefulWidget {
 
 class _RecipeIngredientsState extends State<_RecipeIngredientsView> {
   RecipeService _recipeService = new RecipeService();
-  List<String> ingredients = new List();
-
 
   @override
   Widget build(BuildContext context) {
+    print(widget.recipe.ingredients);
     return new FutureBuilder(
         future: _recipeService.getIngredients(widget.recipe.recipeID),
         builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
-          print(snapshot.connectionState);
-
           switch (snapshot.connectionState) {
+            case ConnectionState.waiting:
+              return new Container();
             default:
               List content = snapshot.data;
               return new Expanded(
