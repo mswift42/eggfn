@@ -233,24 +233,34 @@ class _RecipeIngredientsView extends StatefulWidget {
 
 class _RecipeIngredientsState extends State<_RecipeIngredientsView> {
   RecipeService _recipeService = new RecipeService();
-  List<String> ingredients;
+  List<String> ingredients = new List();
 
-  void initState() {
-    super.initState();
-    ingredients = widget.recipe.ingredients;
-  }
+
   @override
   Widget build(BuildContext context) {
-    return new Expanded(
-      child: new GridView.extent(
-        children: ingredients.map((i) => new _RecipeIngredientView(i)).toList(),
-        maxCrossAxisExtent: 500.00,
-        crossAxisSpacing: 20.00,
-        childAspectRatio: 18.0,
-      ),
+    return new FutureBuilder(
+        future: _recipeService.getIngredients(widget.recipe.recipeID),
+        builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
+          print(snapshot.connectionState);
+
+          switch (snapshot.connectionState) {
+            default:
+              List content = snapshot.data;
+              return new Expanded(
+                child: new GridView.extent(
+                  children: content.map((i) => new _RecipeIngredientView(i))
+                      .toList(),
+                  maxCrossAxisExtent: 500.00,
+                  crossAxisSpacing: 20.00,
+                  childAspectRatio: 18.0,
+                ),
+              );
+          }
+        }
     );
   }
 }
+
 
 class _RecipeIngredientView extends StatelessWidget {
   final String ingredient;
