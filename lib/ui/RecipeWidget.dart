@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:eggfn/services/Recipe.dart' show Recipe;
 import 'package:flutter/gestures.dart' show TapGestureRecognizer;
 import 'package:url_launcher/url_launcher.dart';
+import 'package:eggfn/services/RecipeService.dart';
+import 'dart:async';
 
 const double _kRecipeDetailAppBarHeight = 120.00;
 const double _kRecipeDetailPublisherHeight = 28.00;
@@ -230,13 +232,18 @@ class _RecipeIngredientsView extends StatefulWidget {
 }
 
 class _RecipeIngredientsState extends State<_RecipeIngredientsView> {
+  RecipeService _recipeService = new RecipeService();
+  List<String> ingredients;
 
-
+  void initState() {
+    super.initState();
+    ingredients = widget.recipe.ingredients;
+  }
   @override
   Widget build(BuildContext context) {
     return new Expanded(
       child: new GridView.extent(
-        children: widget.recipe.ingredients.map((i) => new _RecipeIngredientView(i)).toList(),
+        children: ingredients.map((i) => new _RecipeIngredientView(i)).toList(),
         maxCrossAxisExtent: 500.00,
         crossAxisSpacing: 20.00,
         childAspectRatio: 18.0,
