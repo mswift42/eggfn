@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'RecipeWidget.dart' show RecipeWidget;
 import 'package:eggfn/services/Recipe.dart';
-import 'package:eggfn/services/MockRecipeService.dart' show mockrecipes;
 import 'package:eggfn/services/FavouritesFileService.dart';
 import 'package:eggfn/ui/FavouritesWidget.dart' show FavouritesWidget;
 import 'package:flutter/foundation.dart';

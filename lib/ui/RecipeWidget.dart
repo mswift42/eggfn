@@ -3,7 +3,6 @@ import 'package:eggfn/services/Recipe.dart' show Recipe;
 import 'package:flutter/gestures.dart' show TapGestureRecognizer;
 import 'package:url_launcher/url_launcher.dart';
 import 'package:eggfn/services/RecipeService.dart';
-import 'dart:async';
 
 const double _kRecipeDetailAppBarHeight = 120.00;
 const double _kRecipeDetailPublisherHeight = 28.00;
@@ -27,7 +26,6 @@ class RecipeStyle extends TextStyle {
             letterSpacing: letterSpacing,
             height: height);
 }
-// TODO load Ingredients if recipe.ingredients = null.
 class RecipeWidget extends StatelessWidget {
   final Recipe recipe;
   final bool isFavourite;

@@ -18,7 +18,7 @@ class FavouritesState extends State<FavouritesWidget> {
     super.initState();
     _favourites = widget.favourites;
   }
-
+  // TODO Add Snackbar to widgets.
   @override
   Widget build(BuildContext context) {
     return new GridView.extent(
@@ -34,6 +34,7 @@ class FavouritesState extends State<FavouritesWidget> {
   void _handleDelete(String recipeid) {
     setState(() {
       _favourites = _favourites.where((i) => i.recipeID != recipeid).toList();
+      // TODO Show Snackbar delete/undo before calling onDelete.
       widget.onDelete(recipeid);
     });
   }
