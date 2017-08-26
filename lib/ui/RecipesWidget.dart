@@ -96,6 +96,33 @@ class RecipesHomeState extends State<RecipesHome> {
   }
 }
 
+class EggCrackinInfo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return new Card(
+      color: _kThemeData.buttonColor,
+      child: new Column(
+        children: <Widget>[
+          new Text(
+            "EggCrackin",
+            style: Theme.of(context).textTheme.title,
+          ),
+          new Divider(),
+          new Text(
+            "Search for recipes with space seperated search terms.",
+            style: Theme.of(context).textTheme.body1,
+          ),
+          new Text(""),
+          new Text(
+            "When searching by ingredients, supply search terms seperated by comma, with no space between",
+            style: Theme.of(context).textTheme.body1,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class RecipeSearch extends AnimatedWidget {
   final ValueNotifier<bool> open;
   final ValueChanged<String> onSubmit;
@@ -141,6 +168,7 @@ class _RecipeSearchInputState extends State<RecipeSearchInput> {
     widget.onSubmit(text);
   }
 }
+
 // TODO show spinner while loading of recipes.
 // TODO show Landing Page on startup.
 class RecipesWidget extends StatefulWidget {
@@ -175,9 +203,9 @@ class _RecipesState extends State<RecipesWidget> {
   }
 
   Future<Null> _handleSubmit(String query) async {
-      var rs = await _recipeService.getRecipes(query);
-      setState(() {
-        recipes = rs;
+    var rs = await _recipeService.getRecipes(query);
+    setState(() {
+      recipes = rs;
     });
   }
 
