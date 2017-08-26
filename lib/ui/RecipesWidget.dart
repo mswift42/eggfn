@@ -99,25 +99,37 @@ class RecipesHomeState extends State<RecipesHome> {
 class EggCrackinInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new Card(
-      color: _kThemeData.buttonColor,
-      child: new Column(
-        children: <Widget>[
-          new Text(
-            "EggCrackin",
-            style: Theme.of(context).textTheme.title,
-          ),
-          new Divider(),
-          new Text(
-            "Search for recipes with space seperated search terms.",
-            style: Theme.of(context).textTheme.body1,
-          ),
-          new Text(""),
-          new Text(
-            "When searching by ingredients, supply search terms seperated by comma, with no space between",
-            style: Theme.of(context).textTheme.body1,
-          ),
-        ],
+    return new Padding(
+      padding: new EdgeInsets.symmetric(
+        horizontal: 22.0,
+        vertical: 30.0,
+      ),
+      child: new Card(
+        color: Colors.white,
+        child: new Column(
+          children: <Widget>[
+            new Padding(
+              padding: new EdgeInsets.symmetric(
+                horizontal: 22.0,
+                vertical: 40.0,
+              ),
+              child: new Text(
+                "EggCrackin",
+                style: Theme.of(context).textTheme.title,
+              ),
+            ),
+            new Divider(),
+            new Text(
+              "Search for recipes with space seperated search terms.",
+              style: Theme.of(context).textTheme.body1,
+            ),
+            new Text(""),
+            new Text(
+              "When searching by ingredients, supply search terms seperated by comma, with no space between",
+              style: Theme.of(context).textTheme.body1,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -216,6 +228,7 @@ class _RecipesState extends State<RecipesWidget> {
         open: widget.open,
         onSubmit: _handleSubmit,
       ),
+      new EggCrackinInfo(),
       new Expanded(
         child: new GridView.extent(
             children: recipes
