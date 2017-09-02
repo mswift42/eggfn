@@ -16,6 +16,7 @@ class EggCrackin extends StatelessWidget {
     );
   }
 }
+
 // TODO add Route for Help screen.
 // TODO add Help Menu entry.
 // TODO add Home route.
@@ -72,6 +73,18 @@ class RecipesHomeState extends State<RecipesHome> {
     }));
   }
 
+  void showHelp(BuildContext context) {
+    Navigator.push(context,
+        new MaterialPageRoute(builder: (BuildContext context) {
+      return new Scaffold(
+        appBar: new AppBar(
+          title: new Text("Help"),
+        ),
+        body: new SearchHelp(),
+      );
+    }));
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -94,56 +107,6 @@ class RecipesHomeState extends State<RecipesHome> {
         favourites: _favourites.toList(),
         onAdd: _addFavourite,
         onDelete: _deleteFavourite,
-      ),
-    );
-  }
-}
-
-class SearchInfo extends StatelessWidget {
-  Widget _instructionText(BuildContext context, String text) {
-    return new Padding(
-      padding: new EdgeInsets.symmetric(
-        vertical: 18.0,
-        horizontal: 10.0,
-      ),
-      child: new Text(
-        text,
-        style: Theme.of(context).textTheme.body2,
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return new Container(
-      constraints: new BoxConstraints(
-        maxHeight: 300.00,
-      ),
-      padding: new EdgeInsets.symmetric(
-        horizontal: 22.0,
-        vertical: 22.0,
-      ),
-      child: new Card(
-        color: Colors.white,
-        child: new Column(
-          children: <Widget>[
-            new Padding(
-              padding: new EdgeInsets.symmetric(
-                horizontal: 22.0,
-                vertical: 12.0,
-              ),
-            ),
-            _instructionText(
-              context,
-              "Search for recipes with space seperated search terms.",
-            ),
-            new Text(""),
-            _instructionText(
-              context,
-              "When searching by ingredients, supply search terms seperated by comma, with no space between.",
-            ),
-          ],
-        ),
       ),
     );
   }
@@ -189,7 +152,7 @@ class _RecipeSearchInputState extends State<RecipeSearchInput> {
         decoration:
             new InputDecoration(hintText: "Search for Recipes or Ingredients"),
       ),
-      new SearchInfo(),
+      new SearchHelp(),
     ]);
   }
 
@@ -258,6 +221,56 @@ class _RecipesState extends State<RecipesWidget> {
         ),
       ),
     ]);
+  }
+}
+
+class SearchHelp extends StatelessWidget {
+  Widget _instructionText(BuildContext context, String text) {
+    return new Padding(
+      padding: new EdgeInsets.symmetric(
+        vertical: 18.0,
+        horizontal: 10.0,
+      ),
+      child: new Text(
+        text,
+        style: Theme.of(context).textTheme.body2,
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new Container(
+      constraints: new BoxConstraints(
+        maxHeight: 300.00,
+      ),
+      padding: new EdgeInsets.symmetric(
+        horizontal: 22.0,
+        vertical: 22.0,
+      ),
+      child: new Card(
+        color: Colors.white,
+        child: new Column(
+          children: <Widget>[
+            new Padding(
+              padding: new EdgeInsets.symmetric(
+                horizontal: 22.0,
+                vertical: 12.0,
+              ),
+            ),
+            _instructionText(
+              context,
+              "Search for recipes with space seperated search terms.",
+            ),
+            new Text(""),
+            _instructionText(
+              context,
+              "When searching by ingredients, supply search terms seperated by comma, with no space between.",
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 
