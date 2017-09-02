@@ -16,7 +16,10 @@ class EggCrackin extends StatelessWidget {
     );
   }
 }
-
+// TODO add Route for Help screen.
+// TODO add Help Menu entry.
+// TODO add Home route.
+// TODO add search route.
 class RecipesHome extends StatefulWidget {
   RecipesHomeState createState() => new RecipesHomeState();
 }
@@ -97,7 +100,6 @@ class RecipesHomeState extends State<RecipesHome> {
 }
 
 class SearchInfo extends StatelessWidget {
-
   Widget _instructionText(BuildContext context, String text) {
     return new Padding(
       padding: new EdgeInsets.symmetric(
@@ -115,11 +117,11 @@ class SearchInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Container(
       constraints: new BoxConstraints(
-        maxHeight: 600.00,
+        maxHeight: 300.00,
       ),
       padding: new EdgeInsets.symmetric(
         horizontal: 22.0,
-        vertical: 30.0,
+        vertical: 22.0,
       ),
       child: new Card(
         color: Colors.white,
@@ -128,14 +130,9 @@ class SearchInfo extends StatelessWidget {
             new Padding(
               padding: new EdgeInsets.symmetric(
                 horizontal: 22.0,
-                vertical: 40.0,
-              ),
-              child: new Text(
-                "EggCrackin",
-                style: Theme.of(context).textTheme.title,
+                vertical: 12.0,
               ),
             ),
-            new Divider(),
             _instructionText(
               context,
               "Search for recipes with space seperated search terms.",
@@ -185,12 +182,15 @@ class _RecipeSearchInputState extends State<RecipeSearchInput> {
 
   @override
   Widget build(BuildContext context) {
-    return new TextField(
-      controller: _controller,
-      onSubmitted: _handleSubmit,
-      decoration:
-          new InputDecoration(hintText: "Search for Recipes or Ingredients"),
-    );
+    return new Column(children: <Widget>[
+      new TextField(
+        controller: _controller,
+        onSubmitted: _handleSubmit,
+        decoration:
+            new InputDecoration(hintText: "Search for Recipes or Ingredients"),
+      ),
+      new SearchInfo(),
+    ]);
   }
 
   void _handleSubmit(String text) {
@@ -240,25 +240,24 @@ class _RecipesState extends State<RecipesWidget> {
 
   @override
   Widget build(BuildContext context) {
-     return new Column(
-          children: <Widget>[
-        new RecipeSearch(
-          open: widget.open,
-          onSubmit: _handleSubmit,
+    return new Column(children: <Widget>[
+      new RecipeSearch(
+        open: widget.open,
+        onSubmit: _handleSubmit,
+      ),
+      new Expanded(
+        child: new GridView.extent(
+          children: recipes
+              .map((i) => new RecipeWidget(
+                    recipe: i,
+                    isFavourite: _isFavourite(i.recipeID),
+                    onChanged: _handleFavouriteToggle,
+                  ))
+              .toList(),
+          maxCrossAxisExtent: 340.00,
         ),
-        new Expanded(
-          child: new GridView.extent(
-            children: recipes
-                .map((i) => new RecipeWidget(
-                      recipe: i,
-                      isFavourite: _isFavourite(i.recipeID),
-                      onChanged: _handleFavouriteToggle,
-                    ))
-                .toList(),
-            maxCrossAxisExtent: 340.00,
-          ),
-        ),
-      ]);
+      ),
+    ]);
   }
 }
 
