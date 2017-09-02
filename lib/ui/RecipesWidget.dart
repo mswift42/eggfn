@@ -17,7 +17,6 @@ class EggCrackin extends StatelessWidget {
   }
 }
 
-// TODO add Route for Help screen.
 // TODO add Help Menu entry.
 // TODO add Home route.
 // TODO add search route.
@@ -73,7 +72,7 @@ class RecipesHomeState extends State<RecipesHome> {
     }));
   }
 
-  void showHelp(BuildContext context) {
+  void showHelp() {
     Navigator.push(context,
         new MaterialPageRoute(builder: (BuildContext context) {
       return new Scaffold(
@@ -83,6 +82,12 @@ class RecipesHomeState extends State<RecipesHome> {
         body: new SearchHelp(),
       );
     }));
+  }
+
+  void onPopUpMenuButton(String value) {
+    if (value == 'Help') {
+      showHelp();
+    }
   }
 
   @override
@@ -100,6 +105,19 @@ class RecipesHomeState extends State<RecipesHome> {
               onPressed: () {
                 showFavourites(context);
               }),
+          new PopupMenuButton<String>(
+            onSelected: onPopUpMenuButton,
+            itemBuilder: (BuildContext context) => <PopupMenuItem<String>>[
+                  const PopupMenuItem<String>(
+                    value: 'Help',
+                    child: const Text("Help"),
+                  ),
+                  const PopupMenuItem<String>(
+                    value: 'About',
+                    child: const Text("About"),
+                  ),
+                ],
+          ),
         ],
       ),
       body: new RecipesWidget(
@@ -145,15 +163,12 @@ class _RecipeSearchInputState extends State<RecipeSearchInput> {
 
   @override
   Widget build(BuildContext context) {
-    return new Column(children: <Widget>[
-      new TextField(
-        controller: _controller,
-        onSubmitted: _handleSubmit,
-        decoration:
-            new InputDecoration(hintText: "Search for Recipes or Ingredients"),
-      ),
-      new SearchHelp(),
-    ]);
+    return new TextField(
+      controller: _controller,
+      onSubmitted: _handleSubmit,
+      decoration:
+          new InputDecoration(hintText: "Search for Recipes or Ingredients"),
+    );
   }
 
   void _handleSubmit(String text) {
