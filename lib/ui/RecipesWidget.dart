@@ -96,10 +96,27 @@ class RecipesHomeState extends State<RecipesHome> {
   }
 }
 
-class EggCrackinInfo extends StatelessWidget {
+class SearchInfo extends StatelessWidget {
+
+  Widget _instructionText(BuildContext context, String text) {
+    return new Padding(
+      padding: new EdgeInsets.symmetric(
+        vertical: 18.0,
+        horizontal: 10.0,
+      ),
+      child: new Text(
+        text,
+        style: Theme.of(context).textTheme.body2,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return new Padding(
+    return new Container(
+      constraints: new BoxConstraints(
+        maxHeight: 600.00,
+      ),
       padding: new EdgeInsets.symmetric(
         horizontal: 22.0,
         vertical: 30.0,
@@ -119,14 +136,14 @@ class EggCrackinInfo extends StatelessWidget {
               ),
             ),
             new Divider(),
-            new Text(
+            _instructionText(
+              context,
               "Search for recipes with space seperated search terms.",
-              style: Theme.of(context).textTheme.body1,
             ),
             new Text(""),
-            new Text(
-              "When searching by ingredients, supply search terms seperated by comma, with no space between",
-              style: Theme.of(context).textTheme.body1,
+            _instructionText(
+              context,
+              "When searching by ingredients, supply search terms seperated by comma, with no space between.",
             ),
           ],
         ),
@@ -223,14 +240,14 @@ class _RecipesState extends State<RecipesWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return new Column(children: <Widget>[
-      new RecipeSearch(
-        open: widget.open,
-        onSubmit: _handleSubmit,
-      ),
-      new EggCrackinInfo(),
-      new Expanded(
-        child: new GridView.extent(
+     return new Column(
+          children: <Widget>[
+        new RecipeSearch(
+          open: widget.open,
+          onSubmit: _handleSubmit,
+        ),
+        new Expanded(
+          child: new GridView.extent(
             children: recipes
                 .map((i) => new RecipeWidget(
                       recipe: i,
@@ -238,9 +255,10 @@ class _RecipesState extends State<RecipesWidget> {
                       onChanged: _handleFavouriteToggle,
                     ))
                 .toList(),
-            maxCrossAxisExtent: 340.00),
-      ),
-    ]);
+            maxCrossAxisExtent: 340.00,
+          ),
+        ),
+      ]);
   }
 }
 

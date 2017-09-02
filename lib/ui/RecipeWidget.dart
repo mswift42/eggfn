@@ -26,6 +26,7 @@ class RecipeStyle extends TextStyle {
             letterSpacing: letterSpacing,
             height: height);
 }
+
 class RecipeWidget extends StatelessWidget {
   final Recipe recipe;
   final bool isFavourite;
@@ -174,11 +175,13 @@ class RecipeDetailBottomView extends StatelessWidget {
             new Container(
               child: new Text("Ingredients:",
                   style: Theme.of(context).textTheme.subhead),
-              margin: new EdgeInsets.symmetric(vertical: 16.0),
+              margin: new EdgeInsets.symmetric(vertical: 8.0),
             ),
-            new _RecipeIngredientsView(
+            new Expanded(
+              child: new _RecipeIngredientsView(
                 recipe: recipe,
                 height: height - _kRecipeDetailPublisherHeight,
+              ),
             ),
             new Padding(
               padding: new EdgeInsets.symmetric(
@@ -225,8 +228,7 @@ class _RecipeIngredientsView extends StatefulWidget {
 
   final Recipe recipe;
   final double height;
-  _RecipeIngredientsState createState() =>new _RecipeIngredientsState();
-
+  _RecipeIngredientsState createState() => new _RecipeIngredientsState();
 }
 
 class _RecipeIngredientsState extends State<_RecipeIngredientsView> {
@@ -243,21 +245,17 @@ class _RecipeIngredientsState extends State<_RecipeIngredientsView> {
               return new Container();
             default:
               List content = snapshot.data;
-              return new Expanded(
-                child: new GridView.extent(
-                  children: content.map((i) => new _RecipeIngredientView(i))
-                      .toList(),
-                  maxCrossAxisExtent: 500.00,
-                  crossAxisSpacing: 20.00,
-                  childAspectRatio: 18.0,
-                ),
+              return new GridView.extent(
+                children:
+                    content.map((i) => new _RecipeIngredientView(i)).toList(),
+                maxCrossAxisExtent: 500.00,
+                crossAxisSpacing: 20.00,
+                childAspectRatio: 18.0,
               );
           }
-        }
-    );
+        });
   }
 }
-
 
 class _RecipeIngredientView extends StatelessWidget {
   final String ingredient;
