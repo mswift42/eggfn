@@ -255,34 +255,34 @@ class SearchHelp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
-      constraints: new BoxConstraints(
-        maxHeight: 300.00,
-      ),
-      padding: new EdgeInsets.symmetric(
-        horizontal: 22.0,
-        vertical: 22.0,
-      ),
-      child: new Card(
-        color: Colors.white,
-        child: new Column(
-          children: <Widget>[
-            new Padding(
-              padding: new EdgeInsets.symmetric(
-                horizontal: 22.0,
-                vertical: 12.0,
+    return new Center(
+      heightFactor: 1.3,
+      child: new Container(
+        constraints: new BoxConstraints(
+          maxHeight: 200.00,
+
+        ),
+        child: new Card(
+          color: Colors.white,
+          child: new Column(
+            children: <Widget>[
+              new Padding(
+                padding: new EdgeInsets.symmetric(
+                  horizontal: 22.0,
+                  vertical: 12.0,
+                ),
               ),
-            ),
-            _instructionText(
-              context,
-              "Search for recipes with space seperated search terms.",
-            ),
-            new Text(""),
-            _instructionText(
-              context,
-              "When searching by ingredients, supply search terms seperated by comma, with no space between.",
-            ),
-          ],
+              _instructionText(
+                context,
+                "Search for recipes with space seperated search terms.",
+              ),
+              new Text(""),
+              _instructionText(
+                context,
+                "When searching by ingredients, supply search terms seperated by comma, with no space between.",
+              ),
+            ],
+          ),
         ),
       ),
     );
