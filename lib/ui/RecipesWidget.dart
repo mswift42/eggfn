@@ -27,6 +27,7 @@ class RecipesHome extends StatefulWidget {
 class RecipesHomeState extends State<RecipesHome> {
   ValueNotifier<bool> open = new ValueNotifier<bool>(false);
   List<Recipe> _favourites = new List<Recipe>();
+  BuildContext scaffoldcontext;
 
   @override
   void initState() {
@@ -56,6 +57,11 @@ class RecipesHomeState extends State<RecipesHome> {
     Recipe recipe = _favourites.firstWhere((i) => i.recipeID == recipeid);
     setState(() {
       _favourites.remove(recipe);
+      Scaffold.of(scaffoldcontext).showSnackBar(
+            new SnackBar(
+              content: new Text("Showing Snackbar"),
+            ),
+          );
     });
     if (!abort) {
       FavouritesFileService.saveFavourites(_favourites.toSet());
@@ -67,9 +73,14 @@ class RecipesHomeState extends State<RecipesHome> {
         new MaterialPageRoute(builder: (BuildContext context) {
       return new Scaffold(
         appBar: new AppBar(title: new Text("Favourites")),
-        body: new FavouritesWidget(
-          favourites: _favourites,
-          onDelete: _deleteFavourite,
+        body: new Builder(
+          builder: (BuildContext context) {
+            scaffoldcontext = context;
+            return new FavouritesWidget(
+              favourites: _favourites,
+              onDelete: _deleteFavourite,
+            );
+          },
         ),
       );
     }));
@@ -89,14 +100,14 @@ class RecipesHomeState extends State<RecipesHome> {
 
   void showAbout() {
     Navigator.push(context,
-      new MaterialPageRoute(builder: (BuildContext context) {
-        return new Scaffold(
-          appBar: new AppBar(
-             title: new Text("About"),
+        new MaterialPageRoute(builder: (BuildContext context) {
+      return new Scaffold(
+        appBar: new AppBar(
+          title: new Text("About"),
         ),
         body: new AboutView(),
-        );
-      }));
+      );
+    }));
   }
 
   void onPopUpMenuButton(String value) {
@@ -277,7 +288,6 @@ class SearchHelp extends StatelessWidget {
       child: new Container(
         constraints: new BoxConstraints(
           maxHeight: 200.00,
-
         ),
         child: new Card(
           color: Colors.white,
@@ -311,20 +321,22 @@ class AboutView extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Center(
       heightFactor: 1.3,
-        child: new Card(
-        color: Colors.white,
-        child: new Column(
-          children: <Widget>[
-            new Padding(
-              padding: new EdgeInsets.symmetric(
-                horizontal: 20.0,
-                vertical: 20.0,
+      child: new Card(
+          color: Colors.white,
+          child: new Column(
+            children: <Widget>[
+              new Padding(
+                padding: new EdgeInsets.symmetric(
+                  horizontal: 20.0,
+                  vertical: 20.0,
+                ),
               ),
-            ),
-            new Text("About", style: Theme.of(context).textTheme.title,)
-          ],
-        )
-      ),
+              new Text(
+                "About",
+                style: Theme.of(context).textTheme.title,
+              )
+            ],
+          )),
     );
   }
 }
