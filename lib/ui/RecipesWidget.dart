@@ -17,9 +17,9 @@ class EggCrackin extends StatelessWidget {
   }
 }
 
-// TODO add Help Menu entry.
 // TODO add Home route.
 // TODO add search route.
+// TODO add About route.
 class RecipesHome extends StatefulWidget {
   RecipesHomeState createState() => new RecipesHomeState();
 }
@@ -84,9 +84,23 @@ class RecipesHomeState extends State<RecipesHome> {
     }));
   }
 
+  void showAbout() {
+    Navigator.push(context,
+      new MaterialPageRoute(builder: (BuildContext context) {
+        return new Scaffold(
+          appBar: new AppBar(
+             title: new Text("About"),
+        ),
+        body: new AboutView(),
+        );
+      }));
+  }
+
   void onPopUpMenuButton(String value) {
     if (value == 'Help') {
       showHelp();
+    } else if (value == 'About') {
+      showAbout();
     }
   }
 
@@ -284,6 +298,29 @@ class SearchHelp extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class AboutView extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return new Center(
+      heightFactor: 1.3,
+        child: new Card(
+        color: Colors.white,
+        child: new Column(
+          children: <Widget>[
+            new Padding(
+              padding: new EdgeInsets.symmetric(
+                horizontal: 20.0,
+                vertical: 20.0,
+              ),
+            ),
+            new Text("About", style: Theme.of(context).textTheme.title,)
+          ],
+        )
       ),
     );
   }
