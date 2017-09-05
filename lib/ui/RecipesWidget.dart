@@ -52,11 +52,14 @@ class RecipesHomeState extends State<RecipesHome> {
   }
 
   void _deleteFavourite(String recipeid) {
+    bool abort = false;
     Recipe recipe = _favourites.firstWhere((i) => i.recipeID == recipeid);
     setState(() {
       _favourites.remove(recipe);
     });
-    FavouritesFileService.saveFavourites(_favourites.toSet());
+    if (!abort) {
+      FavouritesFileService.saveFavourites(_favourites.toSet());
+    }
   }
 
   void showFavourites(BuildContext context) {
