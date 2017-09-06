@@ -207,7 +207,6 @@ class RecipesWidget extends StatefulWidget {
   _RecipesState createState() => new _RecipesState();
 }
 
-// TODO add snackbar for undoing of favourite delete.
 class _RecipesState extends State<RecipesWidget> {
   List<Recipe> recipes = new List();
   final RecipeService _recipeService = new RecipeService();

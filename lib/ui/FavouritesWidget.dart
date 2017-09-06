@@ -20,7 +20,6 @@ class FavouritesState extends State<FavouritesWidget> {
     _favourites = widget.favourites;
   }
 
-  // TODO Add Snackbar to widgets.
   @override
   Widget build(BuildContext context) {
     return new GridView.extent(
