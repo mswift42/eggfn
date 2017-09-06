@@ -27,7 +27,6 @@ class RecipesHome extends StatefulWidget {
 class RecipesHomeState extends State<RecipesHome> {
   ValueNotifier<bool> open = new ValueNotifier<bool>(false);
   List<Recipe> _favourites = new List<Recipe>();
-  BuildContext scaffoldcontext;
 
   @override
   void initState() {
@@ -54,7 +53,7 @@ class RecipesHomeState extends State<RecipesHome> {
   }
 
   Future<Null> _deleteFavourite(String recipeid) async {
-    Recipe recipe = _favourites.firstWhere((i) => i.recipeID == recipeid);
+    _favourites = _favourites.where((i) => i.recipeID != recipeid).toList();
     FavouritesFileService.saveFavourites(_favourites.toSet());
   }
 
@@ -65,7 +64,6 @@ class RecipesHomeState extends State<RecipesHome> {
         appBar: new AppBar(title: new Text("Favourites")),
         body: new Builder(
           builder: (BuildContext context) {
-            scaffoldcontext = context;
             return new FavouritesWidget(
               favourites: _favourites,
               onDelete: _deleteFavourite,
