@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:eggfn/services/Recipe.dart';
 import 'package:eggfn/ui/RecipeWidget.dart';
+import 'dart:async';
 
 class FavouritesWidget extends StatefulWidget {
   FavouritesWidget({this.favourites, this.onDelete});
@@ -12,7 +13,6 @@ class FavouritesWidget extends StatefulWidget {
 
 class FavouritesState extends State<FavouritesWidget> {
   List<Recipe> _favourites = new List<Recipe>();
-  BuildContext scaffoldcontext;
 
   @override
   void initState() {
@@ -23,7 +23,6 @@ class FavouritesState extends State<FavouritesWidget> {
   // TODO Add Snackbar to widgets.
   @override
   Widget build(BuildContext context) {
-    scaffoldcontext = context;
     return new GridView.extent(
         children: _favourites
             .map((i) => new FavouriteWidget(
@@ -38,21 +37,27 @@ class FavouritesState extends State<FavouritesWidget> {
     bool abort = false;
     Recipe recipe = _favourites.firstWhere((i) => i.recipeID == recipeid);
     setState(() {
-      _favourites = _favourites.where((i) => i.recipeID != recipeid).toList();
-      Scaffold.of(scaffoldcontext).showSnackBar(
-            new SnackBar(
-                content: new Text("Deleted Favourite"),
-                duration: new Duration(seconds: 3),
-                action: new SnackBarAction(
-                    label: "Undo",
-                    onPressed: () {
-                      abort = true;
-                      _favourites.add(recipe);
-                    })),
-          );
-      // TODO Show Snackbar delete/undo before calling onDelete.
-      widget.onDelete(recipeid);
+    _favourites.remove(recipe);
     });
+
+    new Timer(new Duration(seconds: 3), () {
+      if (!abort) {
+        widget.onDelete(recipeid);
+      }
+    });
+    Scaffold.of(context).showSnackBar(
+      new SnackBar(
+          content: new Text("Deleted Favourite"),
+          duration: new Duration(seconds: 3),
+          action: new SnackBarAction(
+              label: "Undo",
+              onPressed: () {
+                abort = true;
+                setState(() {
+                  _favourites.add(recipe);
+                });
+              })),
+    );
   }
 }
 
