@@ -12,15 +12,18 @@ class FavouritesWidget extends StatefulWidget {
 
 class FavouritesState extends State<FavouritesWidget> {
   List<Recipe> _favourites = new List<Recipe>();
+  BuildContext scaffoldcontext;
 
   @override
   void initState() {
     super.initState();
     _favourites = widget.favourites;
   }
+
   // TODO Add Snackbar to widgets.
   @override
   Widget build(BuildContext context) {
+    scaffoldcontext = context;
     return new GridView.extent(
         children: _favourites
             .map((i) => new FavouriteWidget(
@@ -32,8 +35,21 @@ class FavouritesState extends State<FavouritesWidget> {
   }
 
   void _handleDelete(String recipeid) {
+    bool abort = false;
+    Recipe recipe = _favourites.firstWhere((i) => i.recipeID == recipeid);
     setState(() {
       _favourites = _favourites.where((i) => i.recipeID != recipeid).toList();
+      Scaffold.of(scaffoldcontext).showSnackBar(
+            new SnackBar(
+                content: new Text("Deleted Favourite"),
+                duration: new Duration(seconds: 3),
+                action: new SnackBarAction(
+                    label: "Undo",
+                    onPressed: () {
+                      abort = true;
+                      _favourites.add(recipe);
+                    })),
+          );
       // TODO Show Snackbar delete/undo before calling onDelete.
       widget.onDelete(recipeid);
     });

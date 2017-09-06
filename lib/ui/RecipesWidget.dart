@@ -54,29 +54,8 @@ class RecipesHomeState extends State<RecipesHome> {
   }
 
   Future<Null> _deleteFavourite(String recipeid) async {
-    bool abort = false;
     Recipe recipe = _favourites.firstWhere((i) => i.recipeID == recipeid);
-    Scaffold.of(scaffoldcontext).showSnackBar(
-          new SnackBar(
-              content: new Text("Deleted Favourite"),
-              duration: new Duration(seconds: 3),
-              action: new SnackBarAction(
-                  label: "Undo",
-                  onPressed: () {
-                    abort = true;
-                    setState(() {
-                      _favourites.add(recipe);
-                    });
-                  })),
-        );
-    setState(() {
-      _favourites.remove(recipe);
-    });
-    new Timer(new Duration(seconds: 3), () {
-      if (!abort) {
-        FavouritesFileService.saveFavourites(_favourites.toSet());
-      }
-    });
+    FavouritesFileService.saveFavourites(_favourites.toSet());
   }
 
   void showFavourites(BuildContext context) {
