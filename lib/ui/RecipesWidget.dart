@@ -193,6 +193,8 @@ class _RecipeSearchInputState extends State<RecipeSearchInput> {
 
 // TODO show spinner while loading of recipes.
 // TODO show Landing Page on startup.
+// TODO show more button when > 30 recipes available.
+// TODO check for http status when loading recipes.
 class RecipesWidget extends StatefulWidget {
   final ValueNotifier<bool> open;
   final ValueChanged<String> onChanged;
