@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'RecipeWidget.dart' show RecipeWidget;
+import 'RecipeWidget.dart' show RecipeWidget, LinkTextSpan, LaunchUrl;
 import 'package:eggfn/services/Recipe.dart';
 import 'package:eggfn/services/FavouritesFileService.dart';
 import 'package:eggfn/ui/FavouritesWidget.dart' show FavouritesWidget;
@@ -313,25 +313,9 @@ class SearchHelp extends StatelessWidget {
 class AboutView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new Center(
-      heightFactor: 1.3,
-      child: new Card(
-          color: Colors.white,
-          child: new Column(
-            children: <Widget>[
-              new Padding(
-                padding: new EdgeInsets.symmetric(
-                  horizontal: 20.0,
-                  vertical: 20.0,
-                ),
-              ),
-              new Text(
-                "About",
-                style: Theme.of(context).textTheme.title,
-              )
-            ],
-          )),
-    );
+    return new InfoView(
+      infoTexts: ["EggCrackin! is a flutter "],
+    )
   }
 }
 
