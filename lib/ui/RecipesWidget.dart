@@ -19,7 +19,6 @@ class EggCrackin extends StatelessWidget {
 
 // TODO add Home route.
 // TODO add search route.
-// TODO add About route.
 class RecipesHome extends StatefulWidget {
   RecipesHomeState createState() => new RecipesHomeState();
 }

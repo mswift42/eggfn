@@ -21,4 +21,12 @@ void main() {
     Scaffold scf = tester.widget(find.byType(Scaffold));
     expect(scf.appBar.toString(), 'AppBar');
   });
+  testWidgets("AboutView's parent widget is a Center Widget", (WidgetTester tester) async {
+    await tester.pumpWidget(new AboutView());
+    expect(find.byType(Center), findsOneWidget);
+  });
+  testWidgets("AboutView has multiple RichText Widgets", (WidgetTester tester) async {
+    await tester.pumpWidget(new AboutView());
+    expect(find.byType(RichText), findsWidgets);
+  });
 }
