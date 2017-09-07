@@ -332,6 +332,26 @@ class AboutView extends StatelessWidget {
               ]
           )
       ),
+      new RichText(text: new TextSpan(text: " ")),
+      new RichText(
+        text: new TextSpan(
+          children: <TextSpan>[
+            _aboutSpan("It uses the "),
+            new LinkTextSpan(text: "Food2Fork ", url: "food2fork.com"),
+            _aboutSpan("api."),
+          ],
+        ),
+      ),
+      new RichText(text: new TextSpan(text: " ")),
+      new RichText(
+        text: new TextSpan(
+          children: <TextSpan>[
+            _aboutSpan("Source code on "),
+            new LinkTextSpan(text: "github/mswift42/eggfn", url: "https://github.com/mswift42/eggfn"),
+            _aboutSpan("."),
+          ],
+        ),
+      ),
     ];
 
     return new _aboutViewContainer(contents: contents);
@@ -347,6 +367,9 @@ class _aboutViewContainer extends StatelessWidget {
     return new Center(
       heightFactor: 1.3,
       child: new Container(
+        constraints: new BoxConstraints(
+          maxHeight: 320.00,
+        ),
         child: new Card(
           color: Colors.white,
           child: new Column(
