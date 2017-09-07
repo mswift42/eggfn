@@ -207,13 +207,13 @@ class RecipeDetailPublisherView extends StatelessWidget {
             children: <Widget>[
               new IconButton(
                 onPressed: () {
-                  LaunchUrl(recipe.publisherUrl);
+                  launchUrl(recipe.publisherUrl);
                 },
                 icon: new Icon(Icons.shop),
               ),
               new IconButton(
                 onPressed: () {
-                  LaunchUrl(recipe.sourceUrl);
+                  launchUrl(recipe.sourceUrl);
                 },
                 icon: new Icon(Icons.list),
               ),
@@ -333,7 +333,7 @@ class LinkTextSpan extends TextSpan {
               });
 }
 
-LaunchUrl(String url) async {
+launchUrl(String url) async {
   if (await canLaunch(url)) {
     await launch(url);
   } else {

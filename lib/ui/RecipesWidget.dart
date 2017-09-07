@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'RecipeWidget.dart' show RecipeWidget, LinkTextSpan, LaunchUrl;
+import 'RecipeWidget.dart' show RecipeWidget, LinkTextSpan;
 import 'package:eggfn/services/Recipe.dart';
 import 'package:eggfn/services/FavouritesFileService.dart';
 import 'package:eggfn/ui/FavouritesWidget.dart' show FavouritesWidget;
@@ -355,13 +355,13 @@ class AboutView extends StatelessWidget {
       ),
     ];
 
-    return new _aboutViewContainer(contents: contents);
+    return new _AboutViewContainer(contents: contents);
   }
 }
 
-class _aboutViewContainer extends StatelessWidget {
-  List<RichText> contents;
-  _aboutViewContainer({this.contents});
+class _AboutViewContainer extends StatelessWidget {
+  final List<RichText> contents;
+  _AboutViewContainer({this.contents});
 
   @override
   Widget build(BuildContext context) {
@@ -396,12 +396,6 @@ class _aboutViewContainer extends StatelessWidget {
   }
 }
 
-class _aboutTextSpan extends TextSpan {
-  _aboutTextSpan({String text, TextStyle style}) : super(
-    text: text,
-    style: new TextStyle(fontSize: 12.0, color: Colors.black87),
-  );
-}
 
 
 final _kThemeData = new ThemeData(
