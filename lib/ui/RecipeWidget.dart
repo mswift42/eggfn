@@ -207,13 +207,13 @@ class RecipeDetailPublisherView extends StatelessWidget {
             children: <Widget>[
               new IconButton(
                 onPressed: () {
-                  _launchUrl(recipe.publisherUrl);
+                  LaunchUrl(recipe.publisherUrl);
                 },
                 icon: new Icon(Icons.shop),
               ),
               new IconButton(
                 onPressed: () {
-                  _launchUrl(recipe.sourceUrl);
+                  LaunchUrl(recipe.sourceUrl);
                 },
                 icon: new Icon(Icons.list),
               ),
@@ -325,7 +325,7 @@ class RecipeFavouriteIcon extends StatelessWidget {
 class LinkTextSpan extends TextSpan {
   LinkTextSpan({TextStyle style, String url, String text})
       : super(
-            style: style,
+            style: style ?? new TextStyle(color: Colors.blue),
             text: text ?? url,
             recognizer: new TapGestureRecognizer()
               ..onTap = () {
@@ -333,7 +333,7 @@ class LinkTextSpan extends TextSpan {
               });
 }
 
-_launchUrl(String url) async {
+LaunchUrl(String url) async {
   if (await canLaunch(url)) {
     await launch(url);
   } else {
