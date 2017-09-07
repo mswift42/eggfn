@@ -304,8 +304,10 @@ class SearchHelp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new InfoView(
-      infoTexts: ["Search for recipes with space seperated search terms.",
-      "When searching by ingredients, supply search terms seperated by comma, with no space inbetween."],
+      infoTexts: [
+        "Search for recipes with space seperated search terms.",
+        "When searching by ingredients, supply search terms seperated by comma, with no space inbetween."
+      ],
     );
   }
 }
@@ -313,11 +315,70 @@ class SearchHelp extends StatelessWidget {
 class AboutView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new InfoView(
-      infoTexts: ["EggCrackin! is a flutter "],
-    )
+    TextSpan _aboutSpan(String text) {
+      return new TextSpan(
+        text: text,
+        style: DefaultTextStyle.of(context).style,
+      );
+    }
+
+    List<RichText> contents = [
+      new RichText(
+          text: new TextSpan(
+              children: <TextSpan>[
+                 _aboutSpan("EggCrackin! is a "),
+                new LinkTextSpan(text: "Flutter ", url: "https://flutter.io"),
+                _aboutSpan("app."),
+              ]
+          )
+      ),
+    ];
+
+    return new _aboutViewContainer(contents: contents);
   }
 }
+
+class _aboutViewContainer extends StatelessWidget {
+  List<RichText> contents;
+  _aboutViewContainer({this.contents});
+
+  @override
+  Widget build(BuildContext context) {
+    return new Center(
+      heightFactor: 1.3,
+      child: new Container(
+        child: new Card(
+          color: Colors.white,
+          child: new Column(
+            children: <Widget>[
+              new Padding(
+                padding: new EdgeInsets.only(top: 20.0),
+              ),
+              new Padding(padding:
+              new EdgeInsets.symmetric(
+                horizontal: 20.0,
+                vertical: 20.0,
+              ),
+              child:
+              new Column(
+                children: contents,
+              ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _aboutTextSpan extends TextSpan {
+  _aboutTextSpan({String text, TextStyle style}) : super(
+    text: text,
+    style: new TextStyle(fontSize: 12.0, color: Colors.black87),
+  );
+}
+
 
 final _kThemeData = new ThemeData(
   brightness: Brightness.light,
