@@ -276,16 +276,17 @@ class InfoView extends StatelessWidget {
       heightFactor: 1.3,
       child: new Container(
         constraints: new BoxConstraints(
-          maxHeight: 250.00,
+          maxHeight: 220.00,
         ),
         child: new Card(
           color: Colors.white,
           child: new Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               new Padding(
                 padding: new EdgeInsets.symmetric(
                   horizontal: 22.0,
-                  vertical: 20.0,
+                  vertical: 10.0,
                 ),
               ),
               new Column(
@@ -300,50 +301,11 @@ class InfoView extends StatelessWidget {
 }
 
 class SearchHelp extends StatelessWidget {
-  Widget _instructionText(BuildContext context, String text) {
-    return new Padding(
-      padding: new EdgeInsets.symmetric(
-        vertical: 18.0,
-        horizontal: 10.0,
-      ),
-      child: new Text(
-        text,
-        style: Theme.of(context).textTheme.body2,
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return new Center(
-      heightFactor: 1.3,
-      child: new Container(
-        constraints: new BoxConstraints(
-          maxHeight: 200.00,
-        ),
-        child: new Card(
-          color: Colors.white,
-          child: new Column(
-            children: <Widget>[
-              new Padding(
-                padding: new EdgeInsets.symmetric(
-                  horizontal: 22.0,
-                  vertical: 12.0,
-                ),
-              ),
-              _instructionText(
-                context,
-                "Search for recipes with space seperated search terms.",
-              ),
-              new Text(""),
-              _instructionText(
-                context,
-                "When searching by ingredients, supply search terms seperated by comma, with no space between.",
-              ),
-            ],
-          ),
-        ),
-      ),
+    return new InfoView(
+      infoTexts: ["Search for recipes with space seperated search terms.",
+      "When searching by ingredients, supply search terms seperated by comma, with no space inbetween."],
     );
   }
 }
