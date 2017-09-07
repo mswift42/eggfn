@@ -254,6 +254,51 @@ class _RecipesState extends State<RecipesWidget> {
   }
 }
 
+class InfoView extends StatelessWidget {
+  final List<String> infoTexts;
+  InfoView({this.infoTexts});
+  Widget _infoText(BuildContext context, String text) {
+    return new Padding(
+      padding: new EdgeInsets.symmetric(
+        vertical: 22.0,
+        horizontal: 20.0,
+      ),
+      child: new Text(
+        text,
+        style: Theme.of(context).textTheme.body2,
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new Center(
+      heightFactor: 1.3,
+      child: new Container(
+        constraints: new BoxConstraints(
+          maxHeight: 250.00,
+        ),
+        child: new Card(
+          color: Colors.white,
+          child: new Column(
+            children: <Widget>[
+              new Padding(
+                padding: new EdgeInsets.symmetric(
+                  horizontal: 22.0,
+                  vertical: 20.0,
+                ),
+              ),
+              new Column(
+                children: infoTexts.map((i) => _infoText(context, i)).toList(),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class SearchHelp extends StatelessWidget {
   Widget _instructionText(BuildContext context, String text) {
     return new Padding(
