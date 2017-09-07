@@ -318,7 +318,7 @@ class AboutView extends StatelessWidget {
     TextSpan _aboutSpan(String text) {
       return new TextSpan(
         text: text,
-        style: DefaultTextStyle.of(context).style,
+        style: Theme.of(context).textTheme.body2,
       );
     }
 
