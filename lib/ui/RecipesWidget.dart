@@ -325,14 +325,11 @@ class AboutView extends StatelessWidget {
 
     List<RichText> contents = [
       new RichText(
-          text: new TextSpan(
-              children: <TextSpan>[
-                 _aboutSpan("EggCrackin! is a "),
-                new LinkTextSpan(text: "Flutter ", url: "https://flutter.io"),
-                _aboutSpan("app."),
-              ]
-          )
-      ),
+          text: new TextSpan(children: <TextSpan>[
+        _aboutSpan("EggCrackin! is a "),
+        new LinkTextSpan(text: "Flutter ", url: "https://flutter.io"),
+        _aboutSpan("app."),
+      ])),
       new RichText(text: new TextSpan(text: " ")),
       new RichText(
         text: new TextSpan(
@@ -348,11 +345,25 @@ class AboutView extends StatelessWidget {
         text: new TextSpan(
           children: <TextSpan>[
             _aboutSpan("Source code on "),
-            new LinkTextSpan(text: "github/mswift42/eggfn", url: "https://github.com/mswift42/eggfn"),
+            new LinkTextSpan(
+                text: "github/mswift42/eggfn",
+                url: "https://github.com/mswift42/eggfn"),
             _aboutSpan("."),
           ],
         ),
       ),
+      new RichText(text: new TextSpan(text: " ")),
+      new RichText(
+          text: new TextSpan(
+        children: <TextSpan>[
+          _aboutSpan("The frying eggs image is taken from "),
+          new LinkTextSpan(
+              text: "pexels.com",
+              url:
+                  "https://www.pexels.com/photo/cooking-eggs-food-fried-eggs-236812/"),
+          _aboutSpan("."),
+        ],
+      ))
     ];
 
     return new _AboutViewContainer(contents: contents);
@@ -378,15 +389,14 @@ class _AboutViewContainer extends StatelessWidget {
               new Padding(
                 padding: new EdgeInsets.only(top: 20.0),
               ),
-              new Padding(padding:
-              new EdgeInsets.symmetric(
-                horizontal: 20.0,
-                vertical: 20.0,
-              ),
-              child:
-              new Column(
-                children: contents,
-              ),
+              new Padding(
+                padding: new EdgeInsets.symmetric(
+                  horizontal: 20.0,
+                  vertical: 20.0,
+                ),
+                child: new Column(
+                  children: contents,
+                ),
               ),
             ],
           ),
@@ -395,8 +405,6 @@ class _AboutViewContainer extends StatelessWidget {
     );
   }
 }
-
-
 
 final _kThemeData = new ThemeData(
   brightness: Brightness.light,
