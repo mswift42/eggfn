@@ -16,9 +16,10 @@ class EggCrackin extends StatelessWidget {
     );
   }
 }
-
 // TODO add Home route.
+// TODO show frying egg image in home route.
 // TODO add search route.
+// TODO move recipeswidget to search route.
 class RecipesHome extends StatefulWidget {
   RecipesHomeState createState() => new RecipesHomeState();
 }
