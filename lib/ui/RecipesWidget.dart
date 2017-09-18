@@ -16,6 +16,7 @@ class EggCrackin extends StatelessWidget {
     );
   }
 }
+
 // TODO add Home route.
 // TODO show frying egg image in home route.
 // TODO add search route.
@@ -136,12 +137,13 @@ class RecipesHomeState extends State<RecipesHome> {
           ),
         ],
       ),
-      body: new RecipesWidget(
-        open: open,
-        favourites: _favourites.toList(),
-        onAdd: _addFavourite,
-        onDelete: _deleteFavourite,
-      ),
+      body: new WelcomeWidget(),
+//      body: new RecipesWidget(
+//        open: open,
+//        favourites: _favourites.toList(),
+//        onAdd: _addFavourite,
+//        onDelete: _deleteFavourite,
+//      ),
     );
   }
 }
@@ -414,3 +416,13 @@ final _kThemeData = new ThemeData(
   buttonColor: Colors.grey[200],
   dividerColor: Colors.grey[400],
 );
+
+class WelcomeWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return new FittedBox(
+      child: new Image.asset("images/fryingegg.jpg"),
+      fit: BoxFit.fitHeight,
+    );
+  }
+}
