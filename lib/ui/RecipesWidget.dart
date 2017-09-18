@@ -420,9 +420,29 @@ final _kThemeData = new ThemeData(
 class WelcomeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new FittedBox(
-      child: new Image.asset("images/fryingegg.jpg"),
-      fit: BoxFit.fitHeight,
+    return new Column(
+      children: <Widget>[
+        new Padding(
+          padding: new EdgeInsets.symmetric(
+            horizontal: 12.0,
+            vertical: 34.0,
+          ),
+          child: new Text("Welcome to EggCrackin!",
+              style: Theme.of(context).textTheme.headline),
+        ),
+        new Padding(
+          padding: new EdgeInsets.symmetric(
+            horizontal: 8.0,
+            vertical: 25.0,
+          ),
+          child: new Text("Click on Search Icon to get started.",
+              style: Theme.of(context).textTheme.body2),
+        ),
+        new FittedBox(
+          child: new Image.asset("images/fryingegg.jpg"),
+          fit: BoxFit.fill,
+        ),
+      ],
     );
   }
 }
