@@ -137,7 +137,9 @@ class RecipesHomeState extends State<RecipesHome> {
           ),
         ],
       ),
-      body: new WelcomeWidget(),
+      // TODO move recipesearchwidget into welcomewidget.
+      body: new WelcomeWidget(
+      ),
 //      body: new RecipesWidget(
 //        open: open,
 //        favourites: _favourites.toList(),
@@ -145,6 +147,21 @@ class RecipesHomeState extends State<RecipesHome> {
 //        onDelete: _deleteFavourite,
 //      ),
     );
+  }
+}
+
+class HomeScreenWidget extends StatefulWidget {
+  final ValueNotifier<bool> open;
+  HomeScreenWidget({this.open});
+
+  _HomeScreenState createState() => new _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreenWidget> {
+
+  @override
+  Widget build(BuildContext context) {
+    return
   }
 }
 
