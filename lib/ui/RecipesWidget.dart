@@ -138,7 +138,8 @@ class RecipesHomeState extends State<RecipesHome> {
         ],
       ),
       // TODO move recipesearchwidget into welcomewidget.
-      body: new WelcomeWidget(
+      body: new HomeScreenWidget(
+          open: open,
       ),
 //      body: new RecipesWidget(
 //        open: open,
@@ -161,7 +162,15 @@ class _HomeScreenState extends State<HomeScreenWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return
+    return new Column(
+      children: <Widget>[
+        new RecipeSearch(
+          open: widget.open,
+          onSubmit: (String something) => print("something"),
+        ),
+        new WelcomeWidget(),
+      ],
+    );
   }
 }
 
