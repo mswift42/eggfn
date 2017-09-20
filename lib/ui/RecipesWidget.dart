@@ -87,6 +87,7 @@ class RecipesHomeState extends State<RecipesHome> {
     }));
   }
 
+
   void showAbout() {
     Navigator.push(context,
         new MaterialPageRoute(builder: (BuildContext context) {
@@ -97,6 +98,18 @@ class RecipesHomeState extends State<RecipesHome> {
         body: new AboutView(),
       );
     }));
+  }
+
+  void showRecipes(String query) {
+    Navigator.push(context,
+        new MaterialPageRoute(builder: (BuildContext context) {
+      return new Scaffold(
+        appBar: new AppBar(
+          title: new Text(query),
+          ),
+         body: new RecipesWidget(),
+          );
+        }));
   }
 
   void onPopUpMenuButton(String value) {
@@ -111,7 +124,7 @@ class RecipesHomeState extends State<RecipesHome> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text("EggCrackin!"),
+        title: new Text(" EggCrackin!"),
         actions: <Widget>[
           new IconButton(
               icon:
@@ -137,9 +150,10 @@ class RecipesHomeState extends State<RecipesHome> {
           ),
         ],
       ),
-      // TODO move recipesearchwidget into welcomewidget.
+      // TODO fix height of image.
       body: new HomeScreenWidget(
           open: open,
+        onSubmit: showRecipes,
       ),
 //      body: new RecipesWidget(
 //        open: open,
@@ -153,7 +167,8 @@ class RecipesHomeState extends State<RecipesHome> {
 
 class HomeScreenWidget extends StatefulWidget {
   final ValueNotifier<bool> open;
-  HomeScreenWidget({this.open});
+  final ValueChanged<String> onSubmit;
+  HomeScreenWidget({this.open, this.onSubmit});
 
   _HomeScreenState createState() => new _HomeScreenState();
 }
@@ -166,7 +181,7 @@ class _HomeScreenState extends State<HomeScreenWidget> {
       children: <Widget>[
         new RecipeSearch(
           open: widget.open,
-          onSubmit: (String something) => print("something"),
+          onSubmit: widget.onSubmit,
         ),
         new WelcomeWidget(),
       ],
