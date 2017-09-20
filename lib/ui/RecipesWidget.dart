@@ -177,7 +177,7 @@ class _HomeScreenState extends State<HomeScreenWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return new Column(
+    return new Stack(
       children: <Widget>[
         new RecipeSearch(
           open: widget.open,
@@ -481,7 +481,7 @@ class WelcomeWidget extends StatelessWidget {
         ),
         new FittedBox(
           child: new Image.asset("images/fryingegg.jpg"),
-          fit: BoxFit.fill,
+          fit: BoxFit.fitHeight,
         ),
       ],
     );
