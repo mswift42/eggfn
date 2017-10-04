@@ -123,6 +123,7 @@ class RecipesHomeState extends State<RecipesHome> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      resizeToAvoidBottomPadding: false,
       appBar: new AppBar(
         title: new Text(" EggCrackin!"),
         actions: <Widget>[
@@ -462,11 +463,13 @@ class WelcomeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+
       children: <Widget>[
         new Padding(
           padding: new EdgeInsets.symmetric(
             horizontal: 12.0,
-            vertical: 34.0,
+            vertical: 22.0,
           ),
           child: new Text("Welcome to EggCrackin!",
               style: Theme.of(context).textTheme.headline),
